@@ -1,0 +1,128 @@
+
+
+h2.title {
+    justify-content: center;
+    text-align: center;
+}
+
+#main_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#choices_container {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-auto-flow: column;
+    padding: 3px;
+}
+
+.choice {
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    opacity: 0.35;
+    overflow: hidden;
+    text-indent: 100px;
+    border: solid #000 1px;
+    border-radius: 50%;
+    outline-style: none!important;
+    vertical-align: middle;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 0;
+    padding: 0;
+    opacity: 0.35;
+    cursor: pointer;
+}
+
+.choice:hover {
+    opacity: 1
+}
+
+.legend {
+    opacity: 1
+}
+
+span.choice-text {
+    margin-left: 10px
+}
+
+div.dchoice {
+    display: inline-block;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+div.kinkgroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.groupTitle {
+
+}
+
+.groupDesc {
+
+}
+
+table.kinks {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid black;
+    text-align: left
+    padding: 0.05rem;
+}
+
+th.header {
+    text-align: center;
+}
+
+.kinkCell {
+    padding: 0.2rem;
+}
+
+.choiceCell {
+
+}
+
+.kdiv {
+    display: flex;
+    flex-direction: column;
+}
+
+.cdiv {
+    display: flex;
+}
+
+.cdiv:hover {
+    opacity: 0.7
+}
+
+.kinkTitle {
+ font-size: 20px;
+}
+
+.kinkDesc {
+ font-style: italic;
+ font-size: 14px;
+}
+
+btn.entered {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+btn.entered:hover {
+    cursor: pointer;
+}

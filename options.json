@@ -1,0 +1,378 @@
+{
+  "categories": [
+    {
+      "description": "Have tried - Favorite",
+      "color": "blue",
+      "TODO": "Color-Benamungen durch hex oder rgba-codes ersetzen"
+    },
+    {
+     "description": "Have tried - Liked",
+     "color": "green"
+    },
+    {
+      "description": "Have tried - Was okay",
+      "color": "yellow"
+    },
+    {
+      "description": "Have tried - Didn't like",
+      "color": "orange"
+    },
+    {
+      "description": "Have tried - Hated",
+      "color": "red"
+    },
+    {
+      "description": "Haven't tried - Would love to try",
+      "color": "light blue"
+    },
+    {
+      "description": "Haven't tried - Would want to try",
+      "color": "light green"
+    },
+    {
+      "description": "Haven't tried - Indifferent to it",
+      "color": "light yellow"
+    },
+    {
+      "description": "Haven't tried - Might try under the right circumstances/with the right partner",
+      "color": "light orange"
+    },
+    {
+      "description": "Haven't tried - Won't ever try",
+      "color": "light red"
+    },
+    {
+      "description": "Confused",
+      "color": "purple"
+    },
+    {
+      "description": "Not applicable/entered",
+      "color": "white"
+    }
+  ],
+  "kink_groups": [
+    {
+      "description": "Bodies",
+      "tip": "...",
+      "columns": [
+        "General"
+      ],
+      "rows": [
+        {
+          "description": "Skinny",
+          "tip": "..."
+        },
+        {
+          "description": "Chubby",
+          "tip": "..."
+        },
+        {
+          "description": "Small Breasts",
+          "tip": "..."
+        },
+        {
+          "description": "Large Breasts",
+          "tip": "..."
+        },
+        {
+          "description": "Small Cocks",
+          "tip": "0-3cm"
+        },
+        {
+          "description": "Large Cocks",
+          "tip": "+35cm"
+        }
+      ]
+    },
+    {
+      "description": "Clothing",
+      "tip": "...",
+      "columns": [
+        "Self",
+        "Partner"
+      ],
+      "rows": [
+        {
+          "description": "Clothed Sex"
+        },
+        {
+          "description": "Lingerie"
+        },
+        {
+          "description": "Stockings"
+        },
+        {
+          "description": "Heels"
+        },
+        {
+          "description": "Leather"
+        },
+        {
+          "description": "Latex"
+        },
+        {
+          "description": "Uniform/Costume"
+        },
+        {
+          "description": "Crossdressing"
+        }
+      ]
+    },
+    {
+      "description": "Groupings",
+      "tip": "...",
+      "columns": [
+        "General"
+      ],
+      "rows": [
+        {
+          "description": "You and 1 male"
+        },
+        {
+          "description": "You and 1 female"
+        },
+        {
+          "description": "You and MtF trans"
+        },
+        {
+          "description": "You and FtM trans"
+        },
+        {
+          "description": "You and 1 male, 1 female"
+        },
+        {
+          "description": "You and 2 females"
+        },
+        {
+          "description": "You and 2 males"
+        },
+        {
+          "description": "Orgy"
+        }
+      ]
+    },
+    {
+      "description": "General",
+      "tip": "...",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "rows": [
+        {
+          "description": "Romance/Affection"
+        },
+        {
+          "description": "Handjob/Fingering"
+        },
+        {
+          "description": "Blowjob"
+        },
+        {
+          "description": "Deep throat"
+        },
+        {
+          "description": "Swallowing"
+        },
+        {
+          "description": "Facials"
+        },
+        {
+          "description": "Cunnilingus"
+        },
+        {
+          "description": "Edging"
+        },
+        {
+          "description": "Teasing"
+        },
+        {
+          "description": "JOI, SI"
+        }
+      ]
+    },
+    {
+      "description": "Ass play",
+      "tip": "...",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "rows": [
+        {
+          "description": "Anal Toys"
+        },
+        {
+          "description": "Anal Sex, pegging"
+        },
+        {
+          "description": "Rimming"
+        },
+        {
+          "description": "Double Penetration"
+        },
+        {
+          "description": "Anal fisting"
+        }
+      ]
+    },
+    {
+      "description": "Restrictive",
+      "tip": "...",
+      "columns": [
+        "Self",
+        "Partner"
+      ],
+      "rows": [
+        {
+          "description": "Gag"
+        },
+        {
+          "description": "Collar"
+        },
+        {
+          "description": "Leash"
+        },
+        {
+          "description": "Chastity"
+        },
+        {
+          "description": "Bondage (Light)",
+          "tip": "..."
+        },
+        {
+          "description": "Bondage (Heavy)",
+          "tip": "..."
+        },
+        {
+          "description": "Encasement"
+        }
+      ]
+    },
+    {
+      "description": "Toys",
+      "tip": "...",
+      "columns": [
+        "Self", "Partner"
+      ],
+      "rows": [
+        {
+          "description": "Dildos"
+        },
+        {
+          "description": "Plugs"
+        },
+        {
+          "description": "Vibrators"
+        },
+        {
+          "description": "Sounding"
+        }
+      ]
+    },
+    {
+      "description": "Domination",
+      "tip": "...",
+      "columns": [
+        "Dominant",
+        "Submissive"
+      ],
+      "rows": [
+        {
+          "description": "Dominant/Submissive"
+        },
+        {
+          "description": "Domestic servitude"
+        },
+        {
+          "description": "Slavery"
+        },
+        {
+          "description": "Pet Play"
+        },
+        {
+          "description": "DD/lg, MD/lb"
+        },
+        {
+          "description": "Disciple"
+        },
+        {
+          "description": "Begging"
+        },
+        {
+          "description": "Forced orgasm"
+        },
+        {
+          "description": "Orgasm control"
+        },
+        {
+          "description": "Orgasm denial"
+        },
+        {
+          "description": "Power exchange"
+        }
+      ]
+    },
+    {
+      "description": "No consent",
+      "tip": "...",
+      "columns": [
+        "Aggressor",
+        "Target"
+      ],
+      "rows": [
+        {
+          "description": "Non-con/rape"
+        },
+        {
+          "description": "Blackmail/coercion"
+        },
+        {
+          "description": "Kidnapping"
+        },
+        {
+          "description": "Drugs/Alcohol"
+        },
+        {
+          "description": "Sleep play"
+        }
+      ]
+    },
+    {
+      "description": "Taboo",
+      "tip": "...",
+      "columns": [
+        "General"
+      ],
+      "rows": [
+        {
+          "description": "Incest"
+        },
+        {
+          "description": "Ageplay"
+        },
+        {
+          "description": "Interracial / Raceplay"
+        },
+        {
+          "description": "Bestiality"
+        },
+        {
+          "description": "Necrophilia"
+        },
+        {
+          "description": "Cheating"
+        },
+        {
+          "description": "Exhibitionism"
+        },
+        {
+          "description": "Voyeurism"
+        }
+      ]
+    },
+    {
+      
+    }
+  ]
+}

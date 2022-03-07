@@ -1,0 +1,1310 @@
+{
+  "meta": {
+    "name": [
+      "Your Name or Pseudonym to save it to"
+    ],
+    "sex": [
+      "Male",
+      "Female",
+      "MtF trans",
+      "FtM trans",
+      "Intersex"
+    ],
+    "age": [
+      18,
+      80
+    ],
+    "fap_freq": [
+      "Once in 3 months",
+      "Once a month",
+      "Once a week",
+      "2-3 times per week",
+      "4-6 times per week",
+      "daily",
+      "2-3 times per day",
+      "more than 3 times per day"
+    ],
+    "sex_freq": [
+      "Never",
+      "Once in 3 months",
+      "Once a month",
+      "Once a week",
+      "2-3 times per week",
+      "4-6 times per week",
+      "daily",
+      "2-3 times per day",
+      "more than 3 times per day"
+    ],
+    "body_count": [
+      "0",
+      "1",
+      "2-4",
+      "5-9",
+      "10-15",
+      "16-25",
+      "26-50",
+      "50+"
+    ]
+  },
+  "categories": [
+    {
+      "description": "Have tried - Favorite",
+      "color": "#0004ff",
+      "have_tried": true,
+      "id": 1
+    },
+    {
+      "description": "Have tried - Liked",
+      "color": "#007a18",
+      "have_tried": true,
+      "id": 2
+    },
+    {
+      "description": "Have tried - Was okay",
+      "color": "#fff700",
+      "have_tried": true,
+      "id": 3
+    },
+    {
+      "description": "Have tried - Didn't like",
+      "color": "#d48600",
+      "have_tried": true,
+      "id": 4
+    },
+    {
+      "description": "Have tried - Hated",
+      "color": "#a60000",
+      "have_tried": true,
+      "id": 5
+    },
+    {
+      "description": "Haven't tried - Would love to try",
+      "color": "#75f6ff",
+      "have_tried": false,
+      "id": 6
+    },
+    {
+      "description": "Haven't tried - Would want to try",
+      "color": "#7aff88",
+      "have_tried": false,
+      "id": 7
+    },
+    {
+      "description": "Haven't tried - Indifferent to it",
+      "color": "#fffca8",
+      "have_tried": false,
+      "id": 8
+    },
+    {
+      "description": "Haven't tried - Might try",
+      "color": "#ffb163",
+      "have_tried": false,
+      "id": 9
+    },
+    {
+      "description": "Haven't tried - Won't ever try",
+      "color": "#ff7575",
+      "have_tried": false,
+      "id": 10
+    },
+    {
+      "description": "Confused",
+      "color": "#ae00ff",
+      "have_tried": false,
+      "id": -1
+    },
+    {
+      "description": "Not applicable/entered",
+      "color": "white",
+      "have_tried": false,
+      "default": true,
+      "id": 0
+    }
+  ],
+  "kink_groups": [
+    {
+      "description": "Bodies",
+      "tip": "Preferences in sexual Partners Bodies. It's intentional that some points don't cover 'average' sizes",
+      "columns": [
+        "Partner"
+      ],
+      "rows": [
+        {
+          "description": "Skinny",
+          "id": 1001
+        },
+        {
+          "description": "Chubby",
+          "id": 1002
+        },
+        {
+          "description": "Fit",
+          "id": 1003
+        },
+        {
+          "description": "muscular",
+          "id": 1004
+        },
+        {
+          "description": "Small Breasts",
+          "tip": "A-B Cups",
+          "id": 1005
+        },
+        {
+          "description": "Large Breasts",
+          "tip": "D+ Cups",
+          "id": 1006
+        },
+        {
+          "description": "Small Cocks",
+          "tip": "<13cm",
+          "id": 1007
+        },
+        {
+          "description": "Large Cocks",
+          "tip": ">18cm",
+          "id": 1008
+        },
+        {
+          "description": "Hairy Body",
+          "tip": "Significant chest/back hair",
+          "id": 1009
+        },
+        {
+          "description": "Shaved Body",
+          "tip": "Fully shaven Body or unnoticeable hair",
+          "id": 1010
+        },
+        {
+          "description": "Hairy Crotch",
+          "tip": "Unshaved Genitals",
+          "id": 1011
+        },
+        {
+          "description": "Trimmed Crotch",
+          "tip": "Pubic hair styled as Landingstrip or similar",
+          "id": 1012
+        },
+        {
+          "description": "Shaved Crotch",
+          "tip": "Fully shaved pubic hair",
+          "id": 1013
+        },
+        {
+          "description": "Pregnant",
+          "tip": "Women with noticeably pregnant belly",
+          "id": 1014
+        },
+        {
+          "description": "Tall",
+          "tip": "Very tall persons > 185cm",
+          "id": 1015
+        },
+        {
+          "description": "Short",
+          "tip": "Very short persons < 165cm",
+          "id": 1016
+        },
+        {
+          "description": "Tanned",
+          "tip": "Persons with tanned skin (by sunbathing or solarium)",
+          "id": 1017
+        },
+        {
+          "description": "Pale",
+          "tip": "Persons with very pale skin, probably don't go outside often",
+          "id": 1018
+        },
+        {
+          "description": "Freckles",
+          "tip": "Persons with significant and not seasonal freckles",
+          "id": 1019
+        },
+        {
+          "description": "Some Tattoos",
+          "tip": "1-4 small to medium-sized tattoos",
+          "id": 1020
+        },
+        {
+          "description": "Lots of Tattoos",
+          "tip": "Many tattoos, significant body portions covered",
+          "id": 1021
+        },
+        {
+          "description": "'Normal' piercings",
+          "tip": "All non-genital piercings",
+          "id": 1022
+        },
+        {
+          "description": "Nipple piercings",
+          "tip": "Pierced nipples, male or female",
+          "id": 1023
+        },
+        {
+          "description": "Genital piercings",
+          "tip": "Piercings in and around Penis or Vulva",
+          "id": 1024
+        },
+        {
+          "description": "Bald Hair",
+          "tip": "People with no or very little hair",
+          "id": 1025
+        },
+        {
+          "description": "Short Hair",
+          "tip": "People with short hair <15cm",
+          "id": 1026
+        },
+        {
+          "description": "Long Hair",
+          "tip": "Hair at least shoulder-long",
+          "id": 1027
+        },
+        {
+          "description": "Very long Hair",
+          "tip": "Hair at least waist-long",
+          "id": 1028
+        },
+        {
+          "description": "Glasses",
+          "tip": "People wearing glasses, sunglasses don't count",
+          "id": 1029
+        }
+      ]
+    },
+    {
+      "description": "Clothing",
+      "tip": "Kinks centered around Clothing and Apparel",
+      "columns": [
+        "Self",
+        "Partner"
+      ],
+      "rows": [
+        {
+          "description": "Clothed Sex",
+          "tip": "Self or Partner (almost) fully clothed during sex",
+          "id": 2001
+        },
+        {
+          "description": "CFNM",
+          "tip": "Clothed Female Nude Male",
+          "id": 2002
+        },
+        {
+          "description": "CMNF",
+          "tip": "Clothed Male Nude Female",
+          "id": 2003
+        },
+        {
+          "description": "Lingerie",
+          "id": 2004
+        },
+        {
+          "description": "Kneesocks",
+          "id": 2005
+        },
+        {
+          "description": "Stockings and/or Garterbelt",
+          "id": 2006
+        },
+        {
+          "description": "Heels",
+          "id": 2007
+        },
+        {
+          "description": "Thigh-high boots",
+          "tip": "Large boots reaching above the knee",
+          "id": 2008
+        },
+        {
+          "description": "Corset",
+          "id": 2009
+        },
+        {
+          "description": "Gloves",
+          "tip": "Can be leather or latex, one-time-use gloves don't count",
+          "id": 2010
+        },
+        {
+          "description": "Harness",
+          "tip": "Harness usually made of leather strips connected by metal rings",
+          "id": 2011
+        },
+        {
+          "description": "Leather",
+          "tip": "Clothing centered around leather as material. Specifically lingerie or similar clothes made of usually shiny leather, this does not include your average biker jacket or Lederhose",
+          "id": 2012
+        },
+        {
+          "description": "Latex",
+          "tip": "Clothing centered around the shiny usually black or red rubber latex",
+          "id": 2013
+        },
+        {
+          "description": "Spandex/Rubber",
+          "tip": "Elastic rubber materials other than Latex",
+          "id": 2014
+        },
+        {
+          "description": "Gas Masks",
+          "tip": "Plays revolving around wearing gas masks, often seen with latex clothing and breath play",
+          "id": 2015
+        },
+        {
+          "description": "Uniform/Costume",
+          "tip": "Costumes for roleplays like police officer, nurse, teacher etc.",
+          "id": 2016
+        },
+        {
+          "description": "Cosplay",
+          "tip": "Costumes specifically imitating fictional characters, often from games or anime",
+          "id": 2017
+        },
+        {
+          "description": "Crossdressing",
+          "tip": "Wearing clothes associated with the opposite gender, primarily done by men, see Femboy/Trap",
+          "id": 2018
+        }
+      ]
+    },
+    {
+      "description": "Groupings",
+      "tip": "Parings with different partners",
+      "columns": [
+        "Self"
+      ],
+      "rows": [
+        {
+          "description": "You and 1 male",
+          "id": 3001
+        },
+        {
+          "description": "You and 1 female",
+          "id": 3002
+        },
+        {
+          "description": "You and MtF trans",
+          "id": 3003
+        },
+        {
+          "description": "You and FtM trans",
+          "id": 3004
+        },
+        {
+          "description": "You and 1 male, 1 female",
+          "id": 3005
+        },
+        {
+          "description": "You and 2 females",
+          "id": 3006
+        },
+        {
+          "description": "You and 2 males",
+          "id": 3007
+        },
+        {
+          "description": "Orgy",
+          "id": 3008
+        }
+      ]
+    },
+    {
+      "description": "Positions",
+      "tip": "Rate different sex positions, the giving part is penetrating, strap-on for females also counts",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "rows": [
+        {
+          "description": "Missionary",
+          "id": 4001
+        },
+        {
+          "description": "Doggystyle",
+          "id": 4002
+        },
+        {
+          "description": "Sixty-Nine",
+          "id": 4003
+        },
+        {
+          "description": "Cowgirl",
+          "id": 4004
+        },
+        {
+          "description": "Reverse-Cowgirl",
+          "id": 4005
+        },
+        {
+          "description": "Piledriver",
+          "id": 4006
+        },
+        {
+          "description": "Mating Press",
+          "id": 4007
+        },
+        {
+          "description": "Spit Roasting",
+          "tip": "Simultaneous oral and vaginal or anal intercourse on all fours, giving can be at front or back",
+          "id": 4008
+        }
+      ]
+    },
+    {
+      "description": "Male specific",
+      "tip": "Activities that can only be carried out with a penis, giving can only be entered if partner is male, receiving can only be entered if self is male",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "rows": [
+        {
+          "description": "Handjob",
+          "tip": "Pleasuring the penis with hands, Giving is active person, receiving is passive",
+          "id": 5001
+        },
+        {
+          "description": "Blowjob",
+          "tip": "Pleasuring the penis orally, Receiving has his penis in Givings mouth",
+          "id": 5002
+        },
+        {
+          "description": "Deepthroat",
+          "tip": "Pleasuring the penis orally taking in almost the complete length, Receiving has his penis in Givings mouth",
+          "id": 5003
+        },
+        {
+          "description": "Teabagging",
+          "tip": "Sucking on Balls, Receiving has his balls in Givings mouth",
+          "id": 5004
+        },
+        {
+          "description": "Cockring",
+          "tip": "Sextoy restricting bloodflow out of the penis leading to a harder erection and increased endurance for some, Giving is self wearing the ring, Receiving is having partner wear it",
+          "id": 5005
+        },
+        {
+          "description": "Frottage",
+          "tip": "Rubbing two penis together, Giving and Receiving have to be the same",
+          "id": 5006
+        },
+        {
+          "description": "Thighjob",
+          "tip": "Giving is pleasuring Receivings Penis with their thighs",
+          "id": 5007
+        },
+        {
+          "description": "Assjob",
+          "tip": "Giving is pleasuring Receivings Penis with their Buttocks",
+          "id": 5008
+        }
+      ]
+    },
+    {
+      "description": "Female specific",
+      "tip": "Activities that can only be carried out with a vagina, giving can only be entered if partner is female, receiving can only be entered if self is female",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "rows": [
+        {
+          "description": "Fingering",
+          "tip": "Playing with the labia and penetrating the vagina with fingers, Giving is fingering Receiving",
+          "id": 6001
+        },
+        {
+          "description": "Cunnilingus",
+          "tip": "Pleasuring the vulva orally, excluding the facesitting postion, Giving is licking Receivings Vulva",
+          "id": 6002
+        },
+        {
+          "description": "Facesitting",
+          "tip": "Special form of Cunnilingus where Receiving is sitting on Givings face, creating a smothering feeling",
+          "id": 6003
+        },
+        {
+          "description": "Fisting",
+          "tip": "Vaginal Fisting, inserting one or more complete Hands into the Vagina, Giving is inserting their hand into Receiving",
+          "id": 6004
+        },
+        {
+          "description": "Double Vaginal Penetration",
+          "tip": "Penetration of the vagina with two penisses at the same time, Giving has to be male, Receiving is being double penetrated",
+          "id": 6005
+        },
+        {
+          "description": "Titjob / Paizuri",
+          "tip": "Rubbing Givings penis between Receivings breats, only really works with larger breasts",
+          "id": 6006
+        },
+        {
+          "description": "Clit stimulation",
+          "tip": "Pleasuring specifically the clitoris with fingers, tongue and toys. Giving is pleasuring Receivings clitoris",
+          "id": 6007
+        },
+        {
+          "description": "Squirting",
+          "tip": "Plays centered around making Receiving squirt",
+          "id": 6008
+        },
+        {
+          "description": "Scissoring",
+          "tip": "Two females rubbing their vulvas on another, Giving and Receiving have to be the same",
+          "id": 6009
+        },
+        {
+          "description": "Double Penetration",
+          "tip": "Simultaneous vaginal and anal penetration, Giving is one of the penetrating persons, Receiving is being penetrated",
+          "id": 6010
+        },
+        {
+          "description": "Triple Penetration",
+          "tip": "Simultaneous vaginal, anal and oral intercourse, Giving is one of the penetrating persons, Receiving is being penetrated",
+          "id": 6011
+        },
+        {
+          "description": "Vaginal Streching",
+          "tip": "Plays revolving around achieving as large as possible insertions in the vagina",
+          "id": 6012
+        }
+      ]
+    },
+    {
+      "description": "Touch & Stimulation",
+      "tip": "",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "rows": [
+        {
+          "description": "Cock/Pussy Worship",
+          "tip": "Giving is worshipping Receivings Cock/Pussy",
+          "id": 7001
+        },
+        {
+          "description": "Ass Worship",
+          "tip": "Giving is worshipping Receivings Butt",
+          "id": 7002
+        },
+        {
+          "description": "Electro Stimulation",
+          "tip": "Stimulation using electric current, Giving is administering to Receiving",
+          "id": 7003
+        },
+        {
+          "description": "Tickling",
+          "tip": "Giving is tickling Receiving with at least some sexual intent",
+          "id": 7004
+        },
+        {
+          "description": "Sensation play",
+          "tip": "Often involving light bondage and blindfolds, can involve pain, Giving is stimulating Receiving with specific sensations",
+          "id": 7005
+        },
+        {
+          "description": "Foot job",
+          "tip": "Giving is pleasuring Receivings Genitals with their feet",
+          "id": 7006
+        },
+        {
+          "description": "Nipple play",
+          "tip": "Plays centered around Giving stimulating Receivings Nipples with different means",
+          "id": 7007
+        }
+      ]
+    },
+    {
+      "description": "Ass play",
+      "tip": "Everything revolving around anal penetration and play",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "rows": [
+        {
+          "description": "Anal sex",
+          "tip": "Giving penetrating Receivings butt with their penis, not to be confused with pegging, giving can only be entered if self is male, receiving can only be entered if partner is male",
+          "id": 8001
+        },
+        {
+          "description": "Pegging",
+          "tip": "Giving is penetrating Receivings butt with a strap-on",
+          "id": 8002
+        },
+        {
+          "description": "Rimming",
+          "tip": "Giving is pleasuring Receivings anus orally",
+          "id": 8003
+        },
+        {
+          "description": "Double Anal Penetration",
+          "tip": "Simultaneous penetration of the anus by two penisses, Giving is penetrating Receivings anus",
+          "id": 8004
+        },
+        {
+          "description": "Anal Fisting",
+          "tip": "Full insertion of at least one hand into the anus, Giving is inserting their hand into Receiving",
+          "id": 8005
+        },
+        {
+          "description": "Anal Streching",
+          "tip": "Plays centered around achieving anal insertions as large as possible, Giving is streching Receiving, usually with larger Dildos",
+          "id": 8006
+        },
+        {
+          "description": "Gaping",
+          "tip": "Similar to Anal Streching, this means plays trying to achieve longer and larger gapes, that is the anus temporarily staying open",
+          "id": 8007
+        },
+        {
+          "description": "Prolapse",
+          "tip": "Plays trying to get the colon walls inside the anus to collapse outwards, relaxing the tissue so much that the last part of the colon walls can 'fall out' a few centimeters. Giving is trying to get Receivings Anus to prolapse",
+          "id": 8008
+        },
+        {
+          "description": "Enema",
+          "tip": "Plays fetishizing Enema intake which is usally the rectal intake of saline solution or just water to clean the rectum, Giving is administering the enema to Receiving",
+          "id": 8009
+        },
+        {
+          "description": "Inflation/Stomach bulge",
+          "tip": "Plays around achieving a visibly rounded belly by large enemas (inflation) or a visible stomach bulge by large anal insertions (stomach bulge). Giving is causing the bulge/inflation to Receiving",
+          "id": 8010
+        }
+      ]
+    },
+    {
+      "description": "Toys",
+      "tip": "Fetishes encompassing different sex toys, Self means toy being used on self by partner, Partner means self using toy on partner",
+      "columns": [
+        "Self, Partner"
+      ],
+      "rows": [
+        {
+          "description": "Realistic Dildos",
+          "tip": "Phallus-shaped Dildos based on human penisses",
+          "id": 9001
+        },
+        {
+          "description": "Knotted/Canine Dildos",
+          "tip": "Dildos often modelled after canine penisses featuring a large round knot near their base siginificantly larger than the shaft, see Bad Dragon Rex, Fenrir, Cole",
+          "id": 9002
+        },
+        {
+          "description": "Horse Dildos",
+          "tip": "Dildos modelled after equine penisses featuring a large shaft with equal thickness and sometimes a flared tip, see Bad Dragon Chance, Tucker, Vector",
+          "id": 9003
+        },
+        {
+          "description": "Other Fantasy Dildos",
+          "tip": "Designs not mentioned above modelling fantasy creatures",
+          "id": 9004
+        },
+        {
+          "description": "Buttplugs",
+          "tip": "Usually teardrop shaped toys with a small shaft and large flared base for insertion in the anus and temporary wear",
+          "id": 9005
+        },
+        {
+          "description": "Hollow Plugs",
+          "tip": "Plugs similar to normal Buttplugs made for the insertion in the anus or vagina featuring a opening in the center, exposing and providing a view into the anus/vagina",
+          "id": 9006
+        },
+        {
+          "description": "Vibrators",
+          "tip": "All vibrating sex toys from bullet vibes to magic wands",
+          "id": 9007
+        },
+        {
+          "description": "Sounding",
+          "tip": "Insertion of steel or silicone rods in the urethra (thats where you pee from)",
+          "id": 9008
+        },
+        {
+          "description": "Speculum",
+          "tip": "Device usually used by gynecologists to spread the vagina and allow to see inside, can be used vaginally or anally, often involved in medical play",
+          "id": 9009
+        },
+        {
+          "description": "Ovipositor",
+          "tip": "Special toy with which Gelatine-Eggs can be inserted and 'layed' in vagina or anus, often used  with roleplaying monsters or aliens (The gelatine eggs dissolve over time from the body heat)",
+          "id": 9010
+        },
+        {
+          "description": "Fuck Machine",
+          "tip": "A machine driven by an electric motor thrusting a toy mounted on it at variable speeds",
+          "id": 9011
+        },
+        {
+          "description": "Onahole",
+          "tip": "A silicone or TPE toy resembling a vagina, usually for male masturbation. Self can only be entered if self is male, partner can only be entered if partner is male",
+          "id": 9012
+        },
+        {
+          "description": "Strap-On",
+          "tip": "A harness with a dildo mounted on it enabling women to take the penetrating part in activities. Self means self is being penetrated by partner wearing one, Partner means self is wearing one and penetrating partner",
+          "id": 9013
+        }
+      ]
+    },
+    {
+      "description": "Other",
+      "tip": "",
+      "columns": [
+        "Giving, Receiving"
+      ],
+      "rows": [
+        {
+          "description": "Romance/Affection",
+          "tip": "Valuing received Romance/Affection(Receiving) involved with sexual activities or Giving Affection",
+          "id": 10001
+        },
+        {
+          "description": "Edging",
+          "tip": "Repeatedly bringing the receiving partner to the edge of climax only to let off before achieving it",
+          "id": 10002
+        },
+        {
+          "description": "Teasing",
+          "tip": "Teasing refers to repeatedly invoking a sexual desire in the receiving partner without satisfying it (immediately) afterwards",
+          "id": 10003
+        },
+        {
+          "description": "JOI, SI",
+          "tip": "Jerk-off instructions/Sex instructions given by the Giving partner how the Receiving partner should proceed",
+          "id": 10004
+        }
+      ]
+    },
+    {
+      "description": "Restrictive",
+      "tip": "Everything about Bondage. Self means being used on self, Partner means self using on Partner",
+      "columns": [
+        "Self",
+        "Partner"
+      ],
+      "rows": [
+        {
+          "description": "Ball Gag",
+          "tip": "Gags using a large plastic ball, often perforated for easier breathing to gag the subject",
+          "id": 11001
+        },
+        {
+          "description": "Ring Gag",
+          "tip": "Gags using a metal ring vertically to keep the mouth open, spider gags have addionally four prongs extending outside to prevent the ring from being flipped by the subjects tongue",
+          "id": 11002
+        },
+        {
+          "description": "Collar",
+          "tip": "Leather or Metal Collar worn around the neck to attach a leash or designating ownership, sometimes with an inscription",
+          "id": 11003
+        },
+        {
+          "description": "Leash",
+          "tip": "The subject being held by a leash demonstrating domination over the subject",
+          "id": 11004
+        },
+        {
+          "description": "Chastity",
+          "tip": "Chastity belts for women and chastity cages for men are used to prevent the subject gentials from receiving any stimulation",
+          "id": 11005
+        },
+        {
+          "description": "Bondage (Light)",
+          "tip": "General movement is restricted, minor movement and readjustment is possible (e.g. cuffs to back or bedpost, spreader bar)",
+          "id": 11006
+        },
+        {
+          "description": "Bondage (Heavy)",
+          "tip": "Movement is little to not at all possible, almost full restrainment",
+          "id": 11007
+        },
+        {
+          "description": "Suspended Bondage",
+          "tip": "Bondage (usually more extensive Bondage) with the subject hanging from the ceiling or similar, being partially or fully suspended",
+          "id": 11008
+        },
+        {
+          "description": "Encasement",
+          "tip": "The subject (usually already thightly bondaged) being encased in boxes, tape, garbage bags, or a latex vacuum box",
+          "id": 11009
+        },
+        {
+          "description": "Nose Hook",
+          "tip": "A metal piece hooking in the nostrils from above with a strap over the head being secured behind it, pulling the nostrils up and creating a pig-like look, usually degrading",
+          "id": 11010
+        },
+        {
+          "description": "Anal Hook",
+          "tip": "A buttplug with a U-shaped metal rod as a shaft on which end ropes can be connected to incorporate it into bondage",
+          "id": 11011
+        },
+        {
+          "description": "Blindfold",
+          "tip": "Depriving the subject of their visual senses can heighten all remains senses and creates a feeling of being at mercy",
+          "id": 11012
+        },
+        {
+          "description": "Monoglove/Armbinder",
+          "tip": "Device, usually made out of leather, to hold both arms along the full length of the arm tightly together, usually used to bind the arms behind the back",
+          "id": 11013
+        }
+      ]
+    },
+    {
+      "description": "CNC",
+      "tip": "Consensual Non-Consent means roleplaying non-consent situations such as rape with predefined consent, boundaries and safewords.",
+      "columns": [
+        "Aggressor",
+        "Target"
+      ],
+      "rows": [
+        {
+          "description": "Rape",
+          "tip": "The target being forced to intercourse with the Aggressor, usually under the threat of violence",
+          "id": 12001
+        },
+        {
+          "description": "Blackmail/Coercion",
+          "tip": "Similar to rape only here the Aggressor uses some other threat than violence against the Target to make the target 'voluntarily' chose to give in",
+          "id": 12002
+        },
+        {
+          "description": "Kidnapping",
+          "tip": "The target being taken away by a unknown Aggressor to an unknown location, usually followed by rape",
+          "id": 12003
+        },
+        {
+          "description": "Drugs/Alcohol",
+          "tip": "The target being drugged or made to get drunk to then take advantage of them, usually in Bar or Club Setting",
+          "id": 12004
+        },
+        {
+          "description": "Sleep Play",
+          "tip": "The target being sexually approached and used by the Aggressor to their needs while they sleep",
+          "id": 12005
+        }
+      ]
+    },
+    {
+      "description": "Domination",
+      "tip": "All things involving a power differential. The Dominant Column means you as the dominant part, the Submissive Column means you as the submissive counterpart",
+      "columns": [
+        "Dominant",
+        "Submissive"
+      ],
+      "rows": [
+        {
+          "description": "Dominant/Submissive",
+          "tip": "Being sexually dominant or submissive in general",
+          "id": 13001
+        },
+        {
+          "description": "Domestic servitude",
+          "id": 13002
+        },
+        {
+          "description": "Slavery",
+          "id": 13003
+        },
+        {
+          "description": "Pet Play",
+          "id": 13004
+        },
+        {
+          "description": "DD/lg, MD/lb",
+          "id": 13005
+        },
+        {
+          "description": "Disciple",
+          "id": 13006
+        },
+        {
+          "description": "Begging",
+          "id": 13007
+        },
+        {
+          "description": "Forced orgasm",
+          "id": 13008
+        },
+        {
+          "description": "Orgasm control",
+          "id": 13009
+        },
+        {
+          "description": "Orgasm denial",
+          "id": 13010
+        },
+        {
+          "description": "Power exchange",
+          "id": 13011
+        },
+        {
+          "description": "Feminization",
+          "tip": "Being made to dress or act feminine, usually in a Femdom Setting with males",
+          "id": 13012
+        }
+      ]
+    },
+    {
+      "description": "Pain",
+      "tip": "Everything involving Pain",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "rows": [
+        {
+          "description": "Light pain",
+          "tip": "Light spankings or similar that won't leave any longer marks",
+          "id": 14001
+        },
+        {
+          "description": "Heavy pain",
+          "tip": "More severe beatings leaving visible marks like Hematoma, Scratches, small injuries, but no permanent injuries",
+          "id": 14002
+        },
+        {
+          "description": "Nipple Clamps",
+          "tip": "Clamps attached to the nipple, weights can be added to the clamp to increase the pull and resulting pain on the nipple",
+          "id": 14003
+        },
+        {
+          "description": "Clothes Pins",
+          "tip": "Clothes Pins usually used to hang wet clothes on a line being clamped to various body locations",
+          "id": 14004
+        },
+        {
+          "description": "Caning",
+          "tip": "Beating with a long thin cane historically used to punish children in school, leaves recognisable horizontal red stripes",
+          "id": 14005
+        },
+        {
+          "description": "Flogging",
+          "tip": "Beating with a device having several leather straps attached to a handle (called a Flogger)",
+          "id": 14006
+        },
+        {
+          "description": "Beating",
+          "tip": "Simple beating just by hand",
+          "id": 14007
+        },
+        {
+          "description": "Spanking",
+          "tip": "Beating the butt of the subject with either the flat hand or a paddle or similar",
+          "id": 14008
+        },
+        {
+          "description": "Cock/Pussy Slapping",
+          "tip": "Slaps directed at the subjects genitals",
+          "id": 14009
+        },
+        {
+          "description": "Cock/Pussy Torture",
+          "tip": "Tormenting the subjects genitals more using various methods to inflict greater pain than slapping",
+          "id": 14010
+        },
+        {
+          "description": "Nipple Torture",
+          "tip": "Tormenting the subjects nipples with various methods such as clamps with heavy weights, clothes pins or piercing of breast or nipple with needles",
+          "id": 14011
+        },
+        {
+          "description": "Hot wax",
+          "tip": "Dropping bits of hot molten wax on the subject to inflict a brief burning sensation while leaving little marks",
+          "id": 14012
+        },
+        {
+          "description": "Scratching",
+          "tips": "Scratching the subject to inflict pain and leave recognizeable scratch marks",
+          "id": 14013
+        },
+        {
+          "description": "Biting",
+          "tips": "Biting the subject to inflict pain and leave recognizable bite marks",
+          "id": 14014
+        },
+        {
+          "description": "Cutting",
+          "tips": "Cutting involves cutting the subject (in places where possible, such as the butt or upper arms) with very sharp tools such as razor blades or scalpels to inflict pain and/or cut initials or symbols into the subject",
+          "id": 14015
+        },
+        {
+          "description": "Needle Play",
+          "tips": "Involves inserting (hypodermic) Needles through the subjects skin. Needles might be arranged in shapes, might pierce genitals to inflict larger pain or be used to create temporary piercings, see corset-piercing",
+          "id": 14016
+        }
+      ]
+    },
+    {
+      "description": "Degradation",
+      "tip": "Fetishes involving humiliating or degrading the subject, almost always in a Dom/Sub Relationship with predefined boundaries and safewords",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "rows": [
+        {
+          "description": "Name Calling",
+          "tip": "The Giving party calling the Receiving Person derogatory terms (slut, whore, bitch, pig, useless, etc.)",
+          "id": 15001
+        },
+        {
+          "description": "Humiliation",
+          "tip": "The Giving Person humiliating the Receiving Person by different means, such as embarrassing tasks or acts",
+          "id": 15002
+        },
+        {
+          "description": "Body Writing",
+          "tip": "The Giving Person writing derogatory or humiliating terms on the Receiving persons skin, such as slut, whore, cumdump, etc.",
+          "id": 15003
+        },
+        {
+          "description": "Glory Hole",
+          "tip": "Doesnt have to involve a 'dominant' party but usually does, the Receiving Person is being ordered by the Giving Person to service the cocks of strangers they put through a hole in a wall",
+          "id": 15004
+        },
+        {
+          "description": "Forced Exposure",
+          "tip": "The Giving Party orders the Receiving Person to perform public exposures or other embarassing or indecent acts without them having an exhibitionism kink",
+          "id": 15005
+        },
+        {
+          "description": "Lending out",
+          "tip": "The Giving Person 'lending' their sub to a person familiar to them but not necessarily familiar to the sub for them to assume the dominant part of the relationship temporarily",
+          "id": 15006
+        },
+        {
+          "description": "Public Use",
+          "tip": "The Giving Person instructing the Receiving Person to engage in sexual acts in (secluded) public with complete strangers with no permission to deny a strangers sexual request",
+          "id": 15007
+        }
+      ]
+    },
+    {
+      "description": "Misc. Fetish",
+      "tip": "Misc. Fetishes not really belonging to any other category",
+      "columns": [
+        "Self",
+        "Partner"
+      ],
+      "rows": [
+        {
+          "description": "Free Use",
+          "tip": "A previously made agreement to which the subject can be used sexually at any time in any way (within the agreement) by their partner whenever they feel like it no matter what the subject is doing at that time. Self means self is subject and partner is the 'empowered' party, Partner means partner is subject and self is the 'empowered' party",
+          "id": 16001
+        },
+        {
+          "description": "Swinging",
+          "tip": "Frequent partner exchange with other couples. Usually done as a couple (in that case Self and Partner have to be the same) but can also be done by just one partner",
+          "id": 16002
+        },
+        {
+          "description": "Cheating",
+          "tip": "Cheating your Partner with someone else (hotter) without your partner knowing or their consent. Usually frowned upon.",
+          "id": 16003
+        },
+        {
+          "description": "Exhibitionism",
+          "tip": "Self or Partner being aroused by performing sexual acts in public with the risk of being found out or knowingly being watched",
+          "id": 16004
+        },
+        {
+          "description": "Voyeurism",
+          "tip": "Self or Partner being aroused by watching other people performing sexual acts",
+          "id": 16005
+        },
+        {
+          "description": "Furry",
+          "tip": "Self or Partner engaging in Furry play, roleplaying animal persona(fursona), might involve animal themed sex toys and full fursuits",
+          "id": 16006
+        },
+        {
+          "description": "Foot fetish",
+          "tip": "Self or Partner being aroused by the others feet in sexual activities",
+          "id": 16007
+        },
+        {
+          "description": "Bimbofication/-ism",
+          "tip": "Self or Partner trying to appear hyperfeminine and airheaded, in a sexual sense also promiscous, see Bimbo",
+          "id": 16008
+        },
+        {
+          "description": "Gangbang",
+          "tip": "Self or Partner being the subject in a gangbang (4+ partners)",
+          "id": 16009
+        }
+      ]
+    },
+    {
+      "description": "Coomies",
+      "tip": "Everything involving Semen, or Cum. Giving can only be filled if self is male",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "rows": [
+        {
+          "description": "Facial",
+          "tip": "The giving person cumming on the face of the receiving person, receiving person usually has their eyes closed and mouth open",
+          "id": 17001
+        },
+        {
+          "description": "Bukkake",
+          "tip": "The receiving person getting their face covered in several Facials by several Giving Persons",
+          "id": 17002
+        },
+        {
+          "description": "Swallowing",
+          "tip": "Swallowing the semen after a blowjob, either cumming directly in the throat (Throatpie) or cumming in the receiving Persons mouth and them swallowing it afterwards",
+          "id": 17003
+        },
+        {
+          "description": "Cum on Back/Butt",
+          "tip": "The Giving Person cumming on the back or the butt of the receiving person, often after doggystyle sex",
+          "id": 17004
+        },
+        {
+          "description": "Cum on Stomach/Genitals",
+          "tip": "The Giving Person cumming on the stomach or the genitals of the receiving person, often after missionary sex or similar",
+          "id": 17005
+        },
+        {
+          "description": "Cum on Breasts",
+          "tip": "The Giving Person cumming on the breasts of the receiving person",
+          "id": 17006
+        },
+        {
+          "description": "Creampie",
+          "tip": "Cumming inside the vagina of the Receiving Person without a condom. Can only enter Receiving if self is Female",
+          "id": 17007
+        },
+        {
+          "description": "Anal Creampie",
+          "tip": "Cumming inside the anus of the Receiving Person without a condom",
+          "id": 17008
+        },
+        {
+          "description": "Cum swapping",
+          "tip": "Swapping the previously on/in the Giving Person ejaculated cum with another Receiving Person back and forth",
+          "id": 17009
+        },
+        {
+          "description": "Cum Eating",
+          "tip": "The Receiving Person eating the cum ejaculated by the Giving Person (from the floor, from another partner or one of their orifices)",
+          "id": 17010
+        },
+        {
+          "description": "Breeding",
+          "tip": "Giving Person cumming inside the Receiving Person without a condom with special emphasis on the creampie, also for the imagination of being bred and getting pregnant (even though the woman might be on birth control)",
+          "id": 17011
+        }
+      ]
+    },
+    {
+      "description": "Fluids",
+      "tip": "Fetishes around bodily Fluids other than Cum",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "rows": [
+        {
+          "description": "Lactation",
+          "tip": "The Giving Person lactating and the Receiving Person being the other Partner (who might interact with it in any way). Giving can only be female",
+          "id": 18001
+        },
+        {
+          "description": "Smegma",
+          "tip": "The Receiving Person eating/cleaning the smegma(dead oily cells collecting on foreskin and around clitoris after not washing for some time) of the Giving Person, often used in a derogatory sense",
+          "id": 18002
+        },
+        {
+          "description": "Watersports",
+          "tip": "The Giving Person pissing on the Receiving Person",
+          "id": 18003
+        },
+        {
+          "description": "Piss Drinking",
+          "tip": "The Giving Person urinating into the Receiving Persons mouth and them swallowing it",
+          "id": 18004
+        },
+        {
+          "description": "Internal Urination",
+          "tip": "The Giving Person urinating inside the vagina or anus of the Receiving Person",
+          "id": 18005
+        }
+      ]
+    },
+    {
+      "description": "Fantasy",
+      "tip": "Purely fictional kinks that could appear in consumed porn, hentais, manga or artists artwork. Self doesnt have to be involved in the act of the kink but could also be a third party observing. You can only answer with Haven't tried",
+      "columns": [
+        "General"
+      ],
+      "rows": [
+        {
+          "description": "Incest",
+          "tip": "Intercourse between by blood related family members, often Brother-Sister, Mother-Son, Father-Daughter",
+          "id": 19001
+        },
+        {
+          "description": "Bestiality",
+          "tip": "Intercourse between Human and Animal, most often Equine or Canine",
+          "id": 19002
+        },
+        {
+          "description": "Rape",
+          "id": 19003
+        },
+        {
+          "description": "Lolicon",
+          "id": 19004
+        },
+        {
+          "description": "Onee-Shota",
+          "id": 19005
+        },
+        {
+          "description": "Furry",
+          "id": 19006
+        },
+        {
+          "description": "Gender Change",
+          "id": 19007
+        },
+        {
+          "description": "Transformation",
+          "id": 19008
+        },
+        {
+          "description": "Cumflation",
+          "id": 19009
+        },
+        {
+          "description": "Tentacles",
+          "id": 19010
+        },
+        {
+          "description": "All the way through",
+          "id": 19011
+        },
+        {
+          "description": "X-Ray",
+          "id": 19012
+        },
+        {
+          "description": "Impregnation",
+          "id": 19013
+        },
+        {
+          "description": "Nipple Penetration",
+          "id": 19014
+        }
+      ]
+    }
+  ]
+}
