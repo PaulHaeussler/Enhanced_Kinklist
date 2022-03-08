@@ -404,7 +404,9 @@ function submit_results(){
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({"meta": meta, "kinks": kinks}),
+        }).then(res => {
+            console.log($.cookie('token'))
         })
-        console.log($.cookies('token'))
+        console.log($.cookie('token'))
     }
 }
