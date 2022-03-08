@@ -400,7 +400,7 @@ function submit_results(){
         })
         */
 
-        await fetch('/', {
+        fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({"meta": meta, "kinks": kinks}),
