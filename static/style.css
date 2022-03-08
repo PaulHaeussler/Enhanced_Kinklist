@@ -19,6 +19,14 @@ h2.title {
     padding: 3px;
 }
 
+#footer_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 100px;
+}
+
 .choice {
     box-sizing: border-box;
     width: 20px;
@@ -107,12 +115,12 @@ th.header {
 }
 
 .kinkTitle {
- font-size: 20px;
+ font-size: 26px;
 }
 
 .kinkDesc {
  font-style: italic;
- font-size: 14px;
+ font-size: 18px;
 }
 
 btn.entered {
@@ -125,4 +133,35 @@ btn.entered {
 
 btn.entered:hover {
     cursor: pointer;
+}
+
+btn.submit {
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 5px;
+    width: 100%;
+    transition: 0.3s;
+    text-align: center;
+}
+
+btn.submit:hover {
+    background: #0b6100;
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+
+btn.reset {
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 5px;
+    width: 100%;
+    transition: 0.3s;
+    text-align: center;
+}
+
+btn.reset:hover {
+    background: #a60000;
+    color: #ffffff;
+    border-radius: 10px;
 }

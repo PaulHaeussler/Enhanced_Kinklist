@@ -142,7 +142,7 @@
           "id": 1003
         },
         {
-          "description": "muscular",
+          "description": "Muscular",
           "id": 1004
         },
         {
@@ -453,7 +453,7 @@
     },
     {
       "description": "Male specific",
-      "tip": "Activities that can only be carried out with a penis, giving can only be entered if partner is male, receiving can only be entered if self is male",
+      "tip": "Activities that can only be carried out with a penis, giving can only be entered if partner is male, receiving can only be entered if self is male. This means activities involving a real penis, not a strap-on or similar",
       "columns": [
         "Giving",
         "Receiving"
@@ -475,29 +475,34 @@
           "id": 5003
         },
         {
+          "description": "Facefuck",
+          "tip": "Giving slides their penis in and out of Receivings mouth while holding their head",
+          "id": 5004
+        },
+        {
           "description": "Teabagging",
           "tip": "Sucking on Balls, Receiving has his balls in Givings mouth",
-          "id": 5004
+          "id": 5005
         },
         {
           "description": "Cockring",
           "tip": "Sextoy restricting bloodflow out of the penis leading to a harder erection and increased endurance for some, Giving is self wearing the ring, Receiving is having partner wear it",
-          "id": 5005
+          "id": 5006
         },
         {
           "description": "Frottage",
           "tip": "Rubbing two penis together, Giving and Receiving have to be the same",
-          "id": 5006
+          "id": 5007
         },
         {
           "description": "Thighjob",
           "tip": "Giving is pleasuring Receivings Penis with their thighs",
-          "id": 5007
+          "id": 5008
         },
         {
           "description": "Assjob",
           "tip": "Giving is pleasuring Receivings Penis with their Buttocks",
-          "id": 5008
+          "id": 5009
         }
       ]
     },
@@ -680,7 +685,8 @@
       "description": "Toys",
       "tip": "Fetishes encompassing different sex toys, Self means toy being used on self by partner, Partner means self using toy on partner",
       "columns": [
-        "Self, Partner"
+        "Self",
+        "Partner"
       ],
       "rows": [
         {

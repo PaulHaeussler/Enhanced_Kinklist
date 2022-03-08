@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Enhanced Kinklist</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{{ url_for('static', filename='jquery.cookie-1.4.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='tinycolor.js') }}"></script>
-    <script src="{{ url_for('static', filename='build_list.js') }}"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <h2 class="title">Enhanced Kinklist</h2>
-    <div id="main_container">
+{% extends 'base.html' %}
+{% block title %}Questions{% endblock %}
+{% block content %}
         <div id="choices_container"></div>
         <div id="meta_container">
             <label class="meta" for="meta_name">Name:</label>
@@ -26,14 +15,15 @@
             <select class="meta" id="meta_sex_freq"></select>
             <label class="meta" for="meta_body_count">Body Count:</label>
             <select class="meta" id="meta_body_count"></select>
+            <br>
+            <span class="meta">Except for name, no fields are required, feel free to skip with what you feel uncomfortable sharing. Please also refer to the descriptions of groups and kinks to know what exactly is meant by the terms</span>
         </div>
         <div id="group_container"></div>
-    </div>
-</body>
-<script defer>
-    if(window.localStorage.length === 0){
-        setupLocalStorage()
-    }
-    build_list()
-</script>
-</html>
+        <div id="footer_container"></div>
+        <script defer>
+            if(window.localStorage.length === 0){
+                setupLocalStorage()
+            }
+            build_list()
+        </script>
+{% endblock %}

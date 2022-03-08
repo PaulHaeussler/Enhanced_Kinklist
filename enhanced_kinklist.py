@@ -1,10 +1,17 @@
 import uuid
+import argparse
+import json
 
 from loguru import logger
-from flask import Flask, jsonify, request, render_template, make_response
+from flask import Flask, jsonify, request, render_template, make_response, url_for
 from os.path import dirname, abspath
 
-import json
+
+
+from werkzeug.utils import redirect
+
+from db import MySQLPool
+
 
 class Kinklist:
 
@@ -14,6 +21,16 @@ class Kinklist:
         self.config = json.load(open(json_file))
         logger.info("Starting up...")
 
+        parser = argparse.ArgumentParser(
+            description='Bot to provide tracking of submissions in certain discord channels')
+        parser.add_argument('dbhost')
+        parser.add_argument('dbschema')
+        parser.add_argument('dbuser')
+        parser.add_argument('dbpw')
+        args = vars(parser.parse_args())
+
+        self.db = MySQLPool(host=args['dbhost'], user=args['dbuser'], password=args['dbpw'], database=args['dbschema'],
+                       pool_size=5)
 
     def get_val_string(self):
         result = ""
@@ -52,6 +69,15 @@ class Kinklist:
 
             elif request.method == 'POST':
                 inputs = request.get_json()
+                
+                res = make_response(redirect(url_for('results.html')))
+                
+                if user == '' or secret == '':
+                    return redirect(url_for('error.html'))
+                else:
+                    logger.info(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+
+
 
 
         @self.app.route('/results')

@@ -208,6 +208,23 @@ function build_list(){
             document.getElementById('meta_sex_freq').value = window.localStorage.getItem('meta_sex_freq')
             document.getElementById('meta_body_count').value = window.localStorage.getItem('meta_body_count')
 
+            var submit = document.createElement('btn')
+            submit.classList.add('submit')
+            submit.innerText = 'Submit'
+            submit.onclick = submit_results
+            var reset = document.createElement('btn')
+            reset.classList.add('reset')
+            reset.innerText = 'Reset All'
+            reset.onclick = function(){
+                if(confirm('Are you really sure? This will reset all data that you have entered!')){
+                    window.localStorage.clear()
+                    window.location.reload();
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+                }
+            }
+            document.getElementById('footer_container').appendChild(submit)
+            document.getElementById('footer_container').appendChild(reset)
+
             var kinkgroups = data['kink_groups']
             window.groups = kinkgroups
             root = document.getElementById('group_container')
@@ -346,4 +363,36 @@ function fill_cookie(){
             }
         })
     })
+}
+
+function submit_results(){
+    var lc = window.localStorage
+    var kinks = []
+    var meta = []
+
+    if(lc.getItem('meta_name') === null ||lc.getItem('meta_name') === ''){
+        alert('Please enter a name or pseudonym!')
+    } else {
+        $.each(window.groups, function(){
+            $.each(this['rows'], function(){
+                kinks.push({"id": this['id'], "val": lc.getItem(this['id'])})
+            })
+        })
+
+        meta.push({"id": "name", "val": lc.getItem("meta_name")})
+        meta.push({"id": "sex", "val": lc.getItem("meta_sex")})
+        meta.push({"id": "age", "val": lc.getItem("meta_age")})
+        meta.push({"id": "fap_freq", "val": lc.getItem("meta_fap_freq")})
+        meta.push({"id": "sex_freq", "val": lc.getItem("meta_sex_freq")})
+        meta.push({"id": "body_count", "val": lc.getItem("meta_body_count")})
+
+        $.ajax({
+            type: 'POST',
+            url: "/",
+            data: JSON.stringify({"meta": meta, "kinks": kinks}),
+            success: function(){},
+            dataType: 'json',
+            contentType: "application/json"
+        })
+    }
 }
