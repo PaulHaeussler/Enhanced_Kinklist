@@ -405,9 +405,9 @@ function submit_results(){
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({"meta": meta, "kinks": kinks}),
         }).then(res => {
-            if(res.redirected){
-                window.location.replace(res.url)
-            }
+            console.print()
+        }).then(res.text =>{
+            window.location.replace(this)
         })
     }
 }
