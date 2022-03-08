@@ -135,6 +135,11 @@ function setupLocalStorage(){
     })
 }
 
+function meta_changed(sender){
+    var src = sender.srcElement
+    window.localStorage.setItem(src.id, src.value)
+}
+
 function build_list(){
 
     console.log('Hello')
@@ -161,6 +166,47 @@ function build_list(){
                 cdiv.appendChild(tspan)
                 root.appendChild(cdiv)
             })
+
+            var meta = data['meta']
+            document.getElementById('meta_name').placeholder = meta['name'][0]
+            document.getElementById('meta_name').onchange = meta_changed
+            for(let i = meta['age'][0]; i < meta['age'][1]+1; i++){
+                var option = document.createElement('option')
+                option.innerText = i
+                 document.getElementById('meta_age').appendChild(option)
+            }
+            document.getElementById('meta_age').onchange = meta_changed
+            $.each(meta['sex'], function() {
+                var option = document.createElement('option')
+                option.innerText = this
+                document.getElementById('meta_sex').appendChild(option)
+            })
+            document.getElementById('meta_sex').onchange = meta_changed
+            $.each(meta['fap_freq'], function() {
+                var option = document.createElement('option')
+                option.innerText = this
+                document.getElementById('meta_fap_freq').appendChild(option)
+            })
+            document.getElementById('meta_fap_freq').onchange = meta_changed
+            $.each(meta['sex_freq'], function() {
+                var option = document.createElement('option')
+                option.innerText = this
+                document.getElementById('meta_sex_freq').appendChild(option)
+            })
+            document.getElementById('meta_sex_freq').onchange = meta_changed
+            $.each(meta['body_count'], function() {
+                var option = document.createElement('option')
+                option.innerText = this
+                document.getElementById('meta_body_count').appendChild(option)
+            })
+            document.getElementById('meta_body_count').onchange = meta_changed
+
+            document.getElementById('meta_name').value = window.localStorage.getItem('meta_name')
+            document.getElementById('meta_age').value = window.localStorage.getItem('meta_age')
+            document.getElementById('meta_sex').value = window.localStorage.getItem('meta_sex')
+            document.getElementById('meta_fap_freq').value = window.localStorage.getItem('meta_fap_freq')
+            document.getElementById('meta_sex_freq').value = window.localStorage.getItem('meta_sex_freq')
+            document.getElementById('meta_body_count').value = window.localStorage.getItem('meta_body_count')
 
             var kinkgroups = data['kink_groups']
             window.groups = kinkgroups
