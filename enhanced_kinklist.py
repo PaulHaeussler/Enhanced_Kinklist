@@ -45,9 +45,8 @@ class Kinklist:
 
     def get_item(self, meta, key):
         for m in meta:
-            for k in m.keys():
-                if k == key:
-                    return m[k]
+                if m['id'] == key:
+                    return m['val']
 
     def resolve_ids(self, data):
         result = []
