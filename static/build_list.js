@@ -404,10 +404,8 @@ function submit_results(){
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({"meta": meta, "kinks": kinks}),
-        }).then(res => {
-            console.print()
-        }).then(res.text =>{
-            window.location.replace(this)
+        }).then(res => res.text()).then(data =>{
+            window.location.replace(data)
         })
     }
 }
