@@ -127,7 +127,8 @@ class Kinklist:
 
                     self.db.execute("INSERT INTO answers(user_id, timestamp, token, choices_json) VALUES(%s, %s, %s, %s);", (int(uid), t, token, json.dumps(inputs['kinks'])), commit=True)
                     logger.info("Created result token " + token)
-                    res_results = make_response(redirect('/results?token=' + token, code=303))
+                    res_results = make_response()
+                    res_results.body = url_for('results', token=token)
                     return res_results
 
 
