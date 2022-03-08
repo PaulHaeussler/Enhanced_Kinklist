@@ -69,13 +69,12 @@ class Kinklist:
 
             elif request.method == 'POST':
                 inputs = request.get_json()
-                
-                res = make_response(redirect(url_for('results')))
-                
+
                 if user == '' or secret == '':
                     return redirect(url_for('error.html'))
                 else:
                     logger.info(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+                    res = make_response(redirect(url_for('results')))
                     return res
 
 
