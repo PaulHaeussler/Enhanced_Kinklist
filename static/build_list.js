@@ -400,12 +400,11 @@ function submit_results(){
         })
         */
 
-        fetch('/', {
+        await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({"meta": meta, "kinks": kinks}),
-        }).then(res => function(){
-            console.log($.cookies('token'))
         })
+        console.log($.cookies('token'))
     }
 }
