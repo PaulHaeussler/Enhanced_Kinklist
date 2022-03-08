@@ -1,3 +1,4 @@
+import time
 import uuid
 import argparse
 import json
@@ -42,6 +43,44 @@ class Kinklist:
                 result += "#"
         return result
 
+    def get_item(self, meta, key):
+        for m in meta:
+            for k in m.keys():
+                if k == key:
+                    return m[k]
+
+    def resolve_ids(self, data):
+        result = []
+        for group in self.config['kink_groups']:
+            g = {"name": group['description'], "cols": self.__serialize_cols(group['columns'])}
+            rows = []
+            for k in group['rows']:
+                rows.append({"name": k['description'], "vals": self.__get_id_val(k['id'], data)})
+            g['rows'] = rows
+            result.append(g)
+        return result
+
+    def __serialize_cols(self, cols):
+        result = ""
+        for col in cols:
+            result += col + ", "
+        return result[:-2]
+
+    def __get_id_val(self, id, data):
+        for d in data:
+            if id == d['id']:
+                return self.__get_color(json.loads(d['val']))
+
+
+
+    def __get_color(self, vals):
+        result = []
+        for val in vals:
+            for choice in self.config['categories']:
+                if int(val) == choice['id']:
+                    result.append(choice['color'])
+        return result
+
 
     @logger.catch
     def create_app(self):
@@ -79,16 +118,30 @@ class Kinklist:
                     else:
                         ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
                     logger.info(ip)
-                    res = make_response(redirect(url_for('results')))
-                    return res
+                    token = str(uuid.uuid4())
+                    m = inputs['meta']
+                    t = round(time.time()*1000)
+                    if len(self.db.execute("SELECT * FROM users WHERE user=%s;", (user, ))) == 0:
+                        self.db.execute("INSERT INTO users(user, username, sex, age, fap_freq, sex_freq, body_count, ip, created) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);", (user, self.get_item(m, 'name'), self.get_item(m, 'sex'), self.get_item(m, 'age'), self.get_item(m, 'fap_freq'), self.get_item(m, 'sex_freq'), self.get_item(m, 'body_count'), ip, t), commit=True)
+                    uid = self.db.execute("SELECT id FROM users WHERE user=%s;", (user,))[0][0]
+
+                    self.db.execute("INSERT INTO answers(user_id, timestamp, token, choices_json) VALUES(%s, %s, %s, %s);", (int(uid), t, token, json.dumps(inputs['kinks'])), commit=True)
+                    logger.info("Created result token " + token)
+                    res_results = make_response(redirect(url_for('results', token=token)))
+                    return res_results
 
 
 
 
         @self.app.route('/results')
         def results():
-            res = make_response(render_template('results.html'))
-            return res
+            token = request.args.get('token', default='')
+            if token == '':
+                return redirect(url_for('index'))
+            else:
+                data = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (token,))
+                res = make_response(render_template('results.html', kinks=self.resolve_ids(json.loads(data[0][3])), username=data[0][6], sex=data[0][7], age=data[0][8], fap_freq=data[0][9], sex_freq=data[0][10], body_count=data[0][11], created=[data[0][1]], choices=self.config['categories']))
+                return res
 
 
         @self.app.route('/config')

@@ -158,7 +158,7 @@ function build_list(){
                 var rspan = document.createElement('span')
                 var tspan = document.createElement('span')
                 rspan.classList.add('choice')
-                rspan.classList.add('legend')
+                rspan.classList.add('noedit')
                 rspan.style.backgroundColor = this['color']
                 tspan.className = 'choice-text'
                 tspan.textContent = this['description']
@@ -372,7 +372,9 @@ function submit_results(){
 
     if(lc.getItem('meta_name') === null ||lc.getItem('meta_name') === ''){
         alert('Please enter a name or pseudonym!')
-    } else {
+    } else if(lc.getItem('meta_name').length > 100) {
+         alert('Name too long, max. 100 characters!')
+    }else {
         $.each(window.groups, function(){
             $.each(this['rows'], function(){
                 kinks.push({"id": this['id'], "val": lc.getItem(this['id'])})
@@ -385,14 +387,27 @@ function submit_results(){
         meta.push({"id": "fap_freq", "val": lc.getItem("meta_fap_freq")})
         meta.push({"id": "sex_freq", "val": lc.getItem("meta_sex_freq")})
         meta.push({"id": "body_count", "val": lc.getItem("meta_body_count")})
-
+        /*
         $.ajax({
             type: 'POST',
             url: "/",
             data: JSON.stringify({"meta": meta, "kinks": kinks}),
-            success: function(){},
+            success: function(response){
+                console.log(response)
+            },
             dataType: 'json',
             contentType: "application/json"
+        })
+        */
+
+        fetch('/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({"meta": meta, "kinks": kinks}),
+        }).then(res => {
+            if(res.redirected){
+                window.location.replace(res.url)
+            }
         })
     }
 }

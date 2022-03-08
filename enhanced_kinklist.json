@@ -61,7 +61,7 @@
     },
     {
       "description": "Have tried - Was okay",
-      "color": "#fff700",
+      "color": "#c2a200",
       "have_tried": true,
       "id": 3
     },
@@ -97,7 +97,7 @@
     },
     {
       "description": "Haven't tried - Might try",
-      "color": "#ffb163",
+      "color": "#ffd8ba",
       "have_tried": false,
       "id": 9
     },
@@ -1264,50 +1264,62 @@
         },
         {
           "description": "Rape",
+          "tip": "Intercourse against the victims will, usually under threat of violence",
           "id": 19003
         },
         {
           "description": "Lolicon",
+          "tip": "Fetishizing girls aged around 10-14 years old, or appearing to be around that age (small and usually flat-chested)",
           "id": 19004
         },
         {
           "description": "Onee-Shota",
+          "tip": "Adult women having intercourse with young boys aged around 10-14 years old, with the adult usually taking the initiative",
           "id": 19005
         },
         {
           "description": "Furry",
+          "tip": "Anthropomorphic beings with features of humans and animals, has to have significant fur to count as furry, animal ears or tails don't count",
           "id": 19006
         },
         {
           "description": "Gender Change",
+          "tip": "Changing gender and body to the opposite gender",
           "id": 19007
         },
         {
           "description": "Transformation",
+          "tip": "Being transformed into anything really, usually other persons or species",
           "id": 19008
         },
         {
           "description": "Cumflation",
+          "tip": "Being cummed in so much it causes significant belly inflation",
           "id": 19009
         },
         {
           "description": "Tentacles",
+          "tip": "I've seen enough Hentai to know where this is going",
           "id": 19010
         },
         {
           "description": "All the way through",
+          "tip": "Usually tentacles or very large penisses penetrating the anus and exiting through the mouth",
           "id": 19011
         },
         {
           "description": "X-Ray",
+          "tip": "Being able to see through layers of skin, usually showing the penis penetrating, vagina and uterus",
           "id": 19012
         },
         {
           "description": "Impregnation",
+          "tip": "Visualized or otherwise implied fertilization of the egg",
           "id": 19013
         },
         {
           "description": "Nipple Penetration",
+          "tip": "Penetration of (female) nipples with the nipple streching to accommodate the penetrating object",
           "id": 19014
         }
       ]

@@ -1,8 +1,45 @@
 {% extends 'base.html' %}
 {% block title %}Results{% endblock %}
 {% block content %}
+<div id="container">
     <h3>Results</h3>
-    <div id="results_container">
 
-    </div>
+        <div class="meta">
+            <label class="kinkl">Name: {{ username }}</label>
+            <label class="kinkl">Sex: {{ sex }}</label>
+            <label class="kinkl">Age: {{ age }}</label>
+            <label class="kinkl">Fap Freq.: {{ fap_freq }}</label>
+            <label class="kinkl">Sex Freq.: {{ sex_freq }}</label>
+            <label class="kinkl">Body Count: {{ body_count }}</label>
+        </div>
+        <br>
+        <div id="choices_container">
+            {% for c in choices %}
+                <div style="display: flex;">
+                    <span class="choice noedit" style="background-color: {{ c['color'] }}"></span>
+                    <label>{{ c['description'] }}</label>
+                </div>
+            {% endfor %}
+        </div>
+        <br>
+        <div id="results_container">
+        {% for g in kinks %}
+            <div class="kink_group">
+                <h3 class="kink_header">{{ g['name'] }}</h3>
+                <span class="kink_desc">{{ g['cols'] }}</span>
+                <br>
+                {% for k in g['rows'] %}
+
+                    <div class="kink_row">
+                        {% for c in k['vals'] %}
+                            <span class="choice noedit" style="background-color: {{ c }}"></span>
+                        {% endfor %}
+                        <label class="kink">{{ k['name'] }}</label>
+                    </div>
+
+                {% endfor %}
+            </div>
+        {% endfor %}
+        </div>
+</div>
 {% endblock %}

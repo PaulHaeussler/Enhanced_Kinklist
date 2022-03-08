@@ -27,6 +27,37 @@ h2.title {
     height: 100px;
 }
 
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: center;
+}
+
+#meta_container {
+    display: flex;
+    height: 20px;
+}
+
+#results_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+div.meta {
+
+}
+
+label.kinkl {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+label.meta {
+    margin-left: 20px;
+    margin-right: 3px;
+}
+
 .choice {
     box-sizing: border-box;
     width: 20px;
@@ -47,11 +78,13 @@ h2.title {
 }
 
 .choice:hover {
-    opacity: 1
+    opacity: 1;
 }
 
-.legend {
-    opacity: 1
+.noedit {
+    opacity: 1;
+    cursor: default;
+
 }
 
 span.choice-text {
@@ -164,4 +197,23 @@ btn.reset:hover {
     background: #a60000;
     color: #ffffff;
     border-radius: 10px;
+}
+
+label.kink {
+    margin-left: 5px;
+}
+
+div.kink_row {
+    display: flex;
+    padding: 2px;
+}
+
+div.kink_group {
+    display: flex;
+    flex-direction: column;
+}
+
+div.choices {
+    display: flex;
+    padding: 5px;
 }
