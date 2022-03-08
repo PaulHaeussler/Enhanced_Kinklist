@@ -871,7 +871,7 @@
       ],
       "rows": [
         {
-          "description": "Rape",
+          "description": "(Consensual) Rape",
           "tip": "The target being forced to intercourse with the Aggressor, usually under the threat of violence",
           "id": 12001
         },
@@ -1280,7 +1280,7 @@
           "id": 19005
         },
         {
-          "description": "Furry",
+          "description": "Furries",
           "tip": "Anthropomorphic beings with features of humans and animals, has to have significant fur to count as furry, animal ears or tails don't count",
           "id": 19006
         },
