@@ -73,7 +73,12 @@ class Kinklist:
                 if user == '' or secret == '':
                     return redirect(url_for('error.html'))
                 else:
-                    logger.info(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+                    ip = ""
+                    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+                        ip = (request.environ['REMOTE_ADDR'])
+                    else:
+                        ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
+                    logger.info(ip)
                     res = make_response(redirect(url_for('results')))
                     return res
 
