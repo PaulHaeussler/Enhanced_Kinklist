@@ -426,6 +426,7 @@
         },
         {
           "description": "Sixty-Nine",
+          "tip": "Giving part is on top or just enter the same if you do it sideways",
           "id": 4003
         },
         {
@@ -760,7 +761,8 @@
       "description": "Other",
       "tip": "",
       "columns": [
-        "Giving, Receiving"
+        "Giving",
+        "Receiving"
       ],
       "rows": [
         {
