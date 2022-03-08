@@ -70,7 +70,7 @@ class Kinklist:
             elif request.method == 'POST':
                 inputs = request.get_json()
                 
-                res = make_response(redirect(url_for('results.html')))
+                res = make_response(redirect(url_for('results')))
                 
                 if user == '' or secret == '':
                     return redirect(url_for('error.html'))
