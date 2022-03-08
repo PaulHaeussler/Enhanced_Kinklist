@@ -76,13 +76,15 @@ class Kinklist:
                     return redirect(url_for('error.html'))
                 else:
                     logger.info(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+                    return res
 
 
 
 
         @self.app.route('/results')
         def results():
-            pass
+            res = make_response(render_template('results.html'))
+            return res
 
 
         @self.app.route('/config')
