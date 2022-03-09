@@ -1356,6 +1356,55 @@
           "id": 19015
         }
       ]
+    },
+    {
+      "description": "Erotica Media",
+      "tip": "Different types of erotic media, or porn",
+      "columns": [
+        "General"
+      ],
+      "rows": [
+        {
+          "description": "Text",
+          "tip": "Erotica in pure text form, with at most a few pictures in between",
+          "id": 20001
+        },
+        {
+          "description": "Images (real)",
+          "tip": "Photosets of professional or amateur actors/actresses",
+          "id": 20002
+        },
+        {
+          "description": "Images (fictional)",
+          "tip": "Drawn Artworks of any kind, 3D-Renders",
+          "id": 20003
+        },
+        {
+          "description": "Professional Porn",
+          "tip": "Video porn produced by commercial enterprises",
+          "id": 20004
+        },
+        {
+          "description": "Amateur Porn",
+          "tip": "Video porn produced by amateurs and uploaded to platforms like PH, MDH, or OF",
+          "id": 20005
+        },
+        {
+          "description": "Hentai",
+          "tip": "Anime with explicit content, often censored",
+          "id": 20006
+        },
+        {
+          "description": "Hentai Manga",
+          "tip": "Mangas with explicit content, often slightly censored",
+          "id": 20007
+        },
+        {
+          "description": "Eroge",
+          "tip": "Games with erotic content",
+          "id": 20008
+        }
+      ]
     }
   ]
 }
