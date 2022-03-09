@@ -162,7 +162,7 @@ class Kinklist:
 
 
         @self.app.route('/compare4')
-        def compare():
+        def compare4():
             a = request.args.get('a', default='')
             b = request.args.get('b', default='')
             c = request.args.get('c', default='')
