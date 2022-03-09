@@ -53,6 +53,20 @@ h2.title {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
+#compare_container {
+    display: flex;
+}
+
+#compare_container_a {
+    display: flex;
+    flex-direction: column;
+}
+
+#compare_container_b {
+    display: flex;
+    flex-direction: column;
+}
+
 div.meta {
 
 }

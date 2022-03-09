@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}Compare{% endblock %}
+{% block content %}
+<div id="container">
+    <h3>Results</h3>
+
+        <div class="meta">
+            <label class="kinkl">Name: {{ username_a }}</label>
+            <label class="kinkl">Sex: {{ sex_a }}</label>
+            <label class="kinkl">Age: {{ age_a }}</label>
+            <label class="kinkl">Fap Freq.: {{ fap_freq_a }}</label>
+            <label class="kinkl">Sex Freq.: {{ sex_freq_a }}</label>
+            <label class="kinkl">Body Count: {{ body_count_a }}</label>
+        </div>
+        <br>
+            <div class="meta">
+            <label class="kinkl">Name: {{ username_b }}</label>
+            <label class="kinkl">Sex: {{ sex_b }}</label>
+            <label class="kinkl">Age: {{ age_b }}</label>
+            <label class="kinkl">Fap Freq.: {{ fap_freq_b }}</label>
+            <label class="kinkl">Sex Freq.: {{ sex_freq_b }}</label>
+            <label class="kinkl">Body Count: {{ body_count_b }}</label>
+        </div>
+        <br>
+        <div id="choices_container">
+            {% for c in choices %}
+                <div style="display: flex;">
+                    <span class="choice noedit" style="background-color: {{ c['color'] }}"></span>
+                    <label>{{ c['description'] }}</label>
+                </div>
+            {% endfor %}
+        </div>
+        <br>
+        <div id="compare_container">
+            <div id="compare_container_a">
+                <label class="kinkl">{{ username_a }}</label>
+                {% for g in kinks_a %}
+                    <div class="kink_group">
+                        <h3 class="kink_header">{{ g['name'] }}</h3>
+                        <span class="kink_desc">{{ g['cols'] }}</span>
+                        <br>
+                        {% for k in g['rows'] %}
+
+                            <div class="kink_row">
+                                {% for c in k['vals'] %}
+                                    <span class="choice noedit" style="background-color: {{ c }}"></span>
+                                {% endfor %}
+                                <label class="kink">{{ k['name'] }}</label>
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div id="compare_container_b">
+                <label class="kinkl">{{ username_b }}</label>
+                {% for g in kinks_b %}
+                    <div class="kink_group">
+                        <h3 class="kink_header">{{ g['name'] }}</h3>
+                        <span class="kink_desc">{{ g['cols'] }}</span>
+                        <br>
+                        {% for k in g['rows'] %}
+
+                            <div class="kink_row">
+                                {% for c in k['vals'] %}
+                                    <span class="choice noedit" style="background-color: {{ c }}"></span>
+                                {% endfor %}
+                                <label class="kink">{{ k['name'] }}</label>
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+</div>
+{% endblock %}
