@@ -267,6 +267,11 @@
           "description": "Glasses",
           "tip": "People wearing glasses, sunglasses don't count",
           "id": 1029
+        },
+        {
+          "description": "Plus-sized",
+          "tip": "Partners a bit thiccer than chubby",
+          "id": 1030
         }
       ]
     },
