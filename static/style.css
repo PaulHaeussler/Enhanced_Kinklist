@@ -67,6 +67,16 @@ h2.title {
     flex-direction: column;
 }
 
+#compare_container_c {
+    display: flex;
+    flex-direction: column;
+}
+
+#compare_container_d {
+    display: flex;
+    flex-direction: column;
+}
+
 div.meta {
 
 }
