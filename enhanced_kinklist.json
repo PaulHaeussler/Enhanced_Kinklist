@@ -110,13 +110,11 @@
     {
       "description": "Confused",
       "color": "#ae00ff",
-      "have_tried": false,
       "id": -1
     },
     {
       "description": "Not applicable/entered",
       "color": "white",
-      "have_tried": false,
       "default": true,
       "id": 0
     }
@@ -454,7 +452,7 @@
     },
     {
       "description": "Male specific",
-      "tip": "Activities that can only be carried out with a penis, giving can only be entered if partner is male, receiving can only be entered if self is male. This means activities involving a real penis, not a strap-on or similar",
+      "tip": "Activities that can only be carried out with a penis, giving can only be entered if partner has penis, receiving can only be entered if self has penis. This means activities involving a real penis, not a strap-on or similar",
       "columns": [
         "Giving",
         "Receiving"
@@ -509,7 +507,7 @@
     },
     {
       "description": "Female specific",
-      "tip": "Activities that can only be carried out with a vagina, giving can only be entered if partner is female, receiving can only be entered if self is female",
+      "tip": "Activities that can only be carried out with a vagina, giving can only be entered if partner has a vagina, receiving can only be entered if self has a vagina",
       "columns": [
         "Giving",
         "Receiving"
