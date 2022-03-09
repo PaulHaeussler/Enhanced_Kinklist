@@ -99,8 +99,7 @@ class Kinklist:
             if request.method == 'GET':
 
                 res = make_response(render_template('index.html'))
-                if values == '':
-                    res.set_cookie('values', self.get_val_string())
+                res.set_cookie('values', self.get_val_string())
                 if user == '' or secret == '':
                     new_user = str(uuid.uuid4())
                     new_secret = str(uuid.uuid4())

@@ -425,3 +425,24 @@ function submit_results(){
         })
     }
 }
+
+function checkLocalStorage(){
+    $.each($.cookie('values').split('#'), function(){
+        if(this !== ''){
+            var splt = this.split('=')
+            var val = window.localStorage.getItem(splt[0])
+            if(val === null){
+                list = []
+                for(var i = 1; i < splt.length; i++){
+                    list.push(splt[i])
+                }
+                window.localStorage.setItem(splt[0], JSON.stringify(list))
+            }
+        }
+
+
+
+    })
+
+
+}
