@@ -14,6 +14,13 @@ h2.title {
     align-items: center;
 }
 
+#group_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #choices_container {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
@@ -115,6 +122,7 @@ div.kinkgroup {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 80%;
 }
 
 .groupTitle {
