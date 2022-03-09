@@ -71,7 +71,7 @@ class Kinklist:
     def __get_id_val(self, id, data):
         for d in data:
             if id == d['id']:
-                return self.__get_color(json.loads(d['val']))
+                return self.__get_color(json.loads(d['val'].replace('null', '\"0\"')))
 
 
 
