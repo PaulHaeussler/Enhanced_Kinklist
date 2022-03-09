@@ -48,6 +48,10 @@ div.meta {
 
 }
 
+body {
+    background-color: #dbdbdb;
+}
+
 label.kinkl {
     margin-left: 15px;
     margin-right: 15px;
