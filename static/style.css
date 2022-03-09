@@ -64,6 +64,13 @@ label.meta {
     margin-right: 3px;
 }
 
+span.meta {
+    width: 70%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
 .choice {
     box-sizing: border-box;
     width: 20px;
