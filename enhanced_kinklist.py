@@ -138,6 +138,12 @@ class Kinklist:
         @self.app.route('/results')
         def results():
             token = request.args.get('token', default='')
+            ip = ""
+            if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+                ip = (request.environ['REMOTE_ADDR'])
+            else:
+                ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
+            logger.info(ip)
             if token == '':
                 return redirect(url_for('index'))
             else:
@@ -148,6 +154,12 @@ class Kinklist:
 
         @self.app.route('/compare')
         def compare():
+            ip = ""
+            if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+                ip = (request.environ['REMOTE_ADDR'])
+            else:
+                ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
+            logger.info(ip)
             a = request.args.get('a', default='')
             b = request.args.get('b', default='')
             if a == '' or b == '':
@@ -163,6 +175,12 @@ class Kinklist:
 
         @self.app.route('/compare4')
         def compare4():
+            ip = ""
+            if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+                ip = (request.environ['REMOTE_ADDR'])
+            else:
+                ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
+            logger.info(ip)
             a = request.args.get('a', default='')
             b = request.args.get('b', default='')
             c = request.args.get('c', default='')
