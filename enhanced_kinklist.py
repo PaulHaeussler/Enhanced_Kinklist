@@ -54,7 +54,10 @@ class Kinklist:
             g = {"name": group['description'], "cols": self.__serialize_cols(group['columns'])}
             rows = []
             for k in group['rows']:
-                rows.append({"name": k['description'], "vals": self.__get_id_val(k['id'], data)})
+                vals = self.__get_id_val(k['id'], data)
+                if vals is None:
+                    vals = ["0"]
+                rows.append({"name": k['description'], "vals": vals})
             g['rows'] = rows
             result.append(g)
         return result
