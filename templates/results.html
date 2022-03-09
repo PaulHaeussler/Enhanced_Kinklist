@@ -16,7 +16,7 @@
         <div id="choices_container">
             {% for c in choices %}
                 <div style="display: flex;">
-                    <span class="choice noedit" style="background-color: {{ c['color'] }}" title="{{ c['description'] }}"></span>
+                    <span class="choice noedit" style="background-color: {{ c['color'] }}"></span>
                     <label>{{ c['description'] }}</label>
                 </div>
             {% endfor %}

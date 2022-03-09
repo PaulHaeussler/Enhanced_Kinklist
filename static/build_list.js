@@ -140,6 +140,22 @@ function meta_changed(sender){
     window.localStorage.setItem(src.id, src.value)
 }
 
+function test(){
+        var t = '5009=0=0'
+        if(t.length > 2) {
+            var tmp = t.split('=')
+            var list = []
+            for(let i = 1; i < tmp.length; i++){
+                if(tmp[i] != ""){
+                    list.push(tmp[i])
+                }
+            }
+            console.log(tmp[0])
+            console.log(JSON.stringify(list))
+        }
+}
+
+
 function build_list(){
 
     console.log('Hello')
