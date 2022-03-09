@@ -229,7 +229,7 @@
           "id": 1021
         },
         {
-          "description": "'Normal' piercings",
+          "description": "Nonsexual piercings",
           "tip": "All non-genital piercings",
           "id": 1022
         },
@@ -645,7 +645,7 @@
         },
         {
           "description": "Double Anal Penetration",
-          "tip": "Simultaneous penetration of the anus by two penisses, Giving is penetrating Receivings anus",
+          "tip": "Simultaneous penetration of the anus by two penisses, or other things such as toys (which have to be at least penis-sized though, two sharpies don't count) Giving is penetrating Receivings anus",
           "id": 8004
         },
         {
@@ -654,7 +654,7 @@
           "id": 8005
         },
         {
-          "description": "Anal Streching",
+          "description": "Anal Streching/Training",
           "tip": "Plays centered around achieving anal insertions as large as possible, Giving is streching Receiving, usually with larger Dildos",
           "id": 8006
         },
@@ -756,7 +756,7 @@
       ]
     },
     {
-      "description": "Other",
+      "description": "General",
       "tip": "",
       "columns": [
         "Giving",
@@ -782,6 +782,21 @@
           "description": "JOI, SI",
           "tip": "Jerk-off instructions/Sex instructions given by the Giving partner how the Receiving partner should proceed",
           "id": 10004
+        },
+        {
+          "description": "Dirty Talking",
+          "tip": "The act of speaking in a typically explicit manner to provoke sexual stimulation from a participant, sometimes one's self; often in the context of seduction or foreplay.",
+          "id": 10005
+        },
+        {
+          "description": "Photography/Videotaping",
+          "tip":"The act of visually recording a scene amongst participants, often as a form of humiliation or exhibitionist fetishism",
+          "id": 10006
+        },
+        {
+          "description": "Vanilla Sex",
+          "tip": "Sex not involving any kinks, Giving is penetrating Receiving",
+          "id": 10007
         }
       ]
     },
@@ -917,7 +932,7 @@
           "id": 13003
         },
         {
-          "description": "Pet Play",
+          "description": "Puppy/Pony Play",
           "id": 13004
         },
         {
@@ -925,7 +940,7 @@
           "id": 13005
         },
         {
-          "description": "Disciple",
+          "description": "Discipline",
           "id": 13006
         },
         {
@@ -952,6 +967,14 @@
           "description": "Feminization",
           "tip": "Being made to dress or act feminine, usually in a Femdom Setting with males",
           "id": 13012
+        },
+        {
+          "description": "Breathplay/Choking",
+          "id": 13013
+        },
+        {
+          "description": "Hair Pulling",
+          "id": 13014
         }
       ]
     },
@@ -1142,6 +1165,11 @@
           "description": "Gangbang",
           "tip": "Self or Partner being the subject in a gangbang (4+ partners)",
           "id": 16009
+        },
+        {
+          "description": "Cuckold/Cuckquean",
+          "tip": "Being unfaithful in a relationship with the partner knowing in the intent to evoke jealousy. Self means self is cuck/cuckquean (the person being 'cheated'), Parnter means partner is cuck/cuckquean",
+          "id": 16010
         }
       ]
     },
@@ -1321,6 +1349,11 @@
           "description": "Nipple Penetration",
           "tip": "Penetration of (female) nipples with the nipple streching to accommodate the penetrating object",
           "id": 19014
+        },
+        {
+          "description": "Vore",
+          "tip": "Physically consuming/swallowing a character through any orifice",
+          "id": 19015
         }
       ]
     }
