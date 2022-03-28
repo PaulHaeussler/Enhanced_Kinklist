@@ -233,7 +233,9 @@ function build_list(){
             reset.innerText = 'Reset All'
             reset.onclick = function(){
                 if(confirm('Are you really sure? This will reset all data that you have entered!')){
-                    window.localStorage.clear()
+                    window.localStorage.clear();
+                    $.cookie("user", null, { path: '/' })
+                    $.cookie("values", null, { path: '/' })
                     window.location.reload();
                     $('html, body').animate({ scrollTop: 0 }, 'fast');
                 }
