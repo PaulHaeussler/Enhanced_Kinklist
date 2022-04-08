@@ -2,6 +2,7 @@ import time
 import uuid
 import argparse
 import json
+import logging
 
 from loguru import logger
 from flask import Flask, jsonify, request, render_template, make_response, url_for
@@ -13,6 +14,8 @@ from werkzeug.utils import redirect
 
 from db import MySQLPool
 
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 class Kinklist:
 
@@ -131,7 +134,10 @@ class Kinklist:
                     res_results = make_response()
                     res_results.set_cookie('token', token)
                     return res_results
-
+            elif request.method == 'HEAD':
+                res = make_response()
+                res.status_code = 200
+                return res
 
 
 
