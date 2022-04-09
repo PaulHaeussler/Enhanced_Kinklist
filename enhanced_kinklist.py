@@ -19,7 +19,7 @@ log.setLevel(logging.ERROR)
 
 class Kinklist:
 
-
+    @logger.catch
     def __init__(self):
         json_file = dirname(abspath(__file__)) + "/enhanced_kinklist.json"
         self.config = json.load(open(json_file))
@@ -34,8 +34,9 @@ class Kinklist:
         args = vars(parser.parse_args())
 
         self.db = MySQLPool(host=args['dbhost'], user=args['dbuser'], password=args['dbpw'], database=args['dbschema'],
-                       pool_size=5)
+                       pool_size=15)
 
+    @logger.catch
     def get_val_string(self):
         result = ""
         for group in self.config['kink_groups']:
@@ -46,11 +47,13 @@ class Kinklist:
                 result += "#"
         return result
 
+    @logger.catch
     def get_item(self, meta, key):
         for m in meta:
                 if m['id'] == key:
                     return m['val']
 
+    @logger.catch
     def resolve_ids(self, data):
         result = []
         for group in self.config['kink_groups']:
@@ -65,19 +68,21 @@ class Kinklist:
             result.append(g)
         return result
 
+    @logger.catch
     def __serialize_cols(self, cols):
         result = ""
         for col in cols:
             result += col + ", "
         return result[:-2]
 
+    @logger.catch
     def __get_id_val(self, id, data):
         for d in data:
             if id == d['id']:
                 return self.__get_color(json.loads(d['val'].replace('null', '\"0\"')))
 
 
-
+    @logger.catch
     def __get_color(self, vals):
         result = []
         for val in vals:
@@ -85,6 +90,21 @@ class Kinklist:
                 if int(val) == choice['id']:
                     result.append(choice['color'])
         return result
+
+    @logger.catch
+    def __log(self, req):
+        ip = ""
+        if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+            ip = (request.environ['REMOTE_ADDR'])
+        else:
+            ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
+        logger.info(ip + " " + req.environ['REQUEST_URI'])
+        self.db.execute("INSERT INTO hits(ip, timestamp, url, sec_ch_ua, sec_ch_ua_mobile, sec_ch_ua_platform, "
+                        "user_agent, accept_language, path, query) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
+                        (ip, int(time.time()), req.environ['REQUEST_URI'], req.environ['HTTP_SEC_CH_UA'],
+                         req.environ['HTTP_SEC_CH_UA_MOBILE'], req.environ['HTTP_SEC_CH_UA_PLATFORM'],
+                         req.environ['HTTP_USER_AGENT'], req.environ['HTTP_ACCEPT_LANGUAGE'],
+                         req.environ['PATH_INFO'], req.environ['QUERY_STRING']), commit=True)
 
 
     @logger.catch
@@ -95,6 +115,7 @@ class Kinklist:
 
         @self.app.route('/', methods = ['GET', 'POST'])
         def index():
+            self.__log(request)
             user = request.cookies.get('user', default='')
             secret = request.cookies.get('secret', default='')
             values = request.cookies.get('values', default='')
@@ -138,18 +159,17 @@ class Kinklist:
                 res = make_response()
                 res.status_code = 200
                 return res
-
+            else:
+                res = make_response()
+                res.status_code = 501
+                return res
 
 
         @self.app.route('/results')
         def results():
+            self.__log(request)
             token = request.args.get('token', default='')
-            ip = ""
-            if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-                ip = (request.environ['REMOTE_ADDR'])
-            else:
-                ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
-            logger.info(ip)
+
             if token == '':
                 return redirect(url_for('index'))
             else:
@@ -160,12 +180,7 @@ class Kinklist:
 
         @self.app.route('/compare')
         def compare():
-            ip = ""
-            if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-                ip = (request.environ['REMOTE_ADDR'])
-            else:
-                ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
-            logger.info(ip)
+            self.__log(request)
             a = request.args.get('a', default='')
             b = request.args.get('b', default='')
             if a == '' or b == '':
@@ -181,12 +196,7 @@ class Kinklist:
 
         @self.app.route('/compare4')
         def compare4():
-            ip = ""
-            if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-                ip = (request.environ['REMOTE_ADDR'])
-            else:
-                ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
-            logger.info(ip)
+            self.__log(request)
             a = request.args.get('a', default='')
             b = request.args.get('b', default='')
             c = request.args.get('c', default='')
@@ -207,6 +217,7 @@ class Kinklist:
 
         @self.app.route('/config')
         def config():
+            self.__log(request)
             response = jsonify(self.config)
             response.status_code = 200
             return response
