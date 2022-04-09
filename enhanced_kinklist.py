@@ -93,20 +93,18 @@ class Kinklist:
 
     @logger.catch
     def __log(self, req):
-        with open("environ.txt", "w") as text_file:
-            text_file.write(str(req.headers))
         ip = ""
         if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
             ip = (request.environ['REMOTE_ADDR'])
         else:
             ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
-        logger.info(ip + " " + req.environ['REQUEST_URI'])
+        logger.info(ip + " " + req.environ.get('REQUEST_URI'))
         self.db.execute("INSERT INTO hits(ip, timestamp, url, sec_ch_ua, sec_ch_ua_mobile, sec_ch_ua_platform, "
                         "user_agent, accept_language, path, query) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
-                        (ip, int(time.time()), req.environ['REQUEST_URI'], req.environ['HTTP_SEC_CH_UA'],
-                         req.environ['HTTP_SEC_CH_UA_MOBILE'], req.environ['HTTP_SEC_CH_UA_PLATFORM'],
-                         req.environ['HTTP_USER_AGENT'], req.environ['HTTP_ACCEPT_LANGUAGE'],
-                         req.environ['PATH_INFO'], req.environ['QUERY_STRING']), commit=True)
+                        (ip, int(time.time()), req.environ.get('REQUEST_URI'), req.environ.get('HTTP_SEC_CH_UA'),
+                         req.environ.get('HTTP_SEC_CH_UA_MOBILE'), req.environ.get('HTTP_SEC_CH_UA_PLATFORM'),
+                         req.environ.get('HTTP_USER_AGENT'), req.environ.get('HTTP_ACCEPT_LANGUAGE'),
+                         req.environ.get('PATH_INFO'), req.environ.get('QUERY_STRING')), commit=True)
 
 
     @logger.catch
