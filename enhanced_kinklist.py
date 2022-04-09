@@ -93,6 +93,7 @@ class Kinklist:
 
     @logger.catch
     def __log(self, req):
+        logger.info(req.environ)
         ip = ""
         if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
             ip = (request.environ['REMOTE_ADDR'])
