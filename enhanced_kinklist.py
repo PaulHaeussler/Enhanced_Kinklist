@@ -16,6 +16,7 @@ from db import MySQLPool
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
+logger.add("latest.log")
 
 class Kinklist:
 
@@ -36,7 +37,7 @@ class Kinklist:
         self.db = MySQLPool(host=args['dbhost'], user=args['dbuser'], password=args['dbpw'], database=args['dbschema'],
                        pool_size=15)
 
-    @logger.catch
+
     def get_val_string(self):
         result = ""
         for group in self.config['kink_groups']:
@@ -47,13 +48,13 @@ class Kinklist:
                 result += "#"
         return result
 
-    @logger.catch
+
     def get_item(self, meta, key):
         for m in meta:
                 if m['id'] == key:
                     return m['val']
 
-    @logger.catch
+
     def resolve_ids(self, data):
         result = []
         for group in self.config['kink_groups']:
@@ -68,21 +69,21 @@ class Kinklist:
             result.append(g)
         return result
 
-    @logger.catch
+
     def __serialize_cols(self, cols):
         result = ""
         for col in cols:
             result += col + ", "
         return result[:-2]
 
-    @logger.catch
+
     def __get_id_val(self, id, data):
         for d in data:
             if id == d['id']:
                 return self.__get_color(json.loads(d['val'].replace('null', '\"0\"')))
 
 
-    @logger.catch
+
     def __get_color(self, vals):
         result = []
         for val in vals:
@@ -91,7 +92,7 @@ class Kinklist:
                     result.append(choice['color'])
         return result
 
-    @logger.catch
+
     def __log(self, req):
         ip = ""
         if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
@@ -147,7 +148,11 @@ class Kinklist:
                     m = inputs['meta']
                     t = round(time.time()*1000)
                     if len(self.db.execute("SELECT * FROM users WHERE user=%s;", (user, ))) == 0:
-                        self.db.execute("INSERT INTO users(user, username, sex, age, fap_freq, sex_freq, body_count, ip, created) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);", (user, self.get_item(m, 'name'), self.get_item(m, 'sex'), self.get_item(m, 'age'), self.get_item(m, 'fap_freq'), self.get_item(m, 'sex_freq'), self.get_item(m, 'body_count'), ip, t), commit=True)
+                        self.db.execute("INSERT INTO users(user, username, sex, age, fap_freq, sex_freq, body_count, "
+                                        "ip, created) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);",
+                                        (user, self.get_item(m, 'name'), self.get_item(m, 'sex'),
+                                         self.get_item(m, 'age'), self.get_item(m, 'fap_freq'),
+                                         self.get_item(m, 'sex_freq'), self.get_item(m, 'body_count'), ip, t), commit=True)
                     uid = self.db.execute("SELECT id FROM users WHERE user=%s;", (user,))[0][0]
 
                     self.db.execute("INSERT INTO answers(user_id, timestamp, token, choices_json) VALUES(%s, %s, %s, %s);", (int(uid), t, token, json.dumps(inputs['kinks'])), commit=True)
