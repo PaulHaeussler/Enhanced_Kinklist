@@ -143,7 +143,6 @@ class Kinklist:
                         ip = (request.environ['REMOTE_ADDR'])
                     else:
                         ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
-                    logger.info(ip)
                     token = str(uuid.uuid4())
                     m = inputs['meta']
                     t = round(time.time()*1000)

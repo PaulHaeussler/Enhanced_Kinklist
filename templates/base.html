@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h2 class="title">Enhanced Kinklist</h2>
+    <div onclick="window.location.href = '{{ url_for('index') }}';">
+        <h2 class="title" style="cursor: pointer;">Enhanced Kinklist</h2>
+    </div>
     <div id="main_container">
         {% block content %}{% endblock %}
     </div>
