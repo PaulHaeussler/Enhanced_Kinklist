@@ -158,8 +158,6 @@ function test(){
 
 function build_list(){
 
-    console.log('Hello')
-
     $.ajax({
     type: 'GET',
     url: 'config',
@@ -423,7 +421,7 @@ function submit_results(){
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({"meta": meta, "kinks": kinks}),
         }).then(res => {
-            window.location.replace('/results?token=' + $.cookie('token'))
+            window.location.replace('/results?token=' + $.cookie('token') + "&justCreated=true")
         })
     }
 }
@@ -448,3 +446,4 @@ function checkLocalStorage(){
 
 
 }
+

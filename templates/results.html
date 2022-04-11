@@ -22,9 +22,9 @@
             {% endfor %}
         </div>
         <br>
-        <button id="btn_copy" class="submit" onclick="copyToClipboard(window.location.href)">Copy result link to clipboard</button>
+        <button id="btn_copy" class="submit" onclick="copyToClipboard()">Copy result link to clipboard</button>
         <br>
-        <span>
+        <span id="justCreatedTip">
             Noticed something that's not quite right yet? Just go back (your progress will still be there) and create a new result!
         </span>
         <br>
@@ -49,10 +49,20 @@
         </div>
 </div>
 <script>
-  function copyToClipboard(text) {
+  var urlParams = new URLSearchParams(window.location.search);
+  window.token = urlParams.get('token');
+  window.justCreated = urlParams.get('justCreated');
+  console.log(window.token)
+  console.log(window.justCreated)
+
+  if(window.justCreated !== 'true'){
+    document.getElementById('justCreatedTip').remove();
+  }
+
+  function copyToClipboard() {
       var $temp = $("<input>");
       $("body").append($temp);
-      $temp.val(text).select();
+      $temp.val('{{ url_for('results', _external=True) }}' + '?token=' + window.token).select();
       document.execCommand("copy");
       $temp.remove();
       document.getElementById('btn_copy').innerText = "Copied!"
@@ -60,5 +70,6 @@
         document.getElementById('btn_copy').innerText = "Copy result link to clipboard"
         }, 3000);
   }
+
 </script>
 {% endblock %}
