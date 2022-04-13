@@ -18,6 +18,16 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 logger.add("latest.log")
 
+def read_args():
+    parser = argparse.ArgumentParser(
+        description='Bot to provide tracking of submissions in certain discord channels')
+    parser.add_argument('dbhost')
+    parser.add_argument('dbschema')
+    parser.add_argument('dbuser')
+    parser.add_argument('dbpw')
+    args = vars(parser.parse_args())
+    return args
+
 class Kinklist:
 
     @logger.catch
@@ -26,16 +36,13 @@ class Kinklist:
         self.config = json.load(open(json_file))
         logger.info("Starting up...")
 
-        parser = argparse.ArgumentParser(
-            description='Bot to provide tracking of submissions in certain discord channels')
-        parser.add_argument('dbhost')
-        parser.add_argument('dbschema')
-        parser.add_argument('dbuser')
-        parser.add_argument('dbpw')
-        args = vars(parser.parse_args())
 
+        args = read_args()
         self.db = MySQLPool(host=args['dbhost'], user=args['dbuser'], password=args['dbpw'], database=args['dbschema'],
                        pool_size=15)
+        self.results = []
+        for r in self.db.execute("SELECT token FROM answers;"):
+            self.results.append(r[0])
 
 
     def get_val_string(self):
@@ -93,6 +100,9 @@ class Kinklist:
         return result
 
 
+    def check_token(self, token):
+        return token in self.results
+
     def __log(self, req):
         ip = ""
         if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
@@ -144,6 +154,7 @@ class Kinklist:
                     else:
                         ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
                     token = str(uuid.uuid4())
+                    self.results.append(token)
                     m = inputs['meta']
                     t = round(time.time()*1000)
                     if len(self.db.execute("SELECT * FROM users WHERE user=%s;", (user, ))) == 0:
@@ -174,7 +185,7 @@ class Kinklist:
             self.__log(request)
             token = request.args.get('token', default='')
 
-            if token == '':
+            if not self.check_token(token):
                 return redirect(url_for('index'))
             else:
                 data = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (token,))
@@ -187,7 +198,7 @@ class Kinklist:
             self.__log(request)
             a = request.args.get('a', default='')
             b = request.args.get('b', default='')
-            if a == '' or b == '':
+            if not self.check_token(a) or not self.check_token(b):
                 return redirect(url_for('index'))
             else:
                 data_a = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (a,))
@@ -205,7 +216,7 @@ class Kinklist:
             b = request.args.get('b', default='')
             c = request.args.get('c', default='')
             d = request.args.get('d', default='')
-            if a == '' or b == '':
+            if not self.check_token(a) or not self.check_token(b) or not self.check_token(c) or not self.check_token(d):
                 return redirect(url_for('index'))
             else:
                 data_a = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (a,))
