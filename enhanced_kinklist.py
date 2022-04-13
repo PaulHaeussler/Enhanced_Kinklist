@@ -157,6 +157,8 @@ class Kinklist:
                     self.results.append(token)
                     m = inputs['meta']
                     for k in inputs['kinks']:
+                        if k["val"] is None:
+                            return redirect(render_template('error.html'))
                         k["val"].replace("null", "0")
                     t = round(time.time()*1000)
                     if len(self.db.execute("SELECT * FROM users WHERE user=%s;", (user, ))) == 0:
