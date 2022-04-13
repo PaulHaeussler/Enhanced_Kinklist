@@ -156,6 +156,8 @@ class Kinklist:
                     token = str(uuid.uuid4())
                     self.results.append(token)
                     m = inputs['meta']
+                    for k in inputs['kinks']:
+                        k["val"].replace("null", "0")
                     t = round(time.time()*1000)
                     if len(self.db.execute("SELECT * FROM users WHERE user=%s;", (user, ))) == 0:
                         self.db.execute("INSERT INTO users(user, username, sex, age, fap_freq, sex_freq, body_count, "
