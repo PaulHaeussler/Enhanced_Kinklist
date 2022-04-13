@@ -130,6 +130,7 @@ class Kinklist:
             user = request.cookies.get('user', default='')
             secret = request.cookies.get('secret', default='')
             values = request.cookies.get('values', default='')
+            print(user)
 
             if request.method == 'GET':
 
@@ -166,7 +167,8 @@ class Kinklist:
                                          self.get_item(m, 'age'), self.get_item(m, 'fap_freq'),
                                          self.get_item(m, 'sex_freq'), self.get_item(m, 'body_count'), ip, t), commit=True)
                     uid = self.db.execute("SELECT id FROM users WHERE user=%s;", (user,))[0][0]
-
+                    if uid is None:
+                        return redirect(url_for('error.html'))
                     self.db.execute("INSERT INTO answers(user_id, timestamp, token, choices_json) VALUES(%s, %s, %s, %s);", (int(uid), t, token, json.dumps(inputs['kinks'])), commit=True)
                     logger.info("Created result token " + token)
                     res_results = make_response()
