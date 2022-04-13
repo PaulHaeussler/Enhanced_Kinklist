@@ -238,6 +238,22 @@ function build_list(){
                     $('html, body').animate({ scrollTop: 0 }, 'fast');
                 }
             }
+            var resetUser = document.createElement('btn')
+            resetUser.classList.add('reset')
+            resetUser.innerText = 'Reset User'
+            resetUser.onclick = function(){
+                if(confirm('Are you really sure? This will reset the metadata (name, age, ...) that you entered. Your choices will not be affected.')){
+                    $.cookie("user", null, { path: '/' })
+                    window.localStorage.removeItem('meta_name');
+                    window.localStorage.removeItem('meta_sex_freq');
+                    window.localStorage.removeItem('meta_sex');
+                    window.localStorage.removeItem('meta_age');
+                    window.localStorage.removeItem('meta_fap_freq');
+                    window.localStorage.removeItem('meta_body_count');
+                    window.location.reload();
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+                }
+            }
             document.getElementById('footer_container').appendChild(submit)
             document.getElementById('footer_container').appendChild(reset)
 

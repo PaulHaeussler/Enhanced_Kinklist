@@ -130,7 +130,6 @@ class Kinklist:
             user = request.cookies.get('user', default='')
             secret = request.cookies.get('secret', default='')
             values = request.cookies.get('values', default='')
-            print(user)
 
             if request.method == 'GET':
 

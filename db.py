@@ -52,7 +52,6 @@ class MySQLPool(object):
         conn.close()
 
     def execute(self, sql, args=None, commit=False):
-        print(sql)
         """
         Execute a sql, it could be with args and with out args. The usage is
         similar with execute() function in module pymysql.
