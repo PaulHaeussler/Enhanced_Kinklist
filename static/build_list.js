@@ -256,6 +256,7 @@ function build_list(){
             }
             document.getElementById('footer_container').appendChild(submit)
             document.getElementById('footer_container').appendChild(reset)
+            document.getElementById('footer_container').appendChild(resetUser)
 
             var kinkgroups = data['kink_groups']
             window.groups = kinkgroups
