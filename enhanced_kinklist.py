@@ -147,7 +147,7 @@ class Kinklist:
                 inputs = request.get_json()
 
                 if user == '' or secret == '':
-                    return redirect(url_for('error.html'))
+                    return redirect(render_template('error.html'))
                 else:
                     ip = ""
                     if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
@@ -161,6 +161,7 @@ class Kinklist:
                         k["val"].replace("null", "0")
                     t = round(time.time()*1000)
                     if len(self.db.execute("SELECT * FROM users WHERE user=%s;", (user, ))) == 0:
+                        logging.debug("Adding new User")
                         self.db.execute("INSERT INTO users(user, username, sex, age, fap_freq, sex_freq, body_count, "
                                         "ip, created) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);",
                                         (user, self.get_item(m, 'name'), self.get_item(m, 'sex'),
