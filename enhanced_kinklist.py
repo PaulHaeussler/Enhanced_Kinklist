@@ -186,7 +186,7 @@ class Kinklist:
             token = request.args.get('token', default='')
 
             if not self.check_token(token):
-                return redirect(url_for('/'))
+                return redirect('/')
             else:
                 data = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (token,))
                 res = make_response(render_template('results.html', kinks=self.resolve_ids(json.loads(data[0][3])), username=data[0][6], sex=data[0][7], age=data[0][8], fap_freq=data[0][9], sex_freq=data[0][10], body_count=data[0][11], created=[data[0][1]], choices=self.config['categories']))
@@ -199,7 +199,7 @@ class Kinklist:
             a = request.args.get('a', default='')
             b = request.args.get('b', default='')
             if not self.check_token(a) or not self.check_token(b):
-                return redirect(url_for('/'))
+                return redirect('/')
             else:
                 data_a = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (a,))
                 data_b = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (b,))
@@ -217,7 +217,7 @@ class Kinklist:
             c = request.args.get('c', default='')
             d = request.args.get('d', default='')
             if not self.check_token(a) or not self.check_token(b) or not self.check_token(c) or not self.check_token(d):
-                return redirect(url_for('/'))
+                return redirect('/')
             else:
                 data_a = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (a,))
                 data_b = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (b,))
