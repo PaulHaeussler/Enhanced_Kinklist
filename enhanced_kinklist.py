@@ -241,5 +241,4 @@ class Kinklist:
 
 if __name__ == '__main__':
     k = Kinklist()
-    k.config["SERVER_NAME"] = 'kinklist.bilbosjournal.com'
     k.create_app()
