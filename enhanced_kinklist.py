@@ -135,7 +135,7 @@ class Kinklist:
 
                 res = make_response(render_template('index.html'))
                 res.set_cookie('values', self.get_val_string())
-                if user == '' or secret == '':
+                if user == '' or secret == '' or user == 'null' or secret == 'null':
                     new_user = str(uuid.uuid4())
                     new_secret = str(uuid.uuid4())
                     res.set_cookie('user', new_user)
@@ -145,7 +145,7 @@ class Kinklist:
             elif request.method == 'POST':
                 inputs = request.get_json()
 
-                if user == '' or secret == '':
+                if user == '' or secret == '' or user == 'null' or secret == 'null':
                     return redirect(render_template('error.html'))
                 else:
                     ip = ""
@@ -162,7 +162,7 @@ class Kinklist:
                         k["val"].replace("null", "0")
                     t = round(time.time()*1000)
                     if len(self.db.execute("SELECT * FROM users WHERE user=%s;", (user, ))) == 0:
-                        logging.debug("Adding new User")
+                        logging.info("Adding new User")
                         self.db.execute("INSERT INTO users(user, username, sex, age, fap_freq, sex_freq, body_count, "
                                         "ip, created) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);",
                                         (user, self.get_item(m, 'name'), self.get_item(m, 'sex'),
