@@ -438,7 +438,7 @@ function submit_results(){
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({"meta": meta, "kinks": kinks}),
         }).then(res => {
-            window.location.replace('/results?token=' + $.cookie('token') + "&justCreated=true")
+            window.location.href = '/results?token=' + $.cookie('token') + "&justCreated=true"
         })
     }
 }
