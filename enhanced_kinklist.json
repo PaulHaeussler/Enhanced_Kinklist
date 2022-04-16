@@ -325,7 +325,7 @@
         },
         {
           "description": "Gloves",
-          "tip": "Can be leather or latex, one-time-use gloves don't count",
+          "tip": "Can be leather or latex, one-time-use gloves don't count, often covering the entire lower arm",
           "id": 2010
         },
         {
@@ -367,6 +367,16 @@
           "description": "Crossdressing",
           "tip": "Wearing clothes associated with the opposite gender, primarily done by men, see Femboy/Trap",
           "id": 2018
+        },
+        {
+          "description": "Soft Gloves",
+          "tip": "Gloves not made from latex or leather but silk, lace or similar 'soft' materials",
+          "id": 2019
+        },
+        {
+          "description": "Choker",
+          "tip": "Close-fitting Necklace made from cloth or leather, may feature other elements such as metal rings or hearts, not to be confused with a collar",
+          "id": 2020
         }
       ]
     },
