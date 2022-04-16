@@ -95,13 +95,11 @@ label.kinkl {
 
 label.meta {
     margin-right: 3px;
-    flex: 50%;
-    height: 20px;
+    flex: 30%;
 }
 
 select.meta {
     min-width: 220px;
-    height: 20px;
 }
 
 span.meta {
@@ -293,5 +291,13 @@ div.choices {
 
     #group_container {
         width: 100%;
+    }
+
+    .kinkTitle {
+        font-size: 20px;
+    }
+
+    .kinkDesc {
+        font-size: 14px;
     }
 }
