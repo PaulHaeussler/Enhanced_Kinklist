@@ -48,7 +48,7 @@ function removeChoice(sender){
     var kink = kc.childNodes[0].childNodes[0].innerText;
     updateCookie(kink, id, pos)
     div.innerHTML = ''
-    div.style.backgroundColor = 'white'
+    div.style.backgroundColor = '#dbdbdb'
     buildOptions(div, kink, pos)
 }
 

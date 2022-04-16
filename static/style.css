@@ -140,7 +140,7 @@ span.meta {
 }
 
 span.choice-text {
-    margin-left: 10px
+    margin-left: 10px;
 }
 
 div.dchoice {
@@ -195,7 +195,7 @@ th.header {
 }
 
 .cdiv:hover {
-    opacity: 0.7
+    opacity: 0.7;
 }
 
 .kinkTitle {
