@@ -213,6 +213,7 @@ btn.entered {
     margin-right: auto;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
 }
 
 btn.entered:hover {
