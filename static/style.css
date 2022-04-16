@@ -271,10 +271,6 @@ div.choices {
 
 @media all and (max-width: 600px)
 {
-    div.kinkgroup {
-        width: 100%;
-    }
-
     #meta_container {
         width: 95%;
     }
