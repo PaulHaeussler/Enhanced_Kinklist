@@ -46,8 +46,9 @@ h2.title {
 }
 
 #meta_container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-flow-direction: row;
+    grid-template-columns: 1fr 1fr;
     width: 40%;
 }
 
@@ -269,7 +270,7 @@ div.choices {
 }
 
 input.meta {
-    min-width: 204px;
+    min-width: 200px;
 }
 
 @media all and (max-width: 600px)
