@@ -2,6 +2,15 @@
     font-family: Verdana, sans-serif;
 }
 
+@media all and (max-width: 600px)
+{
+    div.kinkgroup
+    {
+        width: 100%;
+    }
+}
+
+
 h2.title {
     justify-content: center;
     text-align: center;
