@@ -2,13 +2,6 @@
     font-family: Verdana, sans-serif;
 }
 
-@media all and (max-width: 600px)
-{
-    div.kinkgroup
-    {
-        width: 100%;
-    }
-}
 
 
 h2.title {
@@ -28,13 +21,13 @@ h2.title {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 70%;
 }
 
 #choices_container {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-auto-flow: column;
-    padding: 3px;
 }
 
 #footer_container {
@@ -54,7 +47,8 @@ h2.title {
 
 #meta_container {
     display: flex;
-    height: 20px;
+    flex-wrap: wrap;
+    width: 40%;
 }
 
 #results_container {
@@ -100,8 +94,14 @@ label.kinkl {
 }
 
 label.meta {
-    margin-left: 20px;
     margin-right: 3px;
+    flex: 50%;
+    height: 20px;
+}
+
+select.meta {
+    min-width: 220px;
+    height: 20px;
 }
 
 span.meta {
@@ -147,7 +147,6 @@ span.choice-text {
 div.dchoice {
     display: inline-block;
     margin-left: 15px;
-    margin-right: 15px;
 }
 
 div.kinkgroup {
@@ -155,7 +154,6 @@ div.kinkgroup {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 70%;
 }
 
 .groupTitle {
@@ -172,7 +170,7 @@ table.kinks {
 
 td, th {
     border: 1px solid black;
-    text-align: left
+    text-align: left;
     padding: 0.05rem;
 }
 
@@ -270,4 +268,30 @@ div.kink_group {
 div.choices {
     display: flex;
     padding: 5px;
+}
+
+
+@media all and (max-width: 600px)
+{
+    div.kinkgroup {
+        width: 100%;
+    }
+
+    #meta_container {
+        width: 95%;
+    }
+
+    select.meta {
+        min-width: 204px;
+    }
+
+    #choices_container {
+        grid-template-rows: auto;
+        grid-template-columns: 1fr;
+        grid-auto-flow: row;
+    }
+
+    #group_container {
+        width: 100%;
+    }
 }
