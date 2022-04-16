@@ -296,4 +296,10 @@ div.choices {
     .kinkDesc {
         font-size: 14px;
     }
+
+    .cdiv {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-auto-flow: row;
+    }
 }
