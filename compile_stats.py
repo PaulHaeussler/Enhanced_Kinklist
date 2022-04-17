@@ -1,4 +1,5 @@
 import json
+import operator
 from dataclasses import dataclass, field
 from os.path import dirname, abspath
 
@@ -13,6 +14,19 @@ class StatCompiler:
         json_file = dirname(abspath(__file__)) + "/enhanced_kinklist.json"
         self.config = json.load(open(json_file))
 
+    def __build_global_choices(self):
+        result = []
+        for group in self.config["kink_groups"]:
+            cols = group["columns"]
+            for row in group["rows"]:
+                kink = dict()
+                kink["id"] = row["id"]
+                kink["choices"] = []
+                for col in cols:
+                    kink["choices"].append(new_choices_dict())
+                result.append(kink)
+        return result
+
 
     def compile(self):
         # get users
@@ -25,25 +39,17 @@ class StatCompiler:
             tmp = db.execute("SELECT timestamp, choices_json FROM answers WHERE user_id=%s ORDER BY timestamp DESC;", (user.id,))
             user.choices = json.loads(tmp[0][1])
 
-
-        g_choices = users[-1].choices
-        for c in g_choices:
-            vals = json.loads(c['val'])
-            c['val'] = None
-            c["total"] = []
-            for col in vals:
-                c["total"].append(new_choices_dict())
+        g_choices = self.__build_global_choices()
 
         for user in users:
-            self.compile_user(user)
-
+            self.compile_user(user, g_choices)
 
         g_stats = GlobalStats(users, g_choices)
         print()
         self.build_global_stats(g_stats)
 
 
-    def compile_user(self, user):
+    def compile_user(self, user, g_choices=None):
         user.stats = Stats()
         irow = 0
         for group in self.config["kink_groups"]:
@@ -51,7 +57,7 @@ class StatCompiler:
             user.stats.groups.append(kink_group)
             cols = group["columns"]
             for row in group["rows"]:
-                irow += 1
+
                 vals = user.lookup_kink_id(row["id"])
                 if vals is None:
                     vals = []
@@ -62,15 +68,27 @@ class StatCompiler:
                         val = "0"
                     user.stats.total_counts[val] += 1
                     kink_group.total_counts[val] += 1
+                    if not g_choices is None:
+                        g_choices[irow]["choices"][index][val] += 1
                     if cols[index] == "Giving":
                         user.stats.giver_receiver["giver"][val] += 1
                     elif cols[index] == "Receiving":
                         user.stats.giver_receiver["receiver"][val] += 1
+                irow += 1
 
 
     def build_global_stats(self, g_stats):
         print()
+        self.top10_hated(g_stats)
 
+
+    def top10_hated(self, g_stats):
+        l = dict()
+        for row in g_stats.choices:
+            for icol, col in enumerate(row["choices"]):
+                l[str(row['id']) + "-" + str(icol)] = col["7"]
+        l = sorted(l.items(), key=operator.itemgetter(1), reverse=True)
+        print()
 
 
 def new_choices_dict():
@@ -99,6 +117,9 @@ class GlobalStats:
     def __init__(self, users, choices):
         self.users = users
         self.choices = choices
+
+
+
 
 class Stats:
     def __init__(self):
