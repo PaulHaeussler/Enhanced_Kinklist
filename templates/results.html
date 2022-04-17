@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Results{% endblock %}
+{% block meta %}
+<meta name="description" content="Kinktest Results of {{ username }}"/>
+{% endblock %}
 {% block content %}
 <div id="container">
     <h3>Results</h3>
@@ -16,7 +19,7 @@
         <div id="choices_container">
             {% for c in choices %}
                 <div style="display: flex;">
-                    <span class="choice noedit" style="background-color: {{ c['color'] }}"></span>
+                    <span class="choice noedit" style="background-color: {{ c['color'] }}; margin-left: 10px; margin-right: 5px;"></span>
                     <label>{{ c['description'] }}</label>
                 </div>
             {% endfor %}
