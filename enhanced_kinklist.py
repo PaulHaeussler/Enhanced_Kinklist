@@ -247,7 +247,7 @@ class Kinklist:
             return response
 
         context = None
-        if stage is None:
+        if stage == "PROD":
             context = ('/etc/nginx/kinklist.crt', '/etc/nginx/kinklist.key')
         self.app.run(host='0.0.0.0', port=5000, ssl_context=context)
 
