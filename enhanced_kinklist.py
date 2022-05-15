@@ -3,6 +3,7 @@ import uuid
 import argparse
 import json
 import logging
+import os
 
 from loguru import logger
 from flask import Flask, jsonify, request, render_template, make_response, url_for
@@ -13,6 +14,8 @@ from os.path import dirname, abspath
 from werkzeug.utils import redirect
 
 from db import MySQLPool
+
+stage = os.environ["STAGE"]
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -243,7 +246,10 @@ class Kinklist:
             response.status_code = 200
             return response
 
-        self.app.run(host='0.0.0.0', port=5000)
+        context = None
+        if stage is None:
+            context = ('/etc/nginx/kinklist.crt', '/etc/nginx/kinklist.key')
+        self.app.run(host='0.0.0.0', port=5000, ssl_context=context)
 
 if __name__ == '__main__':
     k = Kinklist()

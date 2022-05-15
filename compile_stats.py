@@ -79,16 +79,36 @@ class StatCompiler:
 
     def build_global_stats(self, g_stats):
         print()
-        self.top10_hated(g_stats)
+
+
 
 
     def top10_hated(self, g_stats):
         l = dict()
         for row in g_stats.choices:
             for icol, col in enumerate(row["choices"]):
-                l[str(row['id']) + "-" + str(icol)] = col["7"]
+                l[str(row['id']) + "-" + str(icol)] = col["1"]
         l = sorted(l.items(), key=operator.itemgetter(1), reverse=True)
         print()
+        sorted_l = {}
+        for kink in l:
+            tmp = kink[0].split("-")
+            desc, col = self.lookup_kink_id(tmp[0], tmp[1])
+            sorted_l[desc + "-" + col] = kink[1]
+        print()
+
+
+    def lookup_kink_id(self, id, col_index=None):
+        for g in self.config["kink_groups"]:
+            for row in g["rows"]:
+                if row["id"] == int(id):
+                    col = None
+                    if not col_index is None:
+                        for ci, c in enumerate(g["columns"]):
+                            if ci == int(col_index):
+                                col = c
+                    return row["description"], col
+
 
 
 def new_choices_dict():
