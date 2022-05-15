@@ -246,10 +246,7 @@ class Kinklist:
             response.status_code = 200
             return response
 
-        context = None
-        if stage == "PROD":
-            context = ('/etc/nginx/kinklist.crt', '/etc/nginx/kinklist.key')
-        self.app.run(host='0.0.0.0', port=5000, ssl_context=context)
+        self.app.run(host='0.0.0.0', port=5000)
 
 if __name__ == '__main__':
     k = Kinklist()
