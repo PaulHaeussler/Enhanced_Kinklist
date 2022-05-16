@@ -65,7 +65,7 @@
   function copyToClipboard() {
       var $temp = $("<input>");
       $("body").append($temp);
-      $temp.val('{{ url_for('results', _external=True) }}' + '?token=' + window.token).select();
+      $temp.val('{{ url_for('/') }}' + '/' + window.token).select();
       document.execCommand("copy");
       $temp.remove();
       document.getElementById('btn_copy').innerText = "Copied!"
