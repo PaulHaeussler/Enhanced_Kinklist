@@ -1,3 +1,5 @@
+import random
+import string
 import time
 import uuid
 import argparse
@@ -106,6 +108,10 @@ class Kinklist:
     def check_token(self, token):
         return token in self.results
 
+
+    def createHash(self):
+        return ''.join(random.choices(string.ascii_letters + string.digits, k=5))
+
     def __log(self, req):
         ip = ""
         if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
@@ -126,6 +132,16 @@ class Kinklist:
 
         self.app = Flask(__name__)
 
+        @self.app.route('/<token>', methods=['GET'])
+        def short_results(token):
+            self.__log(request)
+
+            if not self.check_token(token):
+                return redirect('/')
+            else:
+                data = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (token,))
+                res = make_response(render_template('results.html', kinks=self.resolve_ids(json.loads(data[0][3])), username=data[0][6], sex=data[0][7], age=data[0][8], fap_freq=data[0][9], sex_freq=data[0][10], body_count=data[0][11], created=[data[0][1]], choices=self.config['categories']))
+                return res
 
         @self.app.route('/', methods = ['GET', 'POST'])
         def index():
@@ -156,7 +172,7 @@ class Kinklist:
                         ip = (request.environ['REMOTE_ADDR'])
                     else:
                         ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
-                    token = str(uuid.uuid4())
+                    token = self.createHash()
                     self.results.append(token)
                     m = inputs['meta']
                     for k in inputs['kinks']:
