@@ -53,7 +53,12 @@
 </div>
 <script>
   var urlParams = new URLSearchParams(window.location.search);
-  window.token = urlParams.get('token');
+  var token = urlParams.get('token');
+  if(token === null){
+    paths = window.location.pathname.split('/')
+    window.token = paths[paths.length - 1]
+  }
+  window.token = token
   window.justCreated = urlParams.get('justCreated');
   console.log(window.token)
   console.log(window.justCreated)
