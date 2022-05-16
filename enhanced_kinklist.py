@@ -135,7 +135,7 @@ class Kinklist:
         @self.app.route('/<token>', methods=['GET'])
         def short_results(token):
             self.__log(request)
-
+            token = token.split('&')[0]
             if not self.check_token(token):
                 return redirect('/')
             else:
