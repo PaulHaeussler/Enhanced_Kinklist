@@ -13,3 +13,6 @@ Please be aware that the white answering choice "Not applicable/entered" is tech
 - Shorter Version, more versions in general
 - Stats, comparing your anwsers to how others have answered
 - GUI Support for comparison; it's already implemented, you can compare two results with https://kinkli.st/compare?a=<Token A\>&b=\<Token B\>
+
+
+The page fetches enhanced_kinklist.json from /config on load, this JSON could (theoretically) be completely changed with different answering choices and different questions.
