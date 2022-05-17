@@ -12,4 +12,4 @@ Please be aware that the white answering choice "Not applicable/entered" is tech
 
 - Shorter Version, more versions in general
 - Stats, comparing your anwsers to how others have answered
-- GUI Support for comparison; it's already implemented, you can compare two results with https://kinkli.st/compare?a=\<Token A\>&b=\<Token B\>
+- GUI Support for comparison; it's already implemented, you can compare two results with https://kinkli.st/compare?a=<Token A\>&b=\<Token B\>
