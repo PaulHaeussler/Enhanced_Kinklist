@@ -8,7 +8,7 @@ import logging
 import os
 
 from loguru import logger
-from flask import Flask, jsonify, request, render_template, make_response, url_for
+from flask import Flask, jsonify, request, render_template, make_response, url_for, send_from_directory
 from os.path import dirname, abspath
 
 
@@ -261,6 +261,12 @@ class Kinklist:
             response = jsonify(self.config)
             response.status_code = 200
             return response
+
+        @self.app.route('/robots.txt')
+        @self.app.route('/sitemap.xml')
+        def static_from_root():
+            return send_from_directory(self.app.static_folder, request.path[1:])
+
 
         self.app.run(host='0.0.0.0', port=5000)
 
