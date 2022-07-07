@@ -6,6 +6,7 @@ import argparse
 import json
 import logging
 import os
+import copy
 
 from loguru import logger
 from flask import Flask, jsonify, request, render_template, make_response, url_for, send_from_directory
@@ -253,6 +254,20 @@ class Kinklist:
                                                     kinks_c=self.resolve_ids(json.loads(data_c[0][3])), username_c=data_c[0][6], sex_c=data_c[0][7], age_c=data_c[0][8], fap_freq_c=data_c[0][9], sex_freq_c=data_c[0][10], body_count_c=data_c[0][11], created_c=[data_c[0][1]],
                                                     kinks_d=self.resolve_ids(json.loads(data_d[0][3])), username_d=data_d[0][6], sex_d=data_d[0][7], age_d=data_d[0][8], fap_freq_d=data_d[0][9], sex_freq_d=data_d[0][10], body_count_d=data_d[0][11], created_d=[data_d[0][1]]))
                 return res
+
+
+        @self.app.route('/party')
+        def party():
+            self.__log(request)
+
+
+        @self.app.route('/party/draw', methods = ["GET"])
+        def party_draw():
+            cat = random.choice(self.config["kink_groups"])
+            kink = copy.deepcopy(random.choice(cat["rows"]))
+            col = random.choice(cat["columns"])
+            kink["column"] = col
+            return jsonify(kink)
 
 
         @self.app.route('/config')
