@@ -37,13 +37,18 @@ def read_args():
 class Kinklist:
 
     @logger.catch
-    def __init__(self):
+    def __init__(self, dbhost=None, dbuser=None, dbpw=None, dbschema=None):
         json_file = dirname(abspath(__file__)) + "/enhanced_kinklist.json"
         self.config = json.load(open(json_file))
         logger.info("Starting up...")
 
 
         args = read_args()
+        if not dbhost is None:
+            args['dbhost'] = dbhost
+            args['dbuser'] = dbuser
+            args['dbpw'] = dbpw
+            args['dbschema'] = dbschema
         self.db = MySQLPool(host=args['dbhost'], user=args['dbuser'], password=args['dbpw'], database=args['dbschema'],
                        pool_size=15)
         self.results = []
@@ -282,8 +287,10 @@ class Kinklist:
         def static_from_root():
             return send_from_directory(self.app.static_folder, request.path[1:])
 
-
-        self.app.run(host='0.0.0.0', port=5000)
+        if __name__ == '__main__':
+            self.app.run(host='0.0.0.0', port=5000)
+        else:
+            return self.app
 
 if __name__ == '__main__':
     k = Kinklist()
