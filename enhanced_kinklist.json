@@ -1369,6 +1369,11 @@
           "description": "Vore",
           "tip": "Physically consuming/swallowing a character through any orifice",
           "id": 19015
+        },
+        {
+          "description": "Futanari",
+          "tip": "Persons with a female body and both female and male genitalia",
+          "id": 19016
         }
       ]
     },
