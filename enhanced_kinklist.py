@@ -24,6 +24,12 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 logger.add("latest.log")
 
+def get_cat(color, colors):
+    for c in colors:
+        if c['color'] == color:
+            return c['description']
+    return 'UNKNOWN CATEGORY'
+
 def read_args():
     parser = argparse.ArgumentParser(
         description='Bot to provide tracking of submissions in certain discord channels')
@@ -137,6 +143,7 @@ class Kinklist:
     def create_app(self):
 
         self.app = Flask(__name__)
+        self.app.jinja_env.globals.update(get_cat=get_cat)
 
         @self.app.route('/<token>', methods=['GET'])
         def short_results(token):
