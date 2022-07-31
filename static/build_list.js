@@ -453,7 +453,11 @@ function checkLocalStorage(){
                 for(var i = 1; i < splt.length; i++){
                     list.push(splt[i])
                 }
-                window.localStorage.setItem(splt[0], JSON.stringify(list))
+                var val = JSON.stringify(list)
+                if (val == null){
+                    window.alert(list)
+                }
+                window.localStorage.setItem(splt[0], val)
             }
         }
 
