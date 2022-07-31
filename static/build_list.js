@@ -109,12 +109,16 @@ function updateCookie(kink, value, pos){
     var id = lookup(kink)
     var tmp = JSON.parse(window.localStorage.getItem(id))
     tmp[pos-1] = value
-    window.localStorage.setItem(id, JSON.stringify(tmp))
+    var val = JSON.stringify(tmp)
+    if (val == null){
+                    window.alert(tmp)
+                }
+    window.localStorage.setItem(id, val)
 
 }
 
 function getCookieVal(kink, pos){
-    var id = lookup(kink)
+    var id = lookup(kink)5
     var tmp = JSON.parse(window.localStorage.getItem(id))
     return tmp[pos-1]
 }
@@ -454,9 +458,6 @@ function checkLocalStorage(){
                     list.push(splt[i])
                 }
                 var val = JSON.stringify(list)
-                if (val == null){
-                    window.alert(list)
-                }
                 window.localStorage.setItem(splt[0], val)
             }
         }
