@@ -118,7 +118,7 @@ function updateCookie(kink, value, pos){
 }
 
 function getCookieVal(kink, pos){
-    var id = lookup(kink)5
+    var id = lookup(kink)
     var tmp = JSON.parse(window.localStorage.getItem(id))
     return tmp[pos-1]
 }
