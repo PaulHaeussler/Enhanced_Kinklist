@@ -111,7 +111,7 @@ function updateCookie(kink, value, pos){
     tmp[pos-1] = value
     var val = JSON.stringify(tmp)
     if (val == null){
-                    window.alert(id + tmp.toString()))
+                    window.alert(id + tmp.toString())
                 }
     window.localStorage.setItem(id, val)
 
