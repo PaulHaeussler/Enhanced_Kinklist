@@ -57,8 +57,6 @@ function removeChoice(sender){
 
 function buildOptions(parent, kink, pos){
 
-    var val = getCookieVal(kink, pos)
-
     $.each(window.choices, function(){
         var btn = document.createElement('button');
         btn.value = this['id']
@@ -120,7 +118,7 @@ function updateCookie(kink, value, pos){
 function getCookieVal(kink, pos){
     var id = lookup(kink)
     var tmp = JSON.parse(window.localStorage.getItem(id))
-    if(kink == 8002){
+    if(id == 8002){
         console.log(pos)
     }
     return tmp[pos-1]
@@ -349,7 +347,7 @@ function fill_cookie(){
                 $.each(this.childNodes, function(){
                     var first = true
                     var kink = "";
-                    var pos = 1;
+                    var pos = 0;
                     $.each(this.childNodes, function(){
                         if(this.tagName === 'TD'){
 
@@ -376,13 +374,14 @@ function fill_cookie(){
                             if(!(kink === "")){
 
                                 var cval = getCookieVal(kink, pos)
+                                pos += 1;
                                 if(cval !== '0' && this.className === 'choiceCell'){
                                     var cdiv = this.childNodes[0];
                                     if(cdiv.className === 'cdiv'){
                                         $.each(cdiv.childNodes, function(){
                                             if(this.value === cval){
                                                 this.click()
-                                                pos += 1;
+
                                             }
                                         })
 
