@@ -272,6 +272,76 @@
           "description": "Plus-sized",
           "tip": "Partners a bit thiccer than chubby",
           "id": 1030
+        },
+        {
+          "description": "Redhead",
+          "id": 1031
+        },
+        {
+          "description": "Dyed Hair (unnatural colors)",
+          "tip": "Persons with their hair dyed in unnatural colors like green or blue",
+          "id": 1032
+        }
+      ]
+    },
+    {
+      "description": "Ethnicities",
+      "tip": "Preferences in appearances",
+      "columns": [
+        "Partner"
+      ],
+      "rows": [
+        {
+          "description": "Caucasian/Middle European",
+          "tip": "Generic white persons from Europe or North America",
+          "id": 21001
+        },
+        {
+          "description": "Northern European",
+          "tip": "From Scandinavia",
+          "id": 21002
+        },
+        {
+          "description": "Southern European",
+          "tip": "Spain, Italy, Greece",
+          "id": 21003
+        },
+        {
+          "description": "Japanese",
+          "id": 21004
+        },
+        {
+          "description": "Korean",
+          "id": 21005
+        },
+        {
+          "description": "Chinese",
+          "id": 21006
+        },
+        {
+          "description": "South-Asian",
+          "tip": "Vietnam, Philippines",
+          "id": 21007
+        },
+        {
+          "description": "Indian",
+          "id": 21008
+        },
+        {
+          "description": "African",
+          "id": 21009
+        },
+        {
+          "description": "Afro-American",
+          "id": 21010
+        },
+        {
+          "description": "Latinos",
+          "id": 21011
+        },
+        {
+          "description": "Arabs",
+          "id": 21012
         }
       ]
     },
@@ -1285,6 +1355,11 @@
           "description": "Internal Urination",
           "tip": "The Giving Person urinating inside the vagina or anus of the Receiving Person",
           "id": 18005
+        },
+        {
+          "description": "Scat",
+          "tip": "Playing with human feces, defecating on someone or receiving",
+          "id": 18006
         }
       ]
     },
