@@ -46,7 +46,8 @@ class StatCompiler:
 
         g_stats = GlobalStats(users, g_choices)
         print()
-        self.build_global_stats(g_stats)
+        # self.build_global_stats(g_stats)
+        self.top10_hated(g_stats)
 
 
     def compile_user(self, user, g_choices=None):
@@ -87,7 +88,7 @@ class StatCompiler:
         l = dict()
         for row in g_stats.choices:
             for icol, col in enumerate(row["choices"]):
-                l[str(row['id']) + "-" + str(icol)] = col["1"]
+                l[str(row['id']) + "-" + str(icol)] = col["8"]
         l = sorted(l.items(), key=operator.itemgetter(1), reverse=True)
         print()
         sorted_l = {}

@@ -64,7 +64,7 @@
 
                             <div class="kink_row">
                                 {% for c in k['vals'] %}
-                                    <span class="choice noedit" style="background-color: {{ c }}"></span>
+                                    <span title="{{ get_cat(c, choices) }}" class="choice noedit" style="background-color: {{ c }}"></span>
                                 {% endfor %}
                                 <label class="kink">{{ k['name'] }}</label>
                             </div>
@@ -84,7 +84,7 @@
 
                             <div class="kink_row">
                                 {% for c in k['vals'] %}
-                                    <span class="choice noedit" style="background-color: {{ c }}"></span>
+                                    <span title="{{ get_cat(c, choices) }}" class="choice noedit" style="background-color: {{ c }}"></span>
                                 {% endfor %}
                                 <label class="kink">{{ k['name'] }}</label>
                             </div>
@@ -104,7 +104,7 @@
 
                             <div class="kink_row">
                                 {% for c in k['vals'] %}
-                                    <span class="choice noedit" style="background-color: {{ c }}"></span>
+                                    <span title="{{ get_cat(c, choices) }}" class="choice noedit" style="background-color: {{ c }}"></span>
                                 {% endfor %}
                                 <label class="kink">{{ k['name'] }}</label>
                             </div>
@@ -124,7 +124,7 @@
 
                             <div class="kink_row">
                                 {% for c in k['vals'] %}
-                                    <span class="choice noedit" style="background-color: {{ c }}"></span>
+                                    <span title="{{ get_cat(c, choices) }}" class="choice noedit" style="background-color: {{ c }}"></span>
                                 {% endfor %}
                                 <label class="kink">{{ k['name'] }}</label>
                             </div>

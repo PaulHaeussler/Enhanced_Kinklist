@@ -23,6 +23,12 @@ function enterChoice(sender){
     var lu = lookupChoice(id)
     btn.textContent = lu[0]
     div.style.backgroundColor = lu[1]
+    var index = sender.srcElement.getAttribute("index")
+    if(parseInt(window.index) < parseInt(index)){
+        window.index = index
+    }
+    updateProgress()
+    btn.setAttribute("index", index)
     btn.onclick = removeChoice
     if (tinycolor(lu[1]).getBrightness() < 128) {
         btn.style.color = 'white'
@@ -46,21 +52,29 @@ function removeChoice(sender){
         }
     }
     var kink = kc.childNodes[0].childNodes[0].innerText;
+    var index = sender.srcElement.getAttribute("index");
+
     updateCookie(kink, id, pos)
     div.innerHTML = ''
     div.style.backgroundColor = '#dbdbdb'
-    buildOptions(div, kink, pos)
+    buildOptions(div, kink, pos, index)
+}
+
+
+function updateProgress(){
+    var s = document.getElementById("progress")
+    s.innerText = Math.round(window.index / window.rowCount * 100) + "%"
 }
 
 
 
-
-function buildOptions(parent, kink, pos){
+function buildOptions(parent, kink, pos, index){
 
     $.each(window.choices, function(){
         var btn = document.createElement('button');
         btn.value = this['id']
         btn.classList.add('choice')
+        btn.setAttribute("index", index)
         btn.style.backgroundColor = this['color']
         btn.onclick = enterChoice
         parent.appendChild(btn)
@@ -118,9 +132,6 @@ function updateCookie(kink, value, pos){
 function getCookieVal(kink, pos){
     var id = lookup(kink)
     var tmp = JSON.parse(window.localStorage.getItem(id))
-    if(id == 8002){
-        console.log(pos)
-    }
     return tmp[pos-1]
 }
 
@@ -263,6 +274,10 @@ function build_list(){
             document.getElementById('footer_container').appendChild(reset)
             document.getElementById('footer_container').appendChild(resetUser)
 
+            window.index = 0
+            window.rowCount = 0
+
+            var index = 0
             var kinkgroups = data['kink_groups']
             window.groups = kinkgroups
             root = document.getElementById('group_container')
@@ -316,15 +331,15 @@ function build_list(){
                         td.classList.add('choiceCell')
                         var cdiv = document.createElement('div')
                         cdiv.classList.add('cdiv')
-                        buildOptions(cdiv, kink, pos)
+                        buildOptions(cdiv, kink, pos, index)
                         td.appendChild(cdiv)
                         row.appendChild(td)
                         pos += 1
                     })
-
+                    index += 1
                     table.appendChild(row)
                 })
-
+                window.rowCount = index
                 container.appendChild(title)
                 container.appendChild(desc)
                 container.appendChild(table)

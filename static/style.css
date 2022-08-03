@@ -3,6 +3,23 @@
 }
 
 
+#main_horizontal {
+    display: flex;
+    flex-direction: row;
+}
+
+#main_vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+div.progress {
+    position: fixed;
+    right: 0;
+}
+
 
 h2.title {
     justify-content: center;

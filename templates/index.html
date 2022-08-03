@@ -4,33 +4,40 @@
 <meta name="description" content="An in-depth questionare hoping to cover every (major) kink there is"/>
 {% endblock %}
 {% block content %}
-        <div id="choices_container"></div>
-        <br>
-        <div id="meta_container">
-            <label class="meta" for="meta_name">Name:</label>
-            <input class="meta" id="meta_name">
-            <label class="meta" for="meta_age">Age:</label>
-            <select class="meta" id="meta_age"></select>
-            <label class="meta" for="meta_sex">Sex:</label>
-            <select class="meta" id="meta_sex"></select>
-            <label class="meta" for="meta_fap_freq">Masturbation Frequency:</label>
-            <select class="meta" id="meta_fap_freq"></select>
-            <label class="meta" for="meta_sex_freq">Sex Frequency:</label>
-            <select class="meta" id="meta_sex_freq"></select>
-            <label class="meta" for="meta_body_count">Body Count:</label>
-            <select class="meta" id="meta_body_count"></select>
+    <div id="main_horizontal">
+        <div id="main_vertical">
+            <div id="choices_container"></div>
+            <br>
+            <div id="meta_container">
+                <label class="meta" for="meta_name">Name:</label>
+                <input class="meta" id="meta_name">
+                <label class="meta" for="meta_age">Age:</label>
+                <select class="meta" id="meta_age"></select>
+                <label class="meta" for="meta_sex">Sex:</label>
+                <select class="meta" id="meta_sex"></select>
+                <label class="meta" for="meta_fap_freq">Masturbation Frequency:</label>
+                <select class="meta" id="meta_fap_freq"></select>
+                <label class="meta" for="meta_sex_freq">Sex Frequency:</label>
+                <select class="meta" id="meta_sex_freq"></select>
+                <label class="meta" for="meta_body_count">Body Count:</label>
+                <select class="meta" id="meta_body_count"></select>
+            </div>
+            <br>
+            <br>
+            <span class="meta">Except for name, no fields are required, feel free to skip with what you feel uncomfortable sharing. Please also refer to the descriptions of groups and kinks to know what exactly is meant by the terms. Partner doesn't have to be your actual partner but an <b>ideal</b> partner. If your choice differs depending on different partners, go with the better one.</span>
+            <div id="group_container"></div>
+            <div id="footer_container"></div>
+            <script defer>
+                if(window.localStorage.length === 0){
+                    setupLocalStorage()
+                } else {
+                    checkLocalStorage()
+                }
+                build_list()
+            </script>
         </div>
-        <br>
-        <br>
-<span class="meta">Except for name, no fields are required, feel free to skip with what you feel uncomfortable sharing. Please also refer to the descriptions of groups and kinks to know what exactly is meant by the terms. Partner doesn't have to be your actual partner but an <b>ideal</b> partner. If your choice differs depending on different partners, go with the better one.</span>
-        <div id="group_container"></div>
-        <div id="footer_container"></div>
-        <script defer>
-            if(window.localStorage.length === 0){
-                setupLocalStorage()
-            } else {
-                checkLocalStorage()
-            }
-            build_list()
-        </script>
+        <div class="progress">
+            <span id="progress">0 %</span>
+        </div>
+    </div>
 {% endblock %}
