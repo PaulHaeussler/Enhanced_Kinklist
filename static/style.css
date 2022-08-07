@@ -376,6 +376,15 @@ input.meta {
     min-width: 200px;
 }
 
+#btn_copy {
+    background: green;
+    border-radius: 10px;
+    border: 1px solid black;
+    color: white;
+    height: 40px;
+    font-size: 16px;
+}
+
 @media all and (max-width: 1100px)
 {
     #results_container {
@@ -432,6 +441,7 @@ input.meta {
         font-size: 11px;
         grid-column: 1 / 5;
     }
+
 
     #results_container {
         grid-template-columns: 1fr 1fr 1fr;
