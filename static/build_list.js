@@ -66,7 +66,9 @@ function updateProgress(){
     s.innerText = Math.round(window.index / window.rowCount * 100) + "%"
 }
 
-
+function imgError(image) {
+    //remove parents here
+}
 
 function buildOptions(parent, kink, pos, index){
 
@@ -320,9 +322,36 @@ function build_list(){
                     var kink_desc = document.createElement('label')
                     kink_desc.classList.add('kinkDesc')
                     kink_desc.textContent = this['tip']
+
+                    var imglink = 'static/imgs/' + this['id'] + '.jpg'
+                    var hdiv = document.createElement('div')
+                    hdiv.classList.add('hdiv')
+                    var tipdiv = document.createElement('div')
+                    tipdiv.classList.add('tipdiv')
+                    var tdiv = document.createElement('div')
+                    tdiv.classList.add('tooltip')
+                    var a = document.createElement('a')
+                    a.setAttribute('target', '_blank')
+                    a.setAttribute('href', imglink)
+                    var img = document.createElement('img')
+                    img.setAttribute('src', "static/img.svg")
+                    img.classList.add('icon')
+                    a.appendChild(img)
+                    tdiv.appendChild(a)
+                    var timg = document.createElement('img')
+                    timg.classList.add('tipimg')
+                    timg.setAttribute('src', imglink)
+                    timg.onerror = function (image) {
+                        var p = image.srcElement.parentNode.parentNode;
+                        p.innerHTML = ""
+                    }
+                    tipdiv.appendChild(timg)
+                    tdiv.appendChild(tipdiv)
                     kdiv.appendChild(kink_title)
                     kdiv.appendChild(kink_desc)
-                    ktd.appendChild(kdiv)
+                    hdiv.appendChild(kdiv)
+                    hdiv.appendChild(tdiv)
+                    ktd.appendChild(hdiv)
                     row.appendChild(ktd)
                     var kink = this['description']
                     var pos = 1

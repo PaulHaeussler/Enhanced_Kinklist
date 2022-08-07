@@ -20,6 +20,88 @@ div.progress {
     right: 0;
 }
 
+img.tipimg {
+    max-height: 100%;
+    max-width: 100%;
+    border-radius:8px;
+}
+
+.tooltip {
+    position:relative;
+    padding: 0 2px 0 2px;
+    height: 24px;
+}
+
+
+.tooltip .tipdiv {
+    min-width:250px;
+    max-width:450px;
+    max-height: 600px;
+    top:-20px;
+    left:50%;
+    transform:translate(-30%,-100%);
+    padding:10px;
+    color:#ffffff;
+    background-color:black;
+    font-weight:normal;
+    font-size:14px;
+    border-radius:8px;
+    position:absolute;
+    z-index:99999999;
+    box-sizing:border-box;
+    box-shadow:0 1px 8px rgba(0,0,0,0.5);
+    display:none;
+}
+
+.tooltip:hover .tipdiv {
+    display:block;
+}
+
+.tooltip .tipdiv i {
+    position:absolute;
+    top:100%;
+    left:30%;
+    margin-left:-15px;
+    width:30px;
+    height:15px;
+    overflow:hidden;
+}
+
+.tooltip .tipdiv i::after {
+    content:'';
+    position:absolute;
+    width:15px;
+    height:15px;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(45deg);
+    background-color: black;
+    box-shadow:0 5px 8px rgba(0,0,0,0.5);
+}
+
+div.tooltip {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+div.tooltip:hover {
+    visibility: visible; opacity:1;
+    float: top;
+}
+
+img.icon {
+    height: 24px;
+    width: 24px;
+}
+
+img.icon:hover {
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(175deg);
+    transition: 0.3s;
+}
+
+div.hdiv {
+    display: flex;
+    flex-direction: row;
+}
 
 h2.title {
     justify-content: center;
