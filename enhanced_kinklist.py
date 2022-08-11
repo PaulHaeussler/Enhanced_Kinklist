@@ -231,8 +231,13 @@ class Kinklist:
             if not self.check_token(token):
                 return redirect('/')
             else:
-                data = self.db.execute(
+                dbdata = self.db.execute(
                     "SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (token,))
+                data = [list(d) for d in dbdata]
+                for index in range(6, 12):
+                    if data[0][index] is None:
+                        data[0][index] = "---"
+
                 res = make_response(render_template('results.html', kinks=self.resolve_ids(json.loads(data[0][3])), username=data[0][6], sex=data[0][7], age=data[0][8], fap_freq=data[0][9], sex_freq=data[0][10], body_count=data[0][11], created=[data[0][1]], choices=self.config['categories']))
                 return res
 
