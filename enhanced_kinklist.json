@@ -1446,6 +1446,11 @@
           "description": "Hypnotism",
           "tip": "Self or Partner being hypnotized and having sexual things suggested in trance",
           "id": 16017
+        },
+        {
+          "description": "Used Underwear",
+          "tip": "Self or Partner being aroused by used underwear (of partner)",
+          "id": 16018
         }
       ]
     },
