@@ -385,6 +385,11 @@ input.meta {
     font-size: 16px;
 }
 
+#btn_copy:hover {
+    background: #30a141;
+    transition: 0.2s;
+}
+
 @media all and (max-width: 1100px)
 {
     #results_container {
