@@ -842,6 +842,16 @@
           "description": "Strap-On",
           "tip": "A harness with a dildo mounted on it enabling women to take the penetrating part in activities. Self means self is being penetrated by partner wearing one, Partner means self is wearing one and penetrating partner",
           "id": 9013
+        },
+        {
+          "description": "Nipple Sucker",
+          "tip": "Toys sucking on the nipple by creating negative pressure",
+          "id": 9014
+        },
+        {
+          "description": "Cock/Pussy Pump",
+          "tip": "Pump to enlarge/swell the genitals",
+          "id": 9015
         }
       ]
     },
@@ -887,6 +897,16 @@
           "description": "Vanilla Sex",
           "tip": "Sex not involving any kinks, Giving is penetrating Receiving",
           "id": 10007
+        },
+        {
+          "description": "Frech Kissing",
+          "tip": "Kissing with lots of tongue, giving and receiving have to be the same",
+          "id": 10008
+        },
+        {
+          "description": "Ignoring",
+          "tip": "Ignoring (Giving) your partner during sex by scrolling your phone for example, or being ignored (Receiving)",
+          "id": 10009
         }
       ]
     },
@@ -962,6 +982,11 @@
           "description": "Monoglove/\u200BArmbinder",
           "tip": "Device, usually made out of leather, to hold both arms along the full length of the arm tightly together, usually used to bind the arms behind the back",
           "id": 11013
+        },
+        {
+          "description": "Shibari",
+          "tip": "Special japanese kind of bondage with a larger focus on art and aesthetics",
+          "id": 11014
         }
       ]
     },
@@ -1200,6 +1225,11 @@
           "description": "Public Use",
           "tip": "The Giving Person instructing the Receiving Person to engage in sexual acts in (secluded) public with complete strangers with no permission to deny a strangers sexual request",
           "id": 15007
+        },
+        {
+          "description": "Spitting",
+          "tip": "Spitting or getting spit on (usually the face)",
+          "id": 15008
         }
       ]
     },
@@ -1370,6 +1400,11 @@
           "description": "Scat",
           "tip": "Playing with human feces, defecating on someone or receiving",
           "id": 18006
+        },
+        {
+          "description": "Blood",
+          "tip": "Pertains to the inclusion of blood in any form in a sexual context",
+          "id": 18007
         }
       ]
     },
