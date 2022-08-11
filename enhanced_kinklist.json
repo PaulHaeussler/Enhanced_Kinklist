@@ -390,8 +390,8 @@
           "id": 2007
         },
         {
-          "description": "Thigh-high boots",
-          "tip": "Large boots reaching above the knee",
+          "description": "Knee-high boots",
+          "tip": "Large boots reaching to the knee",
           "id": 2008
         },
         {
@@ -452,6 +452,20 @@
           "description": "Choker",
           "tip": "Close-fitting Necklace made from cloth or leather, may feature other elements such as metal rings or hearts, not to be confused with a collar",
           "id": 2020
+        },
+        {
+          "description": "Masks",
+          "tip": "Masks covering part or all of the face, can be a fancy one covering just eyes and nose, or a simple balaclava",
+          "id": 2021
+        },
+        {
+          "description": "Fishnets",
+          "id": 2022
+        },
+        {
+          "description": "Formal/Business Clothing",
+          "tip": "Suits, button shirts and similar",
+          "id": 2023
         }
       ]
     },
@@ -542,6 +556,15 @@
           "description": "Prone Bone",
           "tip": "Receiving is laying completely flat on their belly with Giving penetrating from behind/above",
           "id": 4009
+        },
+        {
+          "description": "Spooning",
+          "tip": "Receiving is little spoon, Giving is big spoon",
+          "id": 4010
+        },
+        {
+          "description": "Love Swing",
+          "id": 4011
         }
       ]
     },
@@ -597,6 +620,16 @@
           "description": "Assjob",
           "tip": "Giving is pleasuring Receivings Penis with their Buttocks",
           "id": 5009
+        },
+        {
+          "description": "Docking",
+          "tip": "Inserting givings penis into receivings foreskin",
+          "id": 5010
+        },
+        {
+          "description": "Flaccid Play",
+          "tip": "Playing with receivings flaccid penis (e.g. attempting insertion or a blowjob)",
+          "id": 5011
         }
       ]
     },
@@ -712,6 +745,25 @@
           "description": "Nipple play",
           "tip": "Plays centered around Giving stimulating Receivings Nipples with different means",
           "id": 7007
+        },
+        {
+          "description": "Food Play",
+          "tip": "Eating food or cosuming drinks(usually shots) from your partners body (Giving), or having the food on your body and getting eaten from (receiving)",
+          "id": 7008
+        },
+        {
+          "description": "Temperature Play",
+          "tip": "Playing with sensations like heated lube or ice cubes",
+          "id": 7009
+        },
+        {
+          "description": "Massages",
+          "tip": "Giving or Receiving Massages (with some sexual massaging)",
+          "id": 7010
+        },
+        {
+          "description": "Hickies",
+          "id": 7011
         }
       ]
     },
@@ -815,7 +867,7 @@
         },
         {
           "description": "Vibrators",
-          "tip": "All vibrating sex toys from bullet vibes to magic wands",
+          "tip": "Vibrating sex toys like bullet vibes, satisfyer, and phallic shaped vibrators",
           "id": 9007
         },
         {
@@ -862,6 +914,11 @@
           "description": "Anal Beads",
           "tip": "A string of connected (rigid or loose) beads/spheres usually with increasing diameter",
           "id": 9016
+        },
+        {
+          "description": "Magic Wand",
+          "tip": "Large vibrating wands like the Hitachi magic wand",
+          "id": 9017
         }
       ]
     },
@@ -917,6 +974,16 @@
           "description": "Ignoring",
           "tip": "Actively ignoring (Giving) your partner during sex by scrolling your phone for example, or being ignored (Receiving)",
           "id": 10009
+        },
+        {
+          "description": "Cybersex/Sexting",
+          "tip": "Communicating fantasies via digital media, usually text but can also be images or videos, Receiving is receiving these and Giving is sending",
+          "id": 10010
+        },
+        {
+          "description": "Multiple orgasms/\u200BMarathon Sex",
+          "tip": "Having multiple orgasms one after the other (can be some time apart, but there's no pause in sexual action), Receiving means having multiple orgasms, giving means giving multiple",
+          "id": 10011
         }
       ]
     },
@@ -997,6 +1064,16 @@
           "description": "Shibari",
           "tip": "Special japanese kind of bondage with a larger focus on art and aesthetics",
           "id": 11014
+        },
+        {
+          "description": "Bit Gag",
+          "tip": "Similar to a horse bit, a metal or silicone bar placed horizontally",
+          "id": 11015
+        },
+        {
+          "description": "Tape Gag",
+          "tip": "Using duct tape or similar to gag your subject, might hurt in removing it and has higher asphyxiation risk",
+          "id": 11016
         }
       ]
     },
@@ -1057,7 +1134,7 @@
           "id": 13003
         },
         {
-          "description": "Puppy/\u200BPony Play",
+          "description": "Pup Play",
           "id": 13004
         },
         {
@@ -1094,12 +1171,36 @@
           "id": 13012
         },
         {
-          "description": "Breathplay/\u200BChoking",
+          "description": "Choking",
           "id": 13013
         },
         {
           "description": "Hair Pulling",
           "id": 13014
+        },
+        {
+          "description": "Hate Sex",
+          "tip": "Rough sex while the active partner is angry/jealous/mad, Giving is the active partner and Receiving is passive",
+          "id": 13015
+        },
+        {
+          "description": "Praise",
+          "tip": "Enjoying getting praised (receiving) like 'Good boy/girl', or enjoying praising your partner (giving)",
+          "id": 13016
+        },
+        {
+          "description": "Breath Play",
+          "tip": "Actively and precisely managing and limiting the air the subject gets",
+          "id": 13017
+        },
+        {
+          "description": "Pony Play",
+          "id": 13018
+        },
+        {
+          "description": "Overstimulation",
+          "tip": "Continuing to pleasure the submissive after they've cum, similar to forced orgasm",
+          "id": 13019
         }
       ]
     },
@@ -1173,23 +1274,33 @@
         },
         {
           "description": "Scratching",
-          "tips": "Scratching the subject to inflict pain and leave recognizeable scratch marks",
+          "tip": "Scratching the subject to inflict pain and leave recognizeable scratch marks",
           "id": 14013
         },
         {
           "description": "Biting",
-          "tips": "Biting the subject to inflict pain and leave recognizable bite marks",
+          "tip": "Biting the subject to inflict pain and leave recognizable bite marks",
           "id": 14014
         },
         {
-          "description": "Cutting",
-          "tips": "Cutting involves cutting the subject (in places where possible, such as the butt or upper arms) with very sharp tools such as razor blades or scalpels to inflict pain and/or cut initials or symbols into the subject",
+          "description": "Cutting/\u200BKnife Play",
+          "tip": "Cutting involves cutting the subject (in places where possible, such as the butt or upper arms) with very sharp tools such as razor blades or scalpels to inflict pain and/or cut initials or symbols into the subject, not leaving any permanent marks",
           "id": 14015
         },
         {
-          "description": "Needle Play",
-          "tips": "Involves inserting (hypodermic) Needles through the subjects skin. Needles might be arranged in shapes, might pierce genitals to inflict larger pain or be used to create temporary piercings, see corset-piercing",
+          "description": "Needle Play/\u200BPiercing (temporary)",
+          "tip": "Involves inserting (hypodermic) Needles through the subjects skin. Needles might be arranged in shapes, might pierce genitals to inflict larger pain or be used to create temporary piercings, see corset-piercing",
           "id": 14016
+        },
+        {
+          "description": "Scarring",
+          "tip": "Similarly to Knife Play, cutting into Receivings skin in order to leave permanent scars",
+          "id": 14017
+        },
+        {
+          "description": "Branding",
+          "tip": "Creating permanent scars by pressing heated metal onto Receiving's skin",
+          "id": 14018
         }
       ]
     },
@@ -1305,6 +1416,36 @@
           "description": "Diaper Play",
           "tip": "Self or Partner wearing a diaper (as a fetish)",
           "id": 16011
+        },
+        {
+          "description": "Shooting Porn",
+          "tip": "Photographing or videotaping porn and uploading it to public porn sites such as PornHub or Onlyfans, Self means self is involved (visible in some videos or pictures), Partner means Partner is visible in footage",
+          "id": 16012
+        },
+        {
+          "description": "Loudness",
+          "tip": "Do you like to be loud in bed, and do you like your partner to be?",
+          "id": 16013
+        },
+        {
+          "description": "Mirror Sex",
+          "tip": "Having sex in front of a mirror and seeing your reflection, with you liking to see (your)self in the mirror, and/or your partner",
+          "id": 16014
+        },
+        {
+          "description": "Armpits",
+          "tip": "Self or Partner being aroused by armpits, common in the gay community",
+          "id": 16015
+        },
+        {
+          "description": "Socks",
+          "tip": "Similar to foot fetish, self or partner being aroused by worn socks",
+          "id": 16016
+        },
+        {
+          "description": "Hypnotism",
+          "tip": "Self or Partner being hypnotized and having sexual things suggested in trance",
+          "id": 16017
         }
       ]
     },
@@ -1370,6 +1511,11 @@
           "description": "Breeding",
           "tip": "Giving Person cumming inside the Receiving Person without a condom with special emphasis on the creampie, also for the imagination of being bred and getting pregnant (even though the woman might be on birth control)",
           "id": 17011
+        },5
+        {
+          "description": "Sloppy Seconds",
+          "tip": "Having sex with Receiving in whom a previous partner has ejaculated and the semen is still inside",
+          "id": 17012
         }
       ]
     },
