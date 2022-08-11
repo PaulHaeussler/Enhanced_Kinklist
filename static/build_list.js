@@ -15,7 +15,7 @@ function enterChoice(sender){
           pos = i
         }
     }
-    var kink = kc.childNodes[0].childNodes[0].innerText;
+    var kink = kc.childNodes[0].childNodes[0].childNodes[0].innerText;
     updateCookie(kink, id, pos)
     div.innerHTML = ''
     var btn = document.createElement('btn');
@@ -182,6 +182,11 @@ function build_list(){
     dataType: 'json',
     success: function (data) {
             var cat = data['categories']
+            $.each(cat, function(index) {
+                if(this['default'] == true){
+                    cat.splice(index, 1)
+                }
+            })
             window.choices = cat
             var root = document.getElementById('choices_container')
             $.each(cat, function() {
@@ -395,7 +400,7 @@ function fill_cookie(){
                     $.each(this.childNodes, function(){
                         if(this.tagName === 'TD'){
 
-                            var div = this.childNodes[0];
+                            var div = this.childNodes[0].childNodes[0];
 
                             if(first){
                                 first = false
@@ -415,7 +420,7 @@ function fill_cookie(){
 
 
 
-                            if(!(kink === "")){
+                            if(kink !== ""){
 
                                 var cval = getCookieVal(kink, pos)
                                 pos += 1;

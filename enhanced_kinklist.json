@@ -113,10 +113,15 @@
       "id": -1
     },
     {
-      "description": "Not applicable/entered",
-      "color": "white",
+      "description": "Not entered",
+      "color": "#d1d1d1",
       "default": true,
       "id": 0
+    },
+    {
+      "description": "Not applicable",
+      "color": "white",
+      "id": -2
     }
   ],
   "kink_groups": [
