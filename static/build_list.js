@@ -24,9 +24,10 @@ function enterChoice(sender){
     btn.textContent = lu[0]
     div.style.backgroundColor = lu[1]
     var index = sender.srcElement.getAttribute("index")
-    if(parseInt(window.index) < parseInt(index)){
-        window.index = index
-    }
+
+    window.doneKinks += 1;
+    window.remnKinks -= 1;
+
     updateProgress()
     btn.setAttribute("index", index)
     btn.onclick = removeChoice
@@ -54,6 +55,10 @@ function removeChoice(sender){
     var kink = kc.childNodes[0].childNodes[0].childNodes[0].innerText;
     var index = sender.srcElement.getAttribute("index");
 
+    window.doneKinks -= 1;
+    window.remnKinks += 1;
+
+    updateProgress()
     updateCookie(kink, id, pos)
     div.innerHTML = ''
     div.style.backgroundColor = '#dbdbdb'
@@ -63,12 +68,9 @@ function removeChoice(sender){
 
 function updateProgress(){
     var s = document.getElementById("progress")
-    s.innerText = Math.round(window.index / window.rowCount * 100) + "%"
+    s.innerText = Math.round(window.doneKinks / (window.doneKinks + window.remnKinks) * 1000)/10 + "%"
 }
 
-function imgError(image) {
-    //remove parents here
-}
 
 function buildOptions(parent, kink, pos, index){
 
@@ -281,11 +283,20 @@ function build_list(){
             document.getElementById('footer_container').appendChild(reset)
             document.getElementById('footer_container').appendChild(resetUser)
 
-            window.index = 0
-            window.rowCount = 0
+
+            var kinkgroups = data['kink_groups']
+            window.doneKinks = 0
+            window.remnKinks = 0
+            window.totalRows = 0
+
+            $.each(kinkgroups, function() {
+                window.remnKinks += this["rows"].length * this["columns"].length;
+                window.totalRows += this["rows"].length;
+            })
+
+
 
             var index = 0
-            var kinkgroups = data['kink_groups']
             window.groups = kinkgroups
             root = document.getElementById('group_container')
             $.each(kinkgroups, function() {
@@ -348,7 +359,8 @@ function build_list(){
                     timg.setAttribute('src', imglink)
                     timg.onerror = function (image) {
                         var p = image.srcElement.parentNode.parentNode;
-                        p.innerHTML = ""
+                        p.innerHTML = "";
+                        return true;
                     }
                     tipdiv.appendChild(timg)
                     tdiv.appendChild(tipdiv)
@@ -373,7 +385,7 @@ function build_list(){
                     index += 1
                     table.appendChild(row)
                 })
-                window.rowCount = index
+
                 container.appendChild(title)
                 container.appendChild(desc)
                 container.appendChild(table)
