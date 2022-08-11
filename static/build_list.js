@@ -51,7 +51,7 @@ function removeChoice(sender){
           pos = i
         }
     }
-    var kink = kc.childNodes[0].childNodes[0].innerText;
+    var kink = kc.childNodes[0].childNodes[0].childNodes[0].innerText;
     var index = sender.srcElement.getAttribute("index");
 
     updateCookie(kink, id, pos)
