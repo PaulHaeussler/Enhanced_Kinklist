@@ -471,42 +471,47 @@
     },
     {
       "description": "Age Groups",
-      "tip": "How old do you like your partners?",
+      "tip": "How old do/did you like your partners?",
       "columns": [
         "Partner"
       ],
       "rows": [
         {
-          "description": "14 - 17",
+          "description": "below 14",
+          "tip": "Perfectly fine if you were a minor as well",
           "id": 21001
         },
         {
-          "description": "18 - 21",
+          "description": "14 - 17",
           "id": 21002
         },
         {
-          "description": "22 - 26",
+          "description": "18 - 21",
           "id": 21003
         },
         {
-          "description": "27 - 32",
+          "description": "22 - 26",
           "id": 21004
         },
         {
-          "description": "33 - 40",
+          "description": "27 - 32",
           "id": 21005
         },
         {
-          "description": "41 - 50",
+          "description": "33 - 40",
           "id": 21006
         },
         {
-          "description": "51 - 60",
+          "description": "41 - 50",
           "id": 21007
         },
         {
-          "description": "60 +",
+          "description": "51 - 60",
           "id": 21008
+        },
+        {
+          "description": "60 +",
+          "id": 21009
         }
       ]
     },
