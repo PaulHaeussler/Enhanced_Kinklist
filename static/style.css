@@ -1,3 +1,7 @@
+
+
+
+
 * {
     font-family: Verdana, sans-serif;
 }
@@ -22,45 +26,12 @@ div.progress {
     flex-direction: row;
 }
 
-#prog_base {
-    height: 65vh;
-    width: 0;
-    border-right: 42px solid #abf0ff;
-    border-top: 42px solid transparent;
-    border-bottom: 42px solid transparent;
-}
 
-#prog_bar {
-    margin-top: 42px;
-    margin-bottom: 42px;
-    border-right: 5px solid #d117d1;
-    border-top: 5px solid transparent;
-}
 
-#prog_tip {
-    margin-top: 42px;
-    margin-bottom: 42px;
-    height: 22px;
-    box-shadow: 0 0 5px rgb(146 146 146);
-    padding: 3px;
-    padding-right: 10px;
-    background-color: #f2f6f7;
-    border-radius: 5px;
-    margin-right: 5px;
-    position: relative;
-}
-
-#prog_tip::after {
-    content:'';
-    position:absolute;
-    width:15px;
-    height:15px;
-    right:-15px;
-    top: 50%;
-    z-index: -1;
-    transform:translate(-50%,-50%) rotate(45deg);
-    background-color: lightgrey;
-    box-shadow:0 0 5px rgb(146 146 146);
+#justCreatedTip {
+    align-items: center;
+    justify-content:center;
+    text-align:center;
 }
 
 img.tipimg {
@@ -69,57 +40,7 @@ img.tipimg {
     border-radius:8px;
 }
 
-.tooltip {
-    position:relative;
-    padding: 0 2px 0 2px;
-    height: 24px;
-}
 
-
-.tooltip .tipdiv {
-    min-width:250px;
-    max-width:450px;
-    max-height: 600px;
-    top:-20px;
-    left:50%;
-    transform:translate(-30%,-100%);
-    padding:10px;
-    color:#ffffff;
-    background-color:black;
-    font-weight:normal;
-    font-size:14px;
-    border-radius:8px;
-    position:absolute;
-    z-index:99999999;
-    box-sizing:border-box;
-    box-shadow:0 1px 8px rgba(0,0,0,0.5);
-    display:none;
-}
-
-.tooltip:hover .tipdiv {
-    display:block;
-}
-
-.tooltip .tipdiv i {
-    position:absolute;
-    top:100%;
-    left:30%;
-    margin-left:-15px;
-    width:30px;
-    height:15px;
-    overflow:hidden;
-}
-
-.tooltip .tipdiv i::after {
-    content:'';
-    position:absolute;
-    width:15px;
-    height:15px;
-    left:50%;
-    transform:translate(-50%,-50%) rotate(45deg);
-    background-color: black;
-    box-shadow:0 5px 8px rgba(0,0,0,0.5);
-}
 
 div.tooltip {
     margin-left: auto;
@@ -136,10 +57,7 @@ img.icon {
     width: 24px;
 }
 
-img.icon:hover {
-    filter: invert(1) sepia(1) saturate(5) hue-rotate(175deg);
-    transition: 0.3s;
-}
+
 
 div.hdiv {
     display: flex;
@@ -232,10 +150,7 @@ div.meta {
 
 }
 
-body {
-  background: -webkit-linear-gradient(left, #abf0ff, #f1c0fa);
-  background: linear-gradient(to right, #abf0ff, #f1c0fa);
-}
+
 
 label.kinkl {
     margin-left: 15px;
@@ -260,26 +175,7 @@ span.meta {
     flex-direction: row;
 }
 
-.choice {
-    box-sizing: border-box;
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    min-height: 20px;
-    opacity: 0.35;
-    overflow: hidden;
-    text-indent: 100px;
-    border: solid #000 1px;
-    border-radius: 50%;
-    outline-style: none!important;
-    vertical-align: middle;
-    display: inline-block;
-    cursor: pointer;
-    font-size: 0;
-    padding: 0;
-    opacity: 0.35;
-    cursor: pointer;
-}
+
 
 .choice:hover {
     opacity: 1;
@@ -291,23 +187,9 @@ div.title {
     margin-right: auto;
 }
 
-.bgc {
-    box-shadow: 0 0 25px rgb(146 146 146);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background-color: #f2f6f7;
-    border-radius: 15px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
 
-.noedit {
-    opacity: 1;
-    cursor: default;
 
-}
+
 
 span.choice-text {
     margin-left: 10px;
@@ -333,15 +215,7 @@ div.dchoice {
     margin-bottom: 8px;
 }
 
-table.kinks {
-    border-collapse: collapse;
-}
 
-td, th {
-    border: 1px solid black;
-    text-align: left;
-    padding: 0.05rem;
-}
 
 th.header {
     text-align: center;
@@ -386,58 +260,7 @@ div.choiceText {
     font-size: 16px;
 }
 
-btn.entered {
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    min-height: 100%;
-}
 
-btn.entered:hover {
-    cursor: pointer;
-}
-
-btn.submit {
-    border: 1px solid;
-    border-radius: 5px;
-    margin: 5px;
-    width: 100%;
-    transition: 0.3s;
-    text-align: center;
-    height: 36px;
-    line-height: 36px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    background: #defce6;
-}
-
-btn.submit:hover {
-    background: #0b6100;
-    color: #ffffff;
-    border-radius: 10px;
-}
-
-
-btn.reset {
-    border: 1px solid;
-    border-radius: 5px;
-    margin: 5px;
-    width: 100%;
-    transition: 0.3s;
-    text-align: center;
-    height: 25px;
-    line-height: 25px;
-    cursor: pointer;
-}
-
-btn.reset:hover {
-    background: #a60000;
-    color: #ffffff;
-    border-radius: 10px;
-}
 
 label.kink {
     margin-left: 5px;
@@ -473,37 +296,8 @@ div.hc {
     position: relative;
 }
 
-#pin {
-    position: absolute;
-    right: 7px;
-    top: 7px;
-    cursor: pointer;
-    border: 1px solid black;
-    width: 20px;
-    height: 20px;
-}
-
-.pinned {
-    position: fixed;
-    top: 15px;
-    box-shadow: 0 0 25px black;
-    z-index: 100;
-}
 
 
-#btn_copy {
-    background: green;
-    border-radius: 10px;
-    border: 1px solid black;
-    color: white;
-    height: 40px;
-    font-size: 16px;
-}
-
-#btn_copy:hover {
-    background: #30a141;
-    transition: 0.2s;
-}
 
 @media all and (max-width: 1100px)
 {

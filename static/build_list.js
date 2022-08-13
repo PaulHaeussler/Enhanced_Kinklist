@@ -46,6 +46,10 @@ function enterChoice(sender){
     btn.onclick = removeChoice
     if (tinycolor(lu[1]).getBrightness() < 128) {
         btn.style.color = 'white'
+        tdiv.style.color = 'white'
+    } else {
+        btn.style.color = 'black'
+        tdiv.style.color = 'black'
     }
     btn.appendChild(tdiv)
     div.appendChild(btn)
