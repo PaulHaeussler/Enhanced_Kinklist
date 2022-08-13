@@ -158,7 +158,15 @@ class Kinklist:
                     if data[0][index] is None:
                         data[0][index] = "---"
 
-                res = make_response(render_template('results.html', kinks=self.resolve_ids(json.loads(data[0][3])), username=data[0][6], sex=data[0][7], age=data[0][8], fap_freq=data[0][9], sex_freq=data[0][10], body_count=data[0][11], created=[data[0][1]], choices=self.config['categories']))
+                ua = request.headers.get('User-Agent').lower()
+                page = None
+                if "iphone" in ua or "android" in ua:
+                    page = 'mobile_results.html'
+                else:
+                    page = 'results.html'
+
+
+                res = make_response(render_template(page, kinks=self.resolve_ids(json.loads(data[0][3])), username=data[0][6], sex=data[0][7], age=data[0][8], fap_freq=data[0][9], sex_freq=data[0][10], body_count=data[0][11], created=[data[0][1]], choices=self.config['categories']))
                 return res
 
         @self.app.route('/', methods = ['GET', 'POST'])
@@ -169,8 +177,13 @@ class Kinklist:
             values = request.cookies.get('values', default='')
 
             if request.method == 'GET':
+                ua = request.headers.get('User-Agent').lower()
+                res = None
+                if "iphone" in ua or "android" in ua:
+                    res = make_response(render_template('mobile_index.html'))
+                else:
+                    res = make_response(render_template('index.html'))
 
-                res = make_response(render_template('index.html'))
                 res.set_cookie('values', self.get_val_string())
                 if user == '' or secret == '' or user == 'null' or secret == 'null':
                     new_user = str(uuid.uuid4())
@@ -238,7 +251,15 @@ class Kinklist:
                     if data[0][index] is None:
                         data[0][index] = "---"
 
-                res = make_response(render_template('results.html', kinks=self.resolve_ids(json.loads(data[0][3])), username=data[0][6], sex=data[0][7], age=data[0][8], fap_freq=data[0][9], sex_freq=data[0][10], body_count=data[0][11], created=[data[0][1]], choices=self.config['categories']))
+                ua = request.headers.get('User-Agent').lower()
+                page = None
+                if "iphone" in ua or "android" in ua:
+                    page = 'mobile_results.html'
+                else:
+                    page = 'results.html'
+
+
+                res = make_response(render_template(page, kinks=self.resolve_ids(json.loads(data[0][3])), username=data[0][6], sex=data[0][7], age=data[0][8], fap_freq=data[0][9], sex_freq=data[0][10], body_count=data[0][11], created=[data[0][1]], choices=self.config['categories']))
                 return res
 
 

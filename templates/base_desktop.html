@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% block meta %}
+
+{% endblock %}
+{% block body %}
+<aside>
+  <dark-mode-toggle
+      id="dark-mode-toggle-1"
+      legend="Theme Switcher"
+      appearance="switch"
+      dark="Dark"
+      light="Light"
+      remember="Remember this"
+  ></dark-mode-toggle>
+</aside>
+    <div onclick="window.location.href = '{{ url_for('index') }}';"  class="bgc title">
+        <h2 class="title" style="cursor: pointer;">Enhanced Kinklist</h2>
+    </div>
+    <div id="main_container">
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}
