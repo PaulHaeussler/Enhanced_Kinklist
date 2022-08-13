@@ -3,25 +3,37 @@
 function enterChoice(sender){
     var div = sender.srcElement.parentNode;
     var id = sender.srcElement.value;
-    var td = div.parentNode;
-    var tr = td.parentNode;
-    var kc = null;
-    var pos = null;
-    for (var i = 0; i < tr.childNodes.length; i++) {
-        if (tr.childNodes[i].className == "kinkCell") {
-          kc = tr.childNodes[i];
+    var tr = div;
+    var td = null;
+    var pos = 0;
+    while(true) {
+        if (tr.nodeName === "TR"){
+            break;
         }
-        if(tr.childNodes[i] === td){
-          pos = i
+        if (tr.nodeName === "TD"){
+            td = tr;
+        }
+        tr = tr.parentNode;
+    }
+    for(var i = 0; i < tr.childNodes.length; i++) {
+        if (tr.childNodes[i] === td) {
+            pos = i
         }
     }
-    var kink = kc.childNodes[0].childNodes[0].childNodes[0].innerText;
+
+    var kc = tr.childNodes[0]
+
+
+
+    var kink = kc.childNodes[0].childNodes[0].childNodes[0].textContent;
     updateCookie(kink, id, pos)
     div.innerHTML = ''
     var btn = document.createElement('btn');
     btn.classList.add('entered')
     var lu = lookupChoice(id)
-    btn.textContent = lu[0]
+    var tdiv = document.createElement('div');
+    tdiv.classList.add('choiceText')
+    tdiv.innerText = lu[0]
     div.style.backgroundColor = lu[1]
     var index = sender.srcElement.getAttribute("index")
 
@@ -30,29 +42,42 @@ function enterChoice(sender){
 
     updateProgress()
     btn.setAttribute("index", index)
+    btn.value = id
     btn.onclick = removeChoice
     if (tinycolor(lu[1]).getBrightness() < 128) {
         btn.style.color = 'white'
     }
+    btn.appendChild(tdiv)
     div.appendChild(btn)
 }
 
 function removeChoice(sender){
-    var div = sender.srcElement.parentNode;
+    var div = sender.srcElement;
     var id = sender.srcElement.value;
-    var td = div.parentNode;
-    var tr = td.parentNode;
-    var kc = null;
-    var pos = null;
-    for (var i = 0; i < tr.childNodes.length; i++) {
-        if (tr.childNodes[i].className == "kinkCell") {
-          kc = tr.childNodes[i];
+    var tr = div;
+    var td = null;
+    var cdiv = null;
+    var pos = 0;
+    while(true) {
+        if (tr.nodeName === "TR"){
+            break;
         }
-        if(tr.childNodes[i] === td){
-          pos = i
+        if (tr.nodeName === "TD"){
+            td = tr;
+        }
+        if (tr.className === "cdiv") {
+            cdiv = tr;
+        }
+        tr = tr.parentNode;
+    }
+    for(var i = 0; i < tr.childNodes.length; i++) {
+        if (tr.childNodes[i] === td) {
+            pos = i
         }
     }
-    var kink = kc.childNodes[0].childNodes[0].childNodes[0].innerText;
+
+    var kc = tr.childNodes[0]
+    var kink = kc.childNodes[0].childNodes[0].childNodes[0].textContent;
     var index = sender.srcElement.getAttribute("index");
 
     window.doneKinks -= 1;
@@ -60,15 +85,23 @@ function removeChoice(sender){
 
     updateProgress()
     updateCookie(kink, id, pos)
-    div.innerHTML = ''
-    div.style.backgroundColor = '#dbdbdb'
-    buildOptions(div, kink, pos, index)
+    cdiv.innerHTML = ''
+    cdiv.style.backgroundColor = ''
+    buildOptions(cdiv, kink, pos, index)
 }
 
 
 function updateProgress(){
-    var s = document.getElementById("progress")
-    s.innerText = Math.round(window.doneKinks / (window.doneKinks + window.remnKinks) * 1000)/10 + "%"
+    var progress = Math.round(window.doneKinks / (window.doneKinks + window.remnKinks) * 1000)/10;
+
+    var s = document.getElementById("prog_tip")
+    s.innerText = progress + "%"
+
+    var bar = document.getElementById("prog_bar")
+    bar.style.height = window.innerHeight * 0.65 * progress/100 + "px";
+
+    var tip = document.getElementById("prog_tip")
+    tip.style.marginTop = window.innerHeight * 0.65 * progress/100 - 11 + 42 + "px"
 }
 
 
@@ -81,6 +114,9 @@ function buildOptions(parent, kink, pos, index){
         btn.setAttribute("index", index)
         btn.style.backgroundColor = this['color']
         btn.onclick = enterChoice
+        if(this["id"] == "5" || this["id"] == "10") {
+            btn.style.marginRight = "15px"
+        }
         parent.appendChild(btn)
     })
 
@@ -304,6 +340,7 @@ function build_list(){
 
                 var container = document.createElement('div');
                 container.classList.add('kinkgroup')
+                container.classList.add('bgc')
                 var title = document.createElement('h3');
                 title.textContent = this['description']
                 title.classList.add('groupTitle')
@@ -530,5 +567,15 @@ function checkLocalStorage(){
     })
 
 
+}
+function togglePin(sender){
+    var div = document.getElementById('c_container')
+    if(div.classList.contains("pinned")){
+        div.classList.remove("pinned")
+        div.classList.add("rel")
+    } else {
+        div.classList.add("pinned")
+        div.classList.remove("rel")
+    }
 }
 

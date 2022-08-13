@@ -6,9 +6,14 @@
 {% block content %}
     <div id="main_horizontal">
         <div id="main_vertical">
-            <div id="choices_container"></div>
+            <div id="c_container" class="hc bgc rel">
+                <div id="choices_container"></div>
+                <a id="pin" onclick="togglePin()">
+                    <img src="/static/pin.webp" style="width:20px; height:20px;">
+                </a>
+            </div>
             <br>
-            <div id="meta_container">
+            <div id="meta_container" class="bgc">
                 <label class="meta" for="meta_name">Name:</label>
                 <input class="meta" id="meta_name">
                 <label class="meta" for="meta_age">Age:</label>
@@ -24,9 +29,9 @@
             </div>
             <br>
             <br>
-            <span class="meta">Except for name, no fields are required, feel free to skip with what you feel uncomfortable sharing. Please also refer to the descriptions of groups and kinks to know what exactly is meant by the terms. Partner doesn't have to be your actual partner but an <b>ideal</b> partner. If your choice differs depending on different partners, go with the better one. Hover over the image icon <img src="/static/img.svg"> (where available) to see an explanatory picture.</span>
+            <span class="meta bgc">Except for name, no fields are required, feel free to skip with what you feel uncomfortable sharing. Please also refer to the descriptions of groups and kinks to know what exactly is meant by the terms. Partner doesn't have to be your actual partner but an <b>ideal</b> partner. If your choice differs depending on different partners, go with the better one. Hover over the image icon <img src="/static/img.svg"> (where available) to see an explanatory picture.</span>
             <div id="group_container"></div>
-            <div id="footer_container"></div>
+            <div id="footer_container" class="bgc"></div>
             <script defer>
                 if(window.localStorage.length === 0){
                     setupLocalStorage()
@@ -37,7 +42,9 @@
             </script>
         </div>
         <div class="progress">
-            <span id="progress">0 %</span>
+            <div id="prog_tip"></div>
+            <div id="prog_bar"></div>
+            <div id="prog_base"></div>
         </div>
     </div>
 {% endblock %}

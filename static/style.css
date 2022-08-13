@@ -18,6 +18,49 @@
 div.progress {
     position: fixed;
     right: 0;
+    display:flex;
+    flex-direction: row;
+}
+
+#prog_base {
+    height: 65vh;
+    width: 0;
+    border-right: 42px solid #abf0ff;
+    border-top: 42px solid transparent;
+    border-bottom: 42px solid transparent;
+}
+
+#prog_bar {
+    margin-top: 42px;
+    margin-bottom: 42px;
+    border-right: 5px solid #d117d1;
+    border-top: 5px solid transparent;
+}
+
+#prog_tip {
+    margin-top: 42px;
+    margin-bottom: 42px;
+    height: 22px;
+    box-shadow: 0 0 5px rgb(146 146 146);
+    padding: 3px;
+    padding-right: 10px;
+    background-color: #f2f6f7;
+    border-radius: 5px;
+    margin-right: 5px;
+    position: relative;
+}
+
+#prog_tip::after {
+    content:'';
+    position:absolute;
+    width:15px;
+    height:15px;
+    right:-15px;
+    top: 50%;
+    z-index: -1;
+    transform:translate(-50%,-50%) rotate(45deg);
+    background-color: lightgrey;
+    box-shadow:0 0 5px rgb(146 146 146);
 }
 
 img.tipimg {
@@ -134,7 +177,6 @@ h2.title {
     flex-direction: column;
     align-items: center;
     width: 50%;
-    height: 100px;
 }
 
 #container {
@@ -142,6 +184,10 @@ h2.title {
     flex-direction: column;
     width: 90%;
     align-items: center;
+}
+
+.meta {
+    margin: 3px;
 }
 
 #meta_container {
@@ -187,7 +233,8 @@ div.meta {
 }
 
 body {
-    background-color: #dbdbdb;
+  background: -webkit-linear-gradient(left, #abf0ff, #f1c0fa);
+  background: linear-gradient(to right, #abf0ff, #f1c0fa);
 }
 
 label.kinkl {
@@ -202,13 +249,15 @@ label.meta {
 
 select.meta {
     min-width: 220px;
+    min-height: 24px;
+    border-radius: 4px;
 }
 
 span.meta {
     width: 70%;
     text-align: center;
-    justify-content: center;
-    align-items: center;
+    display: block;
+    flex-direction: row;
 }
 
 .choice {
@@ -236,6 +285,24 @@ span.meta {
     opacity: 1;
 }
 
+div.title {
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bgc {
+    box-shadow: 0 0 25px rgb(146 146 146);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f2f6f7;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .noedit {
     opacity: 1;
     cursor: default;
@@ -251,19 +318,19 @@ div.dchoice {
     margin-left: 15px;
 }
 
-div.kinkgroup {
+.kinkgroup {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
 
 .groupTitle {
-
+    margin-top: 5px;
 }
 
 .groupDesc {
-
+    margin-bottom: 8px;
 }
 
 table.kinks {
@@ -285,16 +352,20 @@ th.header {
 }
 
 .choiceCell {
-
+  padding: 5px;
+  min-width: 280px;
 }
 
 .kdiv {
     display: flex;
     flex-direction: column;
+    padding: 3px;
 }
 
 .cdiv {
     display: flex;
+    min-height: 100%;
+    border-radius: 5px;
 }
 
 .cdiv:hover {
@@ -310,12 +381,19 @@ th.header {
  font-size: 18px;
 }
 
+div.choiceText {
+    padding: 3px;
+    font-size: 16px;
+}
+
 btn.entered {
     display: flex;
     margin-left: auto;
     margin-right: auto;
     align-items: center;
     justify-content: center;
+    height: 100%;
+    min-height: 100%;
 }
 
 btn.entered:hover {
@@ -329,6 +407,11 @@ btn.submit {
     width: 100%;
     transition: 0.3s;
     text-align: center;
+    height: 36px;
+    line-height: 36px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    background: #defce6;
 }
 
 btn.submit:hover {
@@ -345,6 +428,9 @@ btn.reset {
     width: 100%;
     transition: 0.3s;
     text-align: center;
+    height: 25px;
+    line-height: 25px;
+    cursor: pointer;
 }
 
 btn.reset:hover {
@@ -374,7 +460,36 @@ div.choices {
 
 input.meta {
     min-width: 200px;
+    min-height: 24px;
+    border-radius: 4px;
 }
+
+div.hc {
+    display: flex;
+    flex-direction: row;
+}
+
+.rel {
+    position: relative;
+}
+
+#pin {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    cursor: pointer;
+    border: 1px solid black;
+    width: 20px;
+    height: 20px;
+}
+
+.pinned {
+    position: fixed;
+    top: 15px;
+    box-shadow: 0 0 25px black;
+    z-index: 100;
+}
+
 
 #btn_copy {
     background: green;
