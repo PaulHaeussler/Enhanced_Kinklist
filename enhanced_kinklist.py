@@ -158,7 +158,10 @@ class Kinklist:
                     if data[0][index] is None:
                         data[0][index] = "---"
 
-                ua = request.headers.get('User-Agent').lower()
+                ua = request.headers.get('User-Agent')
+                if ua is None:
+                    ua = ""
+                ua = ua.lower()
                 page = None
                 if "iphone" in ua or "android" in ua:
                     page = 'mobile_results.html'
@@ -251,7 +254,10 @@ class Kinklist:
                     if data[0][index] is None:
                         data[0][index] = "---"
 
-                ua = request.headers.get('User-Agent').lower()
+                ua = request.headers.get('User-Agent')
+                if ua is None:
+                    ua = ""
+                ua = ua.lower()
                 page = None
                 if "iphone" in ua or "android" in ua:
                     page = 'mobile_results.html'
