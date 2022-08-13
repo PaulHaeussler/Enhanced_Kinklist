@@ -478,40 +478,48 @@
       "rows": [
         {
           "description": "below 14",
-          "tip": "Perfectly fine if you were a minor as well",
+          "tip": "perfectly fine if you were a minor as well",
           "id": 21001
         },
         {
-          "description": "14 - 17",
+          "description": "14 - 15",
           "id": 21002
         },
         {
-          "description": "18 - 21",
+          "description": "16 - 17",
           "id": 21003
         },
         {
-          "description": "22 - 26",
+          "description": "18 - 21",
           "id": 21004
         },
         {
-          "description": "27 - 32",
+          "description": "22 - 26",
           "id": 21005
         },
         {
-          "description": "33 - 40",
+          "description": "27 - 32",
           "id": 21006
         },
         {
-          "description": "41 - 50",
+          "description": "33 - 40",
           "id": 21007
         },
         {
-          "description": "51 - 60",
+          "description": "41 - 50",
           "id": 21008
         },
         {
-          "description": "60 +",
+          "description": "51 - 60",
           "id": 21009
+        },
+        {
+          "description": "61 - 70",
+          "id": 21010
+        },
+        {
+          "description": "70 +",
+          "id": 21011
         }
       ]
     },
