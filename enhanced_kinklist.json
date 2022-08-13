@@ -471,7 +471,7 @@
     },
     {
       "description": "Age Groups",
-      "tip": "How old do/did you like your partners?",
+      "tip": "How old do/did you like your partners? (If have tried then their age at the time counts)",
       "columns": [
         "Partner"
       ],
