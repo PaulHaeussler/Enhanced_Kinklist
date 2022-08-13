@@ -180,7 +180,10 @@ class Kinklist:
             values = request.cookies.get('values', default='')
 
             if request.method == 'GET':
-                ua = request.headers.get('User-Agent').lower()
+                ua = request.headers.get('User-Agent')
+                if ua is None:
+                    ua = ""
+                ua = ua.lower()
                 res = None
                 if "iphone" in ua or "android" in ua:
                     res = make_response(render_template('mobile_index.html'))
