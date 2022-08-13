@@ -7,11 +7,13 @@
     <meta name="rating" content="adult" />
     <title>Enhanced Kinklist - {% block title %}{% endblock %}</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
     <script src="{{ url_for('static', filename='jquery.cookie-1.4.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='tinycolor.js') }}"></script>
     <script src="{{ url_for('static', filename='build_list.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='light_dark.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='light.css') }}" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dark.css')  }}" media="(prefers-color-scheme: dark)">
     <link rel="stylesheet" href="{{ url_for('static', filename='party.css') }}">
     <link rel="canonical" href="https://kinkli.st"/>
 </head>
@@ -24,6 +26,16 @@
   gtag('config', 'G-N39CVZ1PJD');
 </script>
 <body>
+<aside>
+  <dark-mode-toggle
+      id="dark-mode-toggle-1"
+      legend="Theme Switcher"
+      appearance="switch"
+      dark="Dark"
+      light="Light"
+      remember="Remember this"
+  ></dark-mode-toggle>
+</aside>
     <div onclick="window.location.href = '{{ url_for('index') }}';"  class="bgc title">
         <h2 class="title" style="cursor: pointer;">Enhanced Kinklist</h2>
     </div>
