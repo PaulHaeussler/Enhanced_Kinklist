@@ -102,6 +102,11 @@
         transition: 0.3s;
     }
 
+    img.pin {
+       -webkit-filter: invert(1);
+       filter: invert(1);
+    }
+
 
     body {
       background: -webkit-linear-gradient(left, #215869, #5e2169);
