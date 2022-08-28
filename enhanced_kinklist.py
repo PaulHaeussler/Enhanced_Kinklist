@@ -185,6 +185,8 @@ class Kinklist:
                     ua = ""
                 ua = ua.lower()
                 res = None
+                if stage == "DEV":
+                    ua += "android"
                 if "iphone" in ua or "android" in ua:
                     res = make_response(render_template('mobile_index.html'))
                 else:
