@@ -140,6 +140,7 @@ class Kinklist:
                          req.environ.get('HTTP_SEC_CH_UA_MOBILE'), req.environ.get('HTTP_SEC_CH_UA_PLATFORM'),
                          req.environ.get('HTTP_USER_AGENT'), req.environ.get('HTTP_ACCEPT_LANGUAGE'),
                          req.environ.get('PATH_INFO'), req.environ.get('QUERY_STRING')), commit=True)
+        return ip
 
 
     @logger.catch
@@ -279,10 +280,11 @@ class Kinklist:
 
         @self.app.route('/missingKink', methods=['POST'])
         def missingKink():
+            ip = self.__log(request)
             mk = request.get_json()['missingkink']
             if mk == '' or mk is None:
                 return make_response('', 400)
-            self.db.execute("INSERT INTO suggestions VALUES(%s, %s);", (int(time.time()), mk), commit=True)
+            self.db.execute("INSERT INTO suggestions VALUES(%s, %s, %s);", (int(time.time()), mk, ip), commit=True)
             return make_response('', 200)
 
 
