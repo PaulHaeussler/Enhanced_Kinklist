@@ -7,11 +7,13 @@ import json
 import logging
 import os
 import copy
+import smtplib
+
 
 from loguru import logger
 from flask import Flask, jsonify, request, render_template, make_response, url_for, send_from_directory
 from os.path import dirname, abspath
-
+from email.mime.text import MIMEText
 
 
 from werkzeug.utils import redirect
@@ -19,6 +21,7 @@ from werkzeug.utils import redirect
 from db import MySQLPool
 
 stage = os.environ["STAGE"]
+stage = "PROD"
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -272,6 +275,15 @@ class Kinklist:
 
                 res = make_response(render_template(page, kinks=self.resolve_ids(json.loads(data[0][3])), username=data[0][6], sex=data[0][7], age=data[0][8], fap_freq=data[0][9], sex_freq=data[0][10], body_count=data[0][11], created=[data[0][1]], choices=self.config['categories']))
                 return res
+
+
+        @self.app.route('/missingKink', methods=['POST'])
+        def missingKink():
+            mk = request.get_json()['missingkink']
+            if mk == '' or mk is None:
+                return make_response('', 400)
+            self.db.execute("INSERT INTO suggestions VALUES(%s, %s);", (int(time.time()), mk), commit=True)
+            return make_response('', 200)
 
 
         @self.app.route('/compare')

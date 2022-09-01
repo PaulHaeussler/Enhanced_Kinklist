@@ -1,4 +1,6 @@
-
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function enterChoice(sender){
     var div = sender.srcElement.parentNode;
@@ -195,6 +197,28 @@ function setupLocalStorage(){
     })
 }
 
+function checkLocalStorage(){
+    $.each($.cookie('values').split('#'), function(){
+        if(this !== ''){
+            var splt = this.split('=')
+            var val = window.localStorage.getItem(splt[0])
+            if(val === null){
+                list = []
+                for(var i = 1; i < splt.length; i++){
+                    list.push(splt[i])
+                }
+                var val = JSON.stringify(list)
+                window.localStorage.setItem(splt[0], val)
+            }
+        }
+
+
+
+    })
+
+
+}
+
 function meta_changed(sender){
     var src = sender.srcElement
     window.localStorage.setItem(src.id, src.value)
@@ -291,6 +315,42 @@ function build_list(){
             submit.classList.add('submit')
             submit.innerText = 'Submit'
             submit.onclick = submit_results
+
+            var coll = document.createElement('button')
+            coll.id = 'missingKinkColl'
+            coll.innerText = 'My Kink is missing :('
+            coll.classList.add('collapsible')
+            var content = document.createElement('div')
+            content.classList.add('content')
+            var sp = document.createElement('span')
+            sp.innerText = "Please enter and describe the missing kink, ideally including a fitting category and image:"
+            var ta = document.createElement('textarea')
+            ta.classList.add('ta')
+            ta.id = 'missingKink'
+            ta.maxLength = 2000
+            content.appendChild(sp)
+            content.appendChild(ta)
+            var send = document.createElement('btn')
+            send.id = 'missingKinkSubmit'
+            send.classList.add('submit')
+            send.style.width = '100%'
+            send.style.padding = '5px'
+            send.innerText = 'Pls add!'
+
+            send.onclick = function(){
+                var content = document.getElementById('missingKink').value
+                fetch('/missingKink', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({"missingkink": content}),
+                }).then(res => function(){
+                })
+                console.log("Sent")
+                location.reload()
+            }
+            content.appendChild(send)
+
+
             var reset = document.createElement('btn')
             reset.classList.add('reset')
             reset.innerText = 'Reset All'
@@ -320,9 +380,12 @@ function build_list(){
                 }
             }
             document.getElementById('footer_container').appendChild(submit)
+            document.getElementById('footer_container').appendChild(coll)
+            document.getElementById('footer_container').appendChild(content)
             document.getElementById('footer_container').appendChild(reset)
             document.getElementById('footer_container').appendChild(resetUser)
 
+            buildCollapsibles()
 
             var kinkgroups = data['kink_groups']
             window.doneKinks = 0
@@ -551,27 +614,7 @@ function submit_results(){
     }
 }
 
-function checkLocalStorage(){
-    $.each($.cookie('values').split('#'), function(){
-        if(this !== ''){
-            var splt = this.split('=')
-            var val = window.localStorage.getItem(splt[0])
-            if(val === null){
-                list = []
-                for(var i = 1; i < splt.length; i++){
-                    list.push(splt[i])
-                }
-                var val = JSON.stringify(list)
-                window.localStorage.setItem(splt[0], val)
-            }
-        }
 
-
-
-    })
-
-
-}
 function togglePin(sender){
     var div = document.getElementById('c_container')
     if(div.classList.contains("pinned")){
@@ -583,3 +626,20 @@ function togglePin(sender){
     }
 }
 
+//Collapsible
+function buildCollapsibles(){
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight){
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    }
+}

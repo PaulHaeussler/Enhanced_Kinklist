@@ -239,7 +239,49 @@
         transition: 0.2s;
     }
 
+    .collapsible {
+      border-radius: 5px;
+      margin: 5px;
+      background-color: #f2f6f7;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: 1px solid;
+      text-align: center;
+      outline: none;
+      font-size: 15px;
+    }
 
+    .active, .collapsible:hover {
+      background-color: #fae2b9;
+    }
+
+    .content {
+      padding: 0 18px;
+      background-color: #f2f6f7;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+    }
+
+    .ta {
+        margin-top: 4px;
+        width: 100%;
+        height: 120px;
+        background-color: #f2f6f7;
+    }
+
+    .collapsible:after {
+      content: '\02795'; /* Unicode character for "plus" sign (+) */
+      font-size: 13px;
+      color: white;
+      float: right;
+      margin-left: 5px;
+    }
+
+    .active:after {
+      content: "\2796"; /* Unicode character for "minus" sign (-) */
+    }
 
 
 

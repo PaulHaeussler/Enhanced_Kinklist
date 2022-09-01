@@ -6,6 +6,18 @@
     font-family: Verdana, sans-serif;
 }
 
+.hc {
+    display: flex;
+    flex-direction: row;
+}
+
+.vc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 
 #main_horizontal {
     display: flex;
