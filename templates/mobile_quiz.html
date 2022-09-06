@@ -48,10 +48,11 @@
     <footer class="mf">
         <button id="back" onclick="location.href='{% if id == first %}/meta'"{% else %}/quiz?id={{prev}}'"{% endif %}>Back
         </button>
-        <div id="mprogress">
+        <div id="mprogress" class="vc">
             <span id="msprog">
 
             </span>
+            <a href="/jump">Jump ⬈</a>
         </div>
         <button id="next" {% if id == last %}onclick="submit()">Submit{% else %}onclick="location.href='/quiz?id={{next}}'">Next{% endif %}
         </button>

@@ -298,6 +298,12 @@ class Kinklist:
             return render_template('mobile_meta.html')
         
         
+        @self.app.route('/jump')
+        def jump():
+            self.__log(request)
+            return render_template('mobile_jump.html', groups=self.config['kink_groups'])
+        
+        
         @self.app.route('/cinfo')
         def cinfo():
             self.__log(request)

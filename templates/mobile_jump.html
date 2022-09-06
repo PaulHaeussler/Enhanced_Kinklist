@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Questions{% endblock %}
+{% block meta %}
+<meta name="description" content="An in-depth questionare hoping to cover every (major) kink there is"/>
+{% endblock %}
+{% block body %}
+    <div class="vc mc">
+        <div onclick="window.location.href = '{{ url_for('index') }}';" style="cursor:pointer;">
+            <h1 class="mh1">Enhanced Kinklist</h1>
+        </div>
+    <ol>
+        {% for group in groups %}
+            <li>{{ group['description'] }}
+                <ul>
+                    {% for kink in group['rows'] %}
+                        <li><a class="li_kink" id="{{ kink['id'] }}" href="/quiz?id={{ kink['id'] }}">{{ kink['description'] }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+
+        {% endfor %}
+    </ol>
+
+    </div>
+    <script>
+        buildJumpProgress()
+    </script>
+{% endblock %}

@@ -283,3 +283,30 @@ function updateLS(id, value, pos){
     window.localStorage.setItem(id, val)
 
 }
+
+function buildJumpProgress(){
+    $.each(document.getElementsByClassName('li_kink'), function() {
+        var id = this.getAttribute("id")
+        var vals = JSON.parse(window.localStorage.getItem(parseInt(id)))
+        var pstr = "["
+        var done = "✅"
+        var not_done = " "
+        for(var i = 0; i < vals.length; i++){
+            var tmp = ""
+            if(vals[i] === "0"){
+                tmp = not_done
+            } else {
+                tmp = done
+            }
+
+            if(i === vals.length - 1){
+                pstr += tmp + "] "
+            } else {
+                pstr += tmp + " | "
+            }
+        }
+        this.innerText = pstr + this.innerText;
+
+    })
+
+}
