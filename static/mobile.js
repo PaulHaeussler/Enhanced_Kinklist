@@ -206,9 +206,9 @@ function submit(){
         $.each(Object.keys(lc), function(){
             val = lc.getItem(this);
             if(this.startsWith('meta_')){
-                meta.push({"id": this.valueOf(), "val": val})
+                meta.push({"id": this.valueOf().substring(5), "val": val})
             } else {
-                kinks.push({"id": parseInt(String(this).slice(0, 5)), "val": val})
+                kinks.push({"id": parseInt(String(this)), "val": val})
             }
         })
 
