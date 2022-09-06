@@ -302,67 +302,6 @@
       ]
     },
     {
-      "description": "Ethnicities",
-      "tip": "Preferences in appearances",
-      "columns": [
-        "Partner"
-      ],
-      "rows": [
-        {
-          "description": "Caucasian/Middle European",
-          "tip": "Generic white persons from Europe or North America",
-          "id": 21001
-        },
-        {
-          "description": "Northern European",
-          "tip": "From Scandinavia",
-          "id": 21002
-        },
-        {
-          "description": "Southern European",
-          "tip": "Spain, Italy, Greece",
-          "id": 21003
-        },
-        {
-          "description": "Japanese",
-          "id": 21004
-        },
-        {
-          "description": "Korean",
-          "id": 21005
-        },
-        {
-          "description": "Chinese",
-          "id": 21006
-        },
-        {
-          "description": "South-Asian",
-          "tip": "Vietnam, Philippines",
-          "id": 21007
-        },
-        {
-          "description": "Indian",
-          "id": 21008
-        },
-        {
-          "description": "African",
-          "id": 21009
-        },
-        {
-          "description": "Afro-American",
-          "id": 21010
-        },
-        {
-          "description": "Latinos",
-          "id": 21011
-        },
-        {
-          "description": "Arabs",
-          "id": 21012
-        }
-      ]
-    },
-    {
       "description": "Clothing",
       "tip": "Kinks centered around Clothing and Apparel",
       "columns": [
@@ -478,47 +417,6 @@
           "description": "Formal/Business Clothing",
           "tip": "Suits, button shirts and similar",
           "id": 2023
-        }
-      ]
-    },
-    {
-      "description": "Age Groups",
-      "tip": "How old do/did you like your partners? (If have tried then their age at the time counts)",
-      "columns": [
-        "Partner"
-      ],
-      "rows": [
-        {
-          "description": "18 - 21",
-          "id": 22004
-        },
-        {
-          "description": "22 - 26",
-          "id": 22005
-        },
-        {
-          "description": "27 - 32",
-          "id": 22006
-        },
-        {
-          "description": "33 - 40",
-          "id": 22007
-        },
-        {
-          "description": "41 - 50",
-          "id": 22008
-        },
-        {
-          "description": "51 - 60",
-          "id": 22009
-        },
-        {
-          "description": "61 - 70",
-          "id": 22010
-        },
-        {
-          "description": "70 +",
-          "id": 22011
         }
       ]
     },
@@ -1766,6 +1664,108 @@
           "description": "Eroge",
           "tip": "Games with erotic content",
           "id": 20008
+        }
+      ]
+    },
+    {
+      "description": "Ethnicities",
+      "tip": "Preferences in appearances",
+      "columns": [
+        "Partner"
+      ],
+      "rows": [
+        {
+          "description": "Caucasian/Middle European",
+          "tip": "Generic white persons from Europe or North America",
+          "id": 21001
+        },
+        {
+          "description": "Northern European",
+          "tip": "From Scandinavia",
+          "id": 21002
+        },
+        {
+          "description": "Southern European",
+          "tip": "Spain, Italy, Greece",
+          "id": 21003
+        },
+        {
+          "description": "Japanese",
+          "id": 21004
+        },
+        {
+          "description": "Korean",
+          "id": 21005
+        },
+        {
+          "description": "Chinese",
+          "id": 21006
+        },
+        {
+          "description": "South-Asian",
+          "tip": "Vietnam, Philippines",
+          "id": 21007
+        },
+        {
+          "description": "Indian",
+          "id": 21008
+        },
+        {
+          "description": "African",
+          "id": 21009
+        },
+        {
+          "description": "Afro-American",
+          "id": 21010
+        },
+        {
+          "description": "Latinos",
+          "id": 21011
+        },
+        {
+          "description": "Arabs",
+          "id": 21012
+        }
+      ]
+    },
+    {
+      "description": "Age Groups",
+      "tip": "How old do/did you like your partners? (If have tried then their age at the time counts)",
+      "columns": [
+        "Partner"
+      ],
+      "rows": [
+        {
+          "description": "18 - 21",
+          "id": 22004
+        },
+        {
+          "description": "22 - 26",
+          "id": 22005
+        },
+        {
+          "description": "27 - 32",
+          "id": 22006
+        },
+        {
+          "description": "33 - 40",
+          "id": 22007
+        },
+        {
+          "description": "41 - 50",
+          "id": 22008
+        },
+        {
+          "description": "51 - 60",
+          "id": 22009
+        },
+        {
+          "description": "61 - 70",
+          "id": 22010
+        },
+        {
+          "description": "70 +",
+          "id": 22011
         }
       ]
     }
