@@ -198,6 +198,12 @@ function submit(){
     var kinks = []
     var meta = []
 
+    if(window.fields_filled-window.total_fields !== 0){
+        if(!confirm("It seems you missed " + (window.total_fields-window.fields_filled) + " Questions, are you sure you want to submit your results? Click Cancel to go back")){
+            window.location.href = '/jump'
+        }
+    }
+
     if(lc.getItem('meta_name') === null ||lc.getItem('meta_name') === ''){
         window.location.href = '/meta?err=1'
     } else if(lc.getItem('meta_name').length > 100) {
