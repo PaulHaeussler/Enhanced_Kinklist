@@ -1,6 +1,57 @@
+html, body {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+.mc {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.mchoices {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
 
 
 
+}
+
+.mchoice {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    min-height: 50px !important;
+    margin: 6px;
+}
+
+
+
+
+.mh1 {
+    text-align: center;
+}
+
+#tip_progress {
+    background: rgba(255,196,0,.2);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid yellow;
+}
+
+
+.mdesc {
+    text-align: center;
+    max-width: 280px;
+}
+
+.err {
+    border: 1px solid red;
+}
 
 * {
     font-family: Verdana, sans-serif;
@@ -16,6 +67,63 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.mf {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 10%;
+    justify-content: left;
+    align-items: center;
+
+}
+
+.ment {
+    color: black;
+    width: 290px;
+    grid-column: 1/6;
+}
+
+.mcollapsible {
+    width: 80% !important;
+}
+
+.mimg {
+    max-width: 340px;
+    height: auto;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+#mprogress {
+    width: 40%;
+    text-align: center;
+}
+
+#msprog {
+    font-size: 18px;
+}
+
+#back {
+
+    width: 30%;
+    height: 80%;
+    font-size: 22px;
+    color: black;
+}
+
+#next {
+
+    width: 30%;
+    height: 80%;
+    font-size: 22px;
+    color: black;
 }
 
 
@@ -365,7 +473,6 @@ div.hc {
 
     btn.entered {
         font-size: 11px;
-        grid-column: 1 / 5;
     }
 
 
@@ -377,5 +484,11 @@ div.hc {
 @media all and (max-width: 500px){
     #results_container {
         grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media all and (max-width: 400px){
+    #results_container {
+        grid-template-columns: 1fr;
     }
 }

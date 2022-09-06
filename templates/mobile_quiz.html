@@ -5,6 +5,62 @@
 {% endblock %}
 {% block body %}
     <div class="vc">
-
+        <div id="kinkID" hidden>{{ id }}</div>
+        <div onclick="window.location.href = '{{ url_for('index') }}';" style="cursor:pointer;">
+            <h3 class="mh1">Enhanced Kinklist</h3>
+        </div>
+        <h4 class="mt">{{ group_name }}</h4>
+        <span class="mdesc" style="font-size: 14px;">{{ group_tip }}</span>
+        <br>
+        <h2 class="mkt">{{ kink_title }}</h2>
+        <span class="mdesc" style="font-size: 18px;">{{ kink_desc }}</span>
+        <br>
+        <button id="kinkImg" class="collapsible mcollapsible">
+            Exemplary Image
+        </button>
+        <div class="content">
+            <img class="mimg" src="static/imgs/{{ id }}.jpg" onclick="document.getElementById('kinkImg').click()" onerror="document.getElementById('kinkImg').remove()">
+        </div>
+        <br>
+        {% for col in cols %}
+            {% set outer_loop = loop %}
+            <div class="mcol">
+                <h4 style="text-align:center;">{{ col }}</h4>
+                <div class="mchoices">
+                    {% for c in cats %}
+                        <button value="{{ c['id'] }}" index="{{ outer_loop.index0 }}" class="mchoice choice" style="background-color: {{ c['color'] }};" onclick="enterChoice(this)"></button>
+                        <btn value="{{ c['id'] }}" index="{{ outer_loop.index0 }}" class="entered hidden ment" style="background-color: {{ c['color'] }};" onclick="removeChoice(this)">
+                            <div class="choiceText">
+                                {{ c['description'] }}
+                            </div>
+                        </btn>
+                    {% endfor %}
+                </div>
+            </div>
+            <br>
+        {% endfor %}
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <footer class="mf">
+        <button id="back" onclick="location.href='{% if id == first %}/meta'"{% else %}/quiz?id={{prev}}'"{% endif %}>Back
+        </button>
+        <div id="mprogress">
+            <span id="msprog">
+
+            </span>
+        </div>
+        <button id="next" {% if id == last %}onclick="submit()">Submit{% else %}onclick="location.href='/quiz?id={{next}}'">Next{% endif %}
+        </button>
+    </footer>
+    <script>
+        fillChoices()
+
+        getProgress()
+
+        buildCollapsibles()
+    </script>
 {% endblock %}

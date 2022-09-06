@@ -259,6 +259,7 @@
         color: #d1d1d1;
     }
 
+
     .collapsible {
       border-radius: 5px;
       margin: 5px;
@@ -301,4 +302,30 @@
 
     .active:after {
       content: "\2796"; /* Unicode character for "minus" sign (-) */
+    }
+
+    .mf {
+        background: rgba(56,56,56,.7);
+
+        border: 1px solid black;
+    }
+
+    .mcl {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        justify-content: center;
+        background: rgba(56,56,56,.7);
+        padding: 8px;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    .mcol {
+        justify-content: center;
+        align-items: center;
+        background: rgba(69,69,69,.5);
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid black;
     }

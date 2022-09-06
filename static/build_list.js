@@ -175,6 +175,10 @@ function updateCookie(kink, value, pos){
 
 }
 
+
+
+
+
 function getCookieVal(kink, pos){
     var id = lookup(kink)
     var tmp = JSON.parse(window.localStorage.getItem(id))
@@ -221,6 +225,7 @@ function checkLocalStorage(){
 
 function meta_changed(sender){
     var src = sender.srcElement
+    src.classList.remove('err')
     window.localStorage.setItem(src.id, src.value)
 }
 
@@ -577,7 +582,7 @@ function submit_results(){
     if(lc.getItem('meta_name') === null ||lc.getItem('meta_name') === ''){
         alert('Please enter a name or pseudonym!')
     } else if(lc.getItem('meta_name').length > 100) {
-         alert('Name too long, max. 100 characters!')
+         alert('Name too long, max. 100 characters! Please reset your user')
     }else {
         $.each(window.groups, function(){
             $.each(this['rows'], function(){

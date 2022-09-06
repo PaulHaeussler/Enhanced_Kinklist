@@ -7,7 +7,7 @@ import json
 import logging
 import os
 import copy
-import smtplib
+import collections
 
 
 from loguru import logger
@@ -21,7 +21,7 @@ from werkzeug.utils import redirect
 from db import MySQLPool
 
 stage = os.environ["STAGE"]
-stage = "PROD"
+
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -50,6 +50,16 @@ class Kinklist:
         json_file = dirname(abspath(__file__)) + "/enhanced_kinklist.json"
         self.config = json.load(open(json_file))
         logger.info("Starting up...")
+
+        byid = {}
+        for group in self.config['kink_groups']:
+            for kink in group['rows']:
+                tip = ''
+                if "tip" in kink.keys():
+                    tip = kink["tip"]
+                byid[kink['id']] = {"name": kink["description"], "tip": tip, "group_name": group["description"], "group_tip": group["tip"], "cols": group["columns"]}
+
+        self.byid = collections.OrderedDict(sorted(byid.items()))
 
 
         args = read_args()
@@ -142,6 +152,16 @@ class Kinklist:
                          req.environ.get('PATH_INFO'), req.environ.get('QUERY_STRING')), commit=True)
         return ip
 
+    def isMobile(self, request):
+        ua = request.headers.get('User-Agent')
+        if ua is None:
+            ua = ""
+        ua = ua.lower()
+        if stage == "DEV":
+            ua += "android"
+        return "iphone" in ua or "android" in ua
+
+
 
     @logger.catch
     def create_app(self):
@@ -184,14 +204,8 @@ class Kinklist:
             values = request.cookies.get('values', default='')
 
             if request.method == 'GET':
-                ua = request.headers.get('User-Agent')
-                if ua is None:
-                    ua = ""
-                ua = ua.lower()
-                res = None
-                if stage == "DEV":
-                    ua += "android"
-                if "iphone" in ua or "android" in ua:
+
+                if self.isMobile(request):
                     res = make_response(render_template('mobile_index.html'))
                 else:
                     res = make_response(render_template('index.html'))
@@ -246,6 +260,53 @@ class Kinklist:
                 res = make_response()
                 res.status_code = 501
                 return res
+
+        @self.app.route('/quiz')
+        def quiz():
+            self.__log(request)
+            id = request.args.get('id', default='')
+            keys = list(self.byid.keys())
+            if id == '' or not int(id) in keys:
+                return redirect(url_for('index'))
+
+            cats = []
+            for c in self.config["categories"]:
+                if not "default" in c:
+                    cats.append(c)
+
+
+            id = int(id)
+            first = keys[0]
+            last = keys[-1]
+            index = keys.index(int(id))
+            prev = keys[index-1]
+            kink = self.byid[int(id)]
+            if prev == last:
+                prev = id
+            next = None
+            if index == len(keys) - 1:
+                next = id
+            else:
+                next = keys[index + 1]
+
+            return render_template('mobile_quiz.html', id=id, first=first, prev=prev, next=next, last=last, cols=kink['cols'], group_name=kink['group_name'], group_tip=kink['group_tip'], kink_title=kink['name'], kink_desc=kink['tip'], cats=cats)
+
+
+        @self.app.route('/meta')
+        def meta():
+            self.__log(request)
+            return render_template('mobile_meta.html')
+        
+        
+        @self.app.route('/cinfo')
+        def cinfo():
+            self.__log(request)
+            cats = []
+            for c in self.config["categories"]:
+                if not "default" in c:
+                    cats.append(c)
+
+            return render_template('mobile_cinfo.html', cats=cats)
 
 
         @self.app.route('/results')
@@ -345,6 +406,15 @@ class Kinklist:
             response = jsonify(self.config)
             response.status_code = 200
             return response
+
+
+        @self.app.route('/byid')
+        def byid():
+            self.__log(request)
+            response = jsonify(self.byid)
+            response.status_code = 200
+            return response
+
 
         @self.app.route('/robots.txt')
         @self.app.route('/sitemap.xml')

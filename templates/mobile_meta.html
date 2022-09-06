@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Questions{% endblock %}
+{% block meta %}
+<meta name="description" content="An in-depth questionare hoping to cover every (major) kink there is"/>
+{% endblock %}
+{% block body %}
+    <div class="vc mc">
+        <div onclick="window.location.href = '{{ url_for('index') }}';" style="cursor:pointer;">
+            <h1 class="mh1">Enhanced Kinklist</h1>
+        </div>
+        <span class="mdesc">
+            First, some general info. Please note that besides the 'name' field below, you don't have to fill in any information you're not comfortable with sharing to continue.
+        </span>
+        <br>
+        <label class="meta" for="meta_name">Name:</label>
+        <input class="meta" id="meta_name">
+        <label class="meta" for="meta_age">Age:</label>
+        <select class="meta" id="meta_age"></select>
+        <label class="meta" for="meta_sex">Sex:</label>
+        <select class="meta" id="meta_sex"></select>
+        <label class="meta" for="meta_fap_freq">Masturbation Frequency:</label>
+        <select class="meta" id="meta_fap_freq"></select>
+        <label class="meta" for="meta_sex_freq">Sex Frequency:</label>
+        <select class="meta" id="meta_sex_freq"></select>
+        <label class="meta" for="meta_body_count">Body Count:</label>
+        <select class="meta" id="meta_body_count"></select>
+        <br>
+        <btn class="submit" style="width:60%; max-width: 200px;" onclick="startQuiz()">Let's go!</btn>
+    </div>
+    <script>
+        buildMeta();
+
+        function startQuiz(sender){
+            if(window.localStorage.getItem('meta_name') !== '' && window.localStorage.getItem('meta_name') !== null){
+                window.location.href = '/cinfo?id=1001'
+            } else {
+                window.location.replace('/meta?err=1')
+            }
+        }
+    </script>
+{% endblock %}

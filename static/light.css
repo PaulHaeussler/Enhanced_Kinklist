@@ -284,10 +284,32 @@
     }
 
 
+    .mf {
+        background: rgba(180,180,180,.65);
+
+        border: 1px solid black;
+    }
 
 
 
 
+    .mcl {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        justify-content: center;
+        background: rgba(215,215,215,.7);
+        padding: 8px;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
 
-
+    .mcol {
+        justify-content: center;
+        align-items: center;
+        background: rgba(242,246,247,.8);
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid black;
+    }
 

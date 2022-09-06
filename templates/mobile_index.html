@@ -4,10 +4,66 @@
 <meta name="description" content="An in-depth questionare hoping to cover every (major) kink there is"/>
 {% endblock %}
 {% block body %}
-    <div class="vc">
-        <span>
-            Under Construction! Come back in a few days :)   Or force desktop page
+    <div class="vc mc">
+        <div onclick="window.location.href = '{{ url_for('index') }}';" style="cursor:pointer;">
+            <h1 class="mh1">Enhanced Kinklist</h1>
+        </div>
+        <span class="mdesc">
+            This is an extensive questionnaire to aggregate what kinks you've tried, how you liked them and what you want to try.
+            You can share and compare the results!
         </span>
-        <button onclick="/quiz" disabled>Work in progress</button>
+        <br>
+        <div class="vc hidden" id="tip_progress">
+            <span class="mdesc">
+                You have some progress saved from last time!
+            </span>
+            <br>
+            <span class="mdesc">
+                Click below to continue where you last left off, click 'Start' to see all questions from the top again and click the Reset-Buttons to erase your previous progress.
+            </span>
+            <br>
+            <btn id="continue" class="submit" style="width:60%; max-width: 200px;">Continue</btn>
+        </div>
+        <br>
+        <btn class="submit" style="width:60%; max-width: 200px;" onclick="location.href='/meta'">Start</btn>
+        <btn id="resetAnswers" class="reset" style="width:60%; max-width: 200px;">Reset my Answers</btn>
+        <btn id="resetUser" class="reset" style="width:60%; max-width: 200px;">Reset my User</btn>
     </div>
+<script defer>
+    if(window.localStorage.length === 0){
+        setupLocalStorage()
+    } else {
+        checkLocalStorage()
+    }
+
+
+    checkForProgress()
+
+
+
+    var reset = document.getElementById('resetAnswers')
+    reset.onclick = function(){
+        if(confirm('Are you really sure? This will reset all data that you have entered!')){
+            window.localStorage.clear();
+            $.cookie("user", null, { path: '/' })
+            $.cookie("values", null, { path: '/' })
+            window.location.reload();
+            $('html, body').animate({ scrollTop: 0 }, 'fast');
+        }
+    }
+    var resetUser = document.getElementById('resetUser')
+    resetUser.onclick = function(){
+        if(confirm('Are you really sure? This will reset the metadata (name, age, ...) that you entered. Your choices will not be affected.')){
+            $.cookie("user", null, { path: '/' })
+            window.localStorage.removeItem('meta_name');
+            window.localStorage.removeItem('meta_sex_freq');
+            window.localStorage.removeItem('meta_sex');
+            window.localStorage.removeItem('meta_age');
+            window.localStorage.removeItem('meta_fap_freq');
+            window.localStorage.removeItem('meta_body_count');
+            window.location.reload();
+            $('html, body').animate({ scrollTop: 0 }, 'fast');
+        }
+    }
+</script>
 {% endblock %}
