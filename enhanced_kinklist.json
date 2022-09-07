@@ -303,7 +303,7 @@
     },
     {
       "description": "Clothing",
-      "tip": "Kinks centered around Clothing and Apparel",
+      "tip": "Kinks centered around Clothing and Apparel. Self means you wearing it, Partner means having/seeing your partner wear it",
       "columns": [
         "Self",
         "Partner"
