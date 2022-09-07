@@ -188,7 +188,7 @@ class Kinklist:
                 ua = ua.lower()
                 page = None
                 if "iphone" in ua or "android" in ua:
-                    page = 'mobile_results.html'
+                    page = 'results.html'
                 else:
                     page = 'results.html'
 
