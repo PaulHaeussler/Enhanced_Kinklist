@@ -28,8 +28,8 @@
                 <h4 style="text-align:center;">{{ col }}</h4>
                 <div class="mchoices">
                     {% for c in cats %}
-                        <button value="{{ c['id'] }}" index="{{ outer_loop.index0 }}" class="mchoice choice" style="background-color: {{ c['color'] }};" onclick="enterChoice(this)"></button>
-                        <btn value="{{ c['id'] }}" index="{{ outer_loop.index0 }}" class="entered hidden ment" style="background-color: {{ c['color'] }};" onclick="removeChoice(this)">
+                        <button value="{{ c['id'] }}" index="{{ outer_loop.index0 }}" class="mchoice choice" style="background-color: {{ c['color'] }};" onclick="enterChoiceM(this)"></button>
+                        <btn value="{{ c['id'] }}" index="{{ outer_loop.index0 }}" class="entered hidden ment" style="background-color: {{ c['color'] }};" onclick="removeChoiceM(this)">
                             <div class="choiceText">
                                 {{ c['description'] }}
                             </div>

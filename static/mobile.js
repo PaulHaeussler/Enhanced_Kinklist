@@ -229,7 +229,7 @@ function submit(){
 }
 
 
-function enterChoice(sender){
+function enterChoiceM(sender){
     var parent = sender.parentNode;
     var val = sender.value;
     var id = parseInt(document.getElementById("kinkID").innerText);
@@ -258,7 +258,7 @@ function enterChoice(sender){
     })
 }
 
-function removeChoice(sender){
+function removeChoiceM(sender){
     var parent = sender.parentNode;
     var val = sender.value;
     var id = parseInt(document.getElementById("kinkID").innerText);
