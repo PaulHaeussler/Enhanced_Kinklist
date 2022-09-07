@@ -162,10 +162,10 @@ function getProgress() {
 
     window.total_fields = total_fields;
     window.fields_filled = fields_filled;
-    updateProgress();
+    updateProgressM();
 }
 
-function updateProgress() {
+function updateProgressM() {
     var progress = Math.round(window.fields_filled / window.total_fields * 1000)/10;
     document.getElementById("msprog").innerText = progress + "%";
 }
@@ -234,7 +234,7 @@ function enterChoiceM(sender){
     var val = sender.value;
     var id = parseInt(document.getElementById("kinkID").innerText);
     window.fields_filled += 1;
-    updateProgress();
+    updateProgressM();
     $.each(parent.childNodes, function(){
         if(this.nodeName === "#text"){
             return;
@@ -263,7 +263,7 @@ function removeChoiceM(sender){
     var val = sender.value;
     var id = parseInt(document.getElementById("kinkID").innerText);
     window.fields_filled -= 1;
-    updateProgress();
+    updateProgressM();
     $.each(parent.childNodes, function(){
         if(this.nodeName === "#text"){
             return;
