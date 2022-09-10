@@ -201,6 +201,7 @@ function submit(){
     if(window.fields_filled-window.total_fields !== 0){
         if(!confirm("It seems you missed " + (window.total_fields-window.fields_filled) + " Questions, are you sure you want to submit your results? Click Cancel to go back")){
             window.location.href = '/jump'
+            return
         }
     }
 
