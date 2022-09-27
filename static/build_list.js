@@ -123,7 +123,15 @@ function buildOptions(parent, kink, pos, index){
         if(this["id"] == "5" || this["id"] == "10") {
             btn.style.marginRight = "15px"
         }
-        parent.appendChild(btn)
+        var k = lookup_group(kink)
+        if(k["only_havent_tried"]){
+            console.log()
+        }
+
+        if(!(this["have_tried"] === true && k["only_havent_tried"] === true)) {
+            parent.appendChild(btn)
+        }
+
     })
 
 }
@@ -138,7 +146,7 @@ function lookupChoice(id){
     return res
 }
 
-function lookup(kink){
+function lookup_id(kink){
     var res = null
     $.each(window.groups, function() {
         $.each(this['rows'], function() {
@@ -149,6 +157,34 @@ function lookup(kink){
     })
     return res
 }
+
+
+function lookup(kink){
+    var res = null
+    $.each(window.groups, function() {
+        $.each(this['rows'], function() {
+            if(this['description'] == kink){
+                res = this
+            }
+        })
+    })
+    return res
+}
+
+
+function lookup_group(kink){
+    var res = null
+    $.each(window.groups, function() {
+        var g = this;
+        $.each(this['rows'], function() {
+            if(this['description'] == kink){
+                res = g
+            }
+        })
+    })
+    return res
+}
+
 
 
 function encodeCookie(values) {
@@ -164,7 +200,7 @@ function encodeCookie(values) {
 }
 
 function updateCookie(kink, value, pos){
-    var id = lookup(kink)
+    var id = lookup_id(kink)
     var tmp = JSON.parse(window.localStorage.getItem(id))
     tmp[pos-1] = value
     var val = JSON.stringify(tmp)
@@ -180,7 +216,7 @@ function updateCookie(kink, value, pos){
 
 
 function getCookieVal(kink, pos){
-    var id = lookup(kink)
+    var id = lookup_id(kink)
     var tmp = JSON.parse(window.localStorage.getItem(id))
     return tmp[pos-1]
 }

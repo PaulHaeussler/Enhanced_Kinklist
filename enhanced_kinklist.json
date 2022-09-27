@@ -1532,6 +1532,7 @@
     {
       "description": "Fantasy",
       "tip": "Purely fictional kinks that could appear in consumed porn, hentais, manga or artists artwork. Self doesnt have to be involved in the act of the kink but could also be a third party observing. You can only answer with Haven't tried",
+      "only_havent_tried": true,
       "columns": [
         "General"
       ],

@@ -21,7 +21,7 @@ from werkzeug.utils import redirect
 from db import MySQLPool
 
 stage = os.environ["STAGE"]
-
+force_mobile = False
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -157,7 +157,7 @@ class Kinklist:
         if ua is None:
             ua = ""
         ua = ua.lower()
-        if stage == "DEV":
+        if force_mobile:
             ua += "android"
         return "iphone" in ua or "android" in ua
 
