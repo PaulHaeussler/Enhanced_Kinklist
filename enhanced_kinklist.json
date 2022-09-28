@@ -1411,6 +1411,16 @@
         {
           "description": "Roleplay",
           "id": 16020
+        },
+        {
+          "description": "Strangers",
+          "tip": "Anything involving sexual interactions with strangers, can be anonymous hookups, sexting or arranged partners by someone else. Self means self interacting with strangers, Partner means partner doing it.",
+          "id": 16021
+        },
+        {
+          "description": "Crying",
+          "tip": "Gaining arousal from being made to cry (self) or making your partner cry (usually in bdsm punishments or cnc)",
+          "id": 16022
         }
       ]
     },
