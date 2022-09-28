@@ -31,6 +31,17 @@
             Noticed something that's not quite right yet? Just go back (your progress will still be there) and create a new result! Be sure to copy and save the link to your results with the button above if you want to come back to your results later!
         </span>
         <br>
+        <div class="hc">
+            <span style="margin-right: 5px;">Filter Answers: </span>
+            <div class="hc fdiv">
+                {% for c in choices %}
+                    <div style="display: flex;">
+                        <span class="choice filter" style="background-color: {{ c['color'] }};" value="{{ c['color'] }}" onclick="toggleFilter(event);" title="{{ c['description'] }}"></span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <br>
         <div id="results_container">
         {% for g in kinks %}
             <div class="kink_group">
@@ -39,7 +50,7 @@
                 <br>
                 {% for k in g['rows'] %}
 
-                    <div class="kink_row">
+                    <div class="kink_row" vals="{{ k['vals'] }}">
                         {% for c in k['vals'] %}
                             <span title="{{ get_cat(c, choices) }}" class="choice noedit" style="background-color: {{ c }}"></span>
                         {% endfor %}

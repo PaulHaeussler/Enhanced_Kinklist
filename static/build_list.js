@@ -684,3 +684,61 @@ function buildCollapsibles(){
       });
     }
 }
+
+
+
+
+function toggleFilter(event) {
+    var src = event.srcElement;
+    var current = document.getElementsByClassName("active")
+
+    $.each(document.getElementsByClassName("filter"), function() {
+        if(!(this === src)){
+            this.classList.remove("active")
+        }
+    })
+
+    if(current !== null){
+        if(current[0] === src){
+            src.classList.remove("active")
+        } else {
+            src.classList.add("active")
+        }
+    } else {
+        src.classList.add("active")
+    }
+
+    var filterby = document.getElementsByClassName("active")
+
+    $.each(document.getElementsByClassName("kink_row"), function() {
+        this.classList.remove("hidden")
+        if(!(filterby.length === 0)){
+            if(!this.getAttribute("vals").includes(filterby[0].getAttribute("value"))){
+                this.classList.add("hidden")
+            }
+        }
+    })
+
+
+    $.each(document.getElementsByClassName("kink_group"), function() {
+        this.classList.remove("hidden")
+
+        var rows_hidden = 0;
+        var total_rows = 0;
+        var children = this.children;
+        for (var i = 0; i < children.length; i++) {
+          var tc = children[i];
+          if(tc.tagName === "DIV"){
+            total_rows += 1;
+            if(tc.classList.contains("hidden")){
+                rows_hidden += 1;
+            }
+          }
+        }
+
+        if(rows_hidden === total_rows){
+            this.classList.add("hidden")
+        }
+    })
+
+}

@@ -9,6 +9,19 @@ html, body {
     margin-right: 15px;
 }
 
+
+.filter {
+    width: 25px !important;
+    height: 25px !important;
+}
+
+.active {
+    opacity: 1 !important;
+    width: 30px !important;
+    height: 30px !important;
+    border: solid #707070 3px !important;
+}
+
 .mchoices {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
