@@ -15,7 +15,7 @@ html, body {
     height: 25px !important;
 }
 
-.active {
+.filter_active {
     opacity: 1 !important;
     width: 30px !important;
     height: 30px !important;

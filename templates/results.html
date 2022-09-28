@@ -31,6 +31,14 @@
             Noticed something that's not quite right yet? Just go back (your progress will still be there) and create a new result! Be sure to copy and save the link to your results with the button above if you want to come back to your results later!
         </span>
         <br>
+        <button id="statsColl" class="collapsible">Statistics</button>
+        <div class="content">
+            <h5>Stats</h5>
+            <div>
+
+            </div>
+        </div>
+        <br>
         <div class="hc">
             <span style="margin-right: 5px;">Filter Answers: </span>
             <div class="hc fdiv">
@@ -73,6 +81,8 @@
   window.justCreated = urlParams.get('justCreated');
   console.log(window.token)
   console.log(window.justCreated)
+
+  buildCollapsibles()
 
   if(window.justCreated !== 'true'){
     document.getElementById('justCreatedTip').remove();

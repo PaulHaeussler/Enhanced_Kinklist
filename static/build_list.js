@@ -690,25 +690,25 @@ function buildCollapsibles(){
 
 function toggleFilter(event) {
     var src = event.srcElement;
-    var current = document.getElementsByClassName("active")
+    var current = document.getElementsByClassName("filter_active")
 
     $.each(document.getElementsByClassName("filter"), function() {
         if(!(this === src)){
-            this.classList.remove("active")
+            this.classList.remove("filter_active")
         }
     })
 
     if(current !== null){
         if(current[0] === src){
-            src.classList.remove("active")
+            src.classList.remove("filter_active")
         } else {
-            src.classList.add("active")
+            src.classList.add("filter_active")
         }
     } else {
-        src.classList.add("active")
+        src.classList.add("filter_active")
     }
 
-    var filterby = document.getElementsByClassName("active")
+    var filterby = document.getElementsByClassName("filter_active")
 
     $.each(document.getElementsByClassName("kink_row"), function() {
         this.classList.remove("hidden")
