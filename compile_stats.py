@@ -1,5 +1,6 @@
 import json
 import operator
+import time
 from dataclasses import dataclass, field
 from os.path import dirname, abspath
 
@@ -45,9 +46,89 @@ class StatCompiler:
             self.compile_user(user, g_choices)
 
         g_stats = GlobalStats(users, g_choices)
+        avg = self.build_average(g_stats)
         print()
+
+        res = {
+            "categories": [
+                "Have tried - Favorite",
+                "Have tried - Liked",
+                "Have tried - Was okay",
+                "Have tried - Didn't like",
+                "Have tried - Hated",
+                "Haven't tried - Would love to try",
+                "Haven't tried - Would want to try",
+                "Haven't tried - Indifferent to it",
+                "Haven't tried - Might try",
+                "Haven't tried - Won't ever try",
+                "Confused",
+                "Not entered",
+                "Not applicable"
+            ],
+            "colors": [
+                "#0004ff",
+                "#007a18",
+                "#c2a200",
+                "#d48600",
+                "#a60000",
+                "#75f6ff",
+                "#7aff88",
+                "#fffca8",
+                "#ffd8ba",
+                "#ff7575",
+                "#ae00ff",
+                "#d1d1d1",
+                "#f0f0f0"
+            ]
+        }
+        tmp = {}
+        for index, c in enumerate(res["categories"]):
+            tmp[c] = avg[str(self.get_id_by_name(c))]
+
+        res["distr_cat"] = tmp
+
+        print()
+        self.db.execute("INSERT INTO stats(data, created) VALUES(%s, %s);", (json.dumps(res), time.time(),), commit=True)
         # self.build_global_stats(g_stats)
-        self.top10_hated(g_stats)
+        # self.top10_hated(g_stats)
+
+
+    def get_id_by_name(self, name):
+        for c in self.config["categories"]:
+            if c["description"] == name:
+                return c["id"]
+
+
+    def build_average(self, g_stats):
+        sum = new_choices_dict()
+        count = 0
+
+        for user in g_stats.users:
+
+            l = user.stats.total_counts
+
+            s = 0
+            for key in user.stats.total_counts.keys():
+                s += user.stats.total_counts[key]
+            print(str(s) + " - " + str(user.id))
+
+            if l["0"] > 150 or l["-999"] > 100:
+                pass
+                # print(user.id)
+            else:
+                count += 1
+                for key in user.stats.total_counts.keys():
+                    sum[key] += user.stats.total_counts[key]
+
+        s = 0
+        for key in sum.keys():
+            sum[key] = round(sum[key]/count, 2)
+            s += sum[key]
+
+        return sum
+
+
+
 
 
     def compile_user(self, user, g_choices=None):
@@ -63,10 +144,10 @@ class StatCompiler:
                 if vals is None:
                     vals = []
                     for col in cols:
-                        vals.append("0")
+                        vals.append("-999")
                 for index, val in enumerate(vals):
                     if val is None:
-                        val = "0"
+                        val = "-999"
                     user.stats.total_counts[val] += 1
                     kink_group.total_counts[val] += 1
                     if not g_choices is None:
@@ -114,7 +195,7 @@ class StatCompiler:
 
 def new_choices_dict():
      return dict(
-        {"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0, "10": 0, "-1": 0, "-2": 0})
+        {"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0, "10": 0, "-1": 0, "-2": 0, "-999": 0})
 
 
 @dataclass

@@ -99,9 +99,14 @@ class Kinklist:
             rows = []
             for k in group['rows']:
                 vals = self.__get_id_val(k['id'], data)
+
                 if vals is None:
                     vals = ["0"]
-                rows.append({"name": k['description'], "vals": vals})
+
+                vv = []
+                for index, v in enumerate(vals):
+                    vv.append({"color": vals[index], "id": self.__get_id_by_color(vals[index])})
+                rows.append({"name": k['description'], "vals": vv})
             g['rows'] = rows
             result.append(g)
         return result
@@ -112,6 +117,12 @@ class Kinklist:
         for col in cols:
             result += col + ", "
         return result[:-2]
+
+
+    def __get_id_by_color(self, color):
+        for c in self.config["categories"]:
+            if c["color"] == color:
+                return c["id"]
 
 
     def __get_id_val(self, id, data):
@@ -418,6 +429,15 @@ class Kinklist:
         def byid():
             self.__log(request)
             response = jsonify(self.byid)
+            response.status_code = 200
+            return response
+
+
+        @self.app.route("/globalStats")
+        def globalStats():
+            self.__log(request)
+            res = self.db.execute("SELECT * FROM stats ORDER BY created DESC LIMIT 1;")
+            response = jsonify(json.loads(res[0][1]))
             response.status_code = 200
             return response
 

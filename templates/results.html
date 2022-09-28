@@ -2,6 +2,7 @@
 {% block title %}Results{% endblock %}
 {% block meta %}
 <meta name="description" content="Kinktest Results of {{ username }}"/>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 {% endblock %}
 {% block content %}
 <div id="container" class="bgc">
@@ -31,13 +32,14 @@
             Noticed something that's not quite right yet? Just go back (your progress will still be there) and create a new result! Be sure to copy and save the link to your results with the button above if you want to come back to your results later!
         </span>
         <br>
-        <button id="statsColl" class="collapsible">Statistics</button>
+        <button id="statsColl" class="collapsible">Detailed Statistics</button>
         <div class="content">
-            <h5>Stats</h5>
-            <div>
+            <div id="distr_cat">
 
             </div>
         </div>
+        <br>
+        <br>
         <br>
         <div class="hc">
             <span style="margin-right: 5px;">Filter Answers: </span>
@@ -60,7 +62,7 @@
 
                     <div class="kink_row" vals="{{ k['vals'] }}">
                         {% for c in k['vals'] %}
-                            <span title="{{ get_cat(c, choices) }}" class="choice noedit" style="background-color: {{ c }}"></span>
+                            <span title="{{ get_cat(c['color'], choices) }}" class="choice noedit" style="background-color: {{ c['color'] }}" value_id="{{ c['id'] }}"></span>
                         {% endfor %}
                         <label class="kink">{{ k['name'] }}</label>
                     </div>
