@@ -182,30 +182,7 @@ class Kinklist:
 
         @self.app.route('/<token>', methods=['GET'])
         def short_results(token):
-            self.__log(request)
-            token = token.split('&')[0]
-            if not self.check_token(token):
-                return redirect('/')
-            else:
-                dbdata = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (token,))
-                data = [list(d) for d in dbdata]
-                for index in range(6, 12):
-                    if data[0][index] is None:
-                        data[0][index] = "---"
-
-                ua = request.headers.get('User-Agent')
-                if ua is None:
-                    ua = ""
-                ua = ua.lower()
-                page = None
-                if "iphone" in ua or "android" in ua:
-                    page = 'results.html'
-                else:
-                    page = 'results.html'
-
-
-                res = make_response(render_template(page, kinks=self.resolve_ids(json.loads(data[0][3])), username=data[0][6], sex=data[0][7], age=data[0][8], fap_freq=data[0][9], sex_freq=data[0][10], body_count=data[0][11], created=[data[0][1]], choices=self.config['categories']))
-                return res
+            return results(token)
 
         @self.app.route('/', methods = ['GET', 'POST'])
         def index():
@@ -327,15 +304,17 @@ class Kinklist:
 
 
         @self.app.route('/results')
-        def results():
+        def results(token=''):
             self.__log(request)
-            token = request.args.get('token', default='')
+            t = request.args.get('token', default='')
+            if token != '':
+                t = token.split('&')[0]
 
-            if not self.check_token(token):
+            if not self.check_token(t):
                 return redirect('/')
             else:
-                dbdata = self.db.execute(
-                    "SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (token,))
+                self.db.execute("UPDATE kl.answers SET hit_count = hit_count + 1 WHERE token = %s;", (t,), commit=True)
+                dbdata = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (t,))
                 data = [list(d) for d in dbdata]
                 for index in range(6, 12):
                     if data[0][index] is None:
@@ -352,7 +331,7 @@ class Kinklist:
                     page = 'results.html'
 
 
-                res = make_response(render_template(page, kinks=self.resolve_ids(json.loads(data[0][3])), username=data[0][6], sex=data[0][7], age=data[0][8], fap_freq=data[0][9], sex_freq=data[0][10], body_count=data[0][11], created=[data[0][1]], choices=self.config['categories']))
+                res = make_response(render_template(page, kinks=self.resolve_ids(json.loads(data[0][3])), username=data[0][7], sex=data[0][8], age=data[0][9], fap_freq=data[0][10], sex_freq=data[0][11], body_count=data[0][12], created=[data[0][1]], choices=self.config['categories']))
                 return res
 
 
