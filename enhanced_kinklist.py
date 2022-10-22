@@ -258,7 +258,7 @@ class Kinklist:
                     uid = self.db.execute("SELECT id FROM users WHERE user=%s;", (user,))[0][0]
                     if uid is None:
                         return redirect(url_for('error.html'))
-                    self.db.execute("INSERT INTO answers(user_id, timestamp, token, choices_json) VALUES(%s, %s, %s, %s);", (int(uid), t, token, json.dumps(inputs['kinks'])), commit=True)
+                    self.db.execute("INSERT INTO answers(user_id, timestamp, token, choices_json, hit_count) VALUES(%s, %s, %s, %s, 0);", (int(uid), t, token, json.dumps(inputs['kinks'])), commit=True)
                     logger.info("Created result token " + token)
                     res_results = make_response()
                     res_results.set_cookie('token', token)

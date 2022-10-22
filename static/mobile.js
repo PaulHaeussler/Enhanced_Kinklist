@@ -153,6 +153,7 @@ function getProgress() {
             var cols = JSON.parse(window.localStorage.getItem(this));
             total_fields += cols.length;
             for(var i = 0; i < cols.length; i++){
+
                 if(cols[i] !== "0"){
                     fields_filled += 1;
                 }
