@@ -113,15 +113,15 @@
       "id": -1
     },
     {
+      "description": "Not applicable",
+      "color": "#f0f0f0",
+      "id": -2
+    },
+    {
       "description": "Not entered",
       "color": "#d1d1d1",
       "default": true,
       "id": 0
-    },
-    {
-      "description": "Not applicable",
-      "color": "#f0f0f0",
-      "id": -2
     }
   ],
   "kink_groups": [
@@ -1280,7 +1280,7 @@
         },
         {
           "description": "Glory Hole",
-          "tip": "Giving is putting their penis/strap-on through a hole in a wall for Receiving to service it",
+          "tip": "Giving is putting their penis/strap-on through a hole in a wall for Receiving to service it (for either option there's a 'unknown' person on the other side of the wall)",
           "id": 15004
         },
         {

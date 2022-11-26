@@ -75,6 +75,15 @@ class Kinklist:
             self.results.append(r[0])
 
 
+    def retrofind_hits(self):
+        c = 1
+        for token in self.results:
+            res = self.db.execute("SELECT COUNT(*) FROM kl.hits WHERE query LIKE '%" + token + "%';")
+            print(str(c) + ". " + token + " --- " + str(res[0][0]))
+            self.db.execute("UPDATE kl.answers SET hit_count = %s WHERE token = %s;", (res[0][0], token,), commit=True)
+            c += 1
+
+
     def get_val_string(self):
         result = ""
         for group in self.config['kink_groups']:
