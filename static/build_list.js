@@ -359,12 +359,12 @@ function build_list(){
 
             var coll = document.createElement('button')
             coll.id = 'missingKinkColl'
-            coll.innerText = 'My Kink is missing :('
+            coll.innerText = 'Feedback / My Kink is missing :('
             coll.classList.add('collapsible')
             var content = document.createElement('div')
             content.classList.add('content')
             var sp = document.createElement('span')
-            sp.innerText = "Please enter and describe the missing kink, ideally including a fitting category and image:"
+            sp.innerText = "Please enter and describe the missing kink, ideally including a fitting category and image, or just provide some feedback:"
             var ta = document.createElement('textarea')
             ta.classList.add('ta')
             ta.id = 'missingKink'
@@ -690,13 +690,10 @@ function buildCollapsibles(){
 
 function toggleFilter(event) {
     var src = event.srcElement;
+
+
     var current = document.getElementsByClassName("filter_active")
 
-    $.each(document.getElementsByClassName("filter"), function() {
-        if(!(this === src)){
-            this.classList.remove("filter_active")
-        }
-    })
 
     if(current !== null){
         if(current[0] === src){

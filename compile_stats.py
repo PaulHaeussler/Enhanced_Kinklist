@@ -62,8 +62,8 @@ class StatCompiler:
                 "Haven't tried - Might try",
                 "Haven't tried - Won't ever try",
                 "Confused",
-                "Not entered",
-                "Not applicable"
+                "Not applicable",
+                "Not entered"
             ],
             "colors": [
                 "#0004ff",
@@ -77,8 +77,8 @@ class StatCompiler:
                 "#ffd8ba",
                 "#ff7575",
                 "#ae00ff",
-                "#d1d1d1",
-                "#f0f0f0"
+                "#f0f0f0",
+                "#d1d1d1"
             ]
         }
         tmp = {}

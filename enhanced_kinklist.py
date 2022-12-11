@@ -75,6 +75,7 @@ class Kinklist:
             self.results.append(r[0])
 
 
+
     def retrofind_hits(self):
         c = 1
         for token in self.results:
