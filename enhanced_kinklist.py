@@ -348,6 +348,7 @@ class Kinklist:
         @self.app.route('/missingKink', methods=['POST'])
         def missingKink():
             ip = self.__log(request)
+            logger.info("New suggestion!")
             mk = request.get_json()['missingkink']
             if mk == '' or mk is None:
                 return make_response('', 400)
