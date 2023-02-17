@@ -318,3 +318,45 @@ function buildJumpProgress(){
     })
 
 }
+
+function buildFeedbackBtn(){
+
+            var coll = document.createElement('button')
+            coll.id = 'missingKinkColl'
+            coll.innerText = 'Feedback / My Kink is missing :('
+            coll.classList.add('collapsible')
+            var content = document.createElement('div')
+            content.classList.add('content')
+            var sp = document.createElement('span')
+            sp.innerText = "Please enter and describe the missing kink, ideally including a fitting category and image, or just provide some feedback:"
+            var ta = document.createElement('textarea')
+            ta.classList.add('ta')
+            ta.id = 'missingKink'
+            ta.maxLength = 2000
+            content.appendChild(sp)
+            content.appendChild(ta)
+            var send = document.createElement('btn')
+            send.id = 'missingKinkSubmit'
+            send.classList.add('submit')
+            send.style.width = '90%'
+            send.style.padding = '5px'
+            send.innerText = 'Pls add!'
+
+            send.onclick = function(){
+                var content = document.getElementById('missingKink').value
+                fetch('/missingKink', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({"missingkink": content}),
+                }).then(res => function(){
+                })
+                console.log("Sent")
+                location.reload()
+            }
+            content.appendChild(send)
+            document.getElementById('feedback').appendChild(coll)
+            document.getElementById('feedback').appendChild(content)
+            buildCollapsibles()
+
+
+}
