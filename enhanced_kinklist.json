@@ -309,6 +309,60 @@
       ]
     },
     {
+      "description": "Body/Style Archetypes",
+      "tip": "Common combinations of several body features and clothing choices. This is very hetero-normative, but can be helpful to categorise interests, even though a lot of people will not fit any of these",
+      "columns": [
+        "Partner"
+      ],
+      "rows": [
+        {
+          "description": "Twinks",
+          "tip": "Younger, thin to slim athletic men with little body hair and usually smooth chest",
+          "id": 23001
+        },
+        {
+          "description": "Otters",
+          "tip": "Thin to slim athletic build men with a lot of body hair",
+          "id": 23002
+        },
+        {
+          "description": "Bears",
+          "tip": "Middle-aged to older men with a larger/chubbier body build and a lot of hair",
+          "id": 23003
+        },
+        {
+          "description": "Hunk",
+          "tip": "A large, strong, muscular man",
+          "id": 23004
+        },
+        {
+          "description": "Femboy",
+          "tip": "Adding to the twink build, younger, slim men, usually completely without body hair wearing mostly feminine apparel",
+          "id": 23005
+        },
+        {
+          "description": "E-Boy",
+          "tip": "Young slim boys with fluffy, dark hair, long bangs. Wears (usually too large) band shirts, silver chains, darker colors. Often skater and emo influences",
+          "id": 23006
+        },
+        {
+          "description": "Sissy",
+          "tip": "A man who doesn't demonstrate any masculine features and usually displays effeminate behaviour",
+          "id": 23007
+        },
+        {
+          "description": "Tomboy",
+          "tip": "Young women featuring a non-feminine/masculine behaviour and/or clothes, also referred to as butch",
+          "id": 23008
+        },
+        {
+          "description": "E-Girl",
+          "tip": "Wearing a mix of emo, scene and goth fashion, with typical makeup. Usually dyed hair, apparel sometimes involves features from bdsm like chokers and harnesses. Other popular choices are large platform boots, baggy, thrifted clothes, rave clothes and split dyed hair.",
+          "id": 23009
+        }
+      ]
+    },
+    {
       "description": "Clothing",
       "tip": "Kinks centered around Clothing and Apparel. Self means you wearing it, Partner means having/seeing your partner wear it",
       "columns": [
@@ -523,6 +577,11 @@
         {
           "description": "Sex Swing",
           "id": 4011
+        },
+        {
+          "description": "Lotus",
+          "tip": "Similar to cowgirl, but the giving partner is sitting upright, embracing the receiving partner (Receiving is who sits on top)",
+          "id": 4012
         }
       ]
     },
@@ -678,6 +737,11 @@
           "description": "Ass Worship",
           "tip": "Giving is worshipping Receivings Butt",
           "id": 7002
+        },
+        {
+          "description": "Breast Worship",
+          "tip": "Giving is worshipping Receivings Breasts. Also includes nipple worship",
+          "id": 7012
         },
         {
           "description": "Electro Stimulation",
@@ -905,7 +969,7 @@
         },
         {
           "description": "JOI, SI",
-          "tip": "Jerk-off instructions/Sex instructions given by the Giving partner how the Receiving partner should proceed",
+          "tip": "Jerk-off instructions/Sex instructions given by the Giving p55artner how the Receiving partner should proceed",
           "id": 10004
         },
         {
@@ -942,6 +1006,11 @@
           "description": "Multiple orgasms/\u200BMarathon Sex",
           "tip": "Having multiple orgasms one after the other (can be some time apart, but there's no pause in sexual action), Receiving means having multiple orgasms, giving means giving multiple",
           "id": 10011
+        },
+        {
+          "description": "Pet names",
+          "tip": "Calling (Giving) or being called (Receiving) pet names, like: Bunny, Kitten, Slut, Princess, Whore, Queen, Daddy etc.",
+          "id": 10012
         }
       ]
     },
@@ -1314,7 +1383,7 @@
     },
     {
       "description": "Misc. Fetish",
-      "tip": "Misc. Fetishes not really belonging to any other category",
+      "tip": "Misc. Fetishes not really belonging to any other category. Partner here usually asks for your opinion if your partner would have/has had this kink (e.g. Exhibitionism: How do you feel about having a exhibitionistic partner?)",
       "columns": [
         "Self",
         "Partner"
@@ -1392,12 +1461,12 @@
         },
         {
           "description": "Armpits",
-          "tip": "Self or Partner being aroused by armpits, common in the gay community",
+          "tip": "Self or Partner being aroused by / enjoy playing around armpits",
           "id": 16015
         },
         {
           "description": "Socks",
-          "tip": "Similar to foot fetish, self or partner being aroused by worn socks",
+          "tip": "Similar to foot fetish, self or partner being aroused by worn socks, shoes and similar",
           "id": 16016
         },
         {
@@ -1428,6 +1497,16 @@
           "description": "Crying",
           "tip": "Gaining arousal from being made to cry (self) or making your partner cry (usually in bdsm punishments or cnc)",
           "id": 16022
+        },
+        {
+          "description": "Scent/Musk",
+          "tip": "Self or Partner being aroused by the body odor of the other. This can be a slight smell, or, after not washing for a bit, a stronger musk",
+          "id": 16023
+        },
+        {
+          "description": "Age Play",
+          "tip": "Self or Partner enjoying to roleplay a different age than they are old, most commonly a younger role",
+          "id": 16024
         }
       ]
     },

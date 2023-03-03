@@ -99,6 +99,9 @@ class StatCompiler:
                 return c["id"]
 
 
+
+
+
     def build_average(self, g_stats):
         sum = new_choices_dict()
         count = 0
