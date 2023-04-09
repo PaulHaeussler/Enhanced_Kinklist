@@ -13,7 +13,7 @@ import collections
 from loguru import logger
 from flask import Flask, jsonify, request, render_template, make_response, url_for, send_from_directory
 from os.path import dirname, abspath
-from email.mime.text import MIMEText
+
 
 
 from werkzeug.utils import redirect
