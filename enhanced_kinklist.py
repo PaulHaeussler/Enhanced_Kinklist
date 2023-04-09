@@ -431,6 +431,14 @@ class Kinklist:
             response.status_code = 200
             return response
 
+        @self.app.route('/android-chrome-192x192.png')
+        @self.app.route('/android-chrome-512x512.png')
+        @self.app.route('/apple-touch-icon.png')
+        @self.app.route('/favicon.ico')
+        @self.app.route('/favicon-16x16.png')
+        @self.app.route('/favicon-32x32.png')
+        def static_from_ico():
+            return send_from_directory(os.path.join(self.app.static_folder, 'ico'), request.path[1:])
 
         @self.app.route('/robots.txt')
         @self.app.route('/sitemap.xml')
