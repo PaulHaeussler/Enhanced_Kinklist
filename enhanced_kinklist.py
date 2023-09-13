@@ -366,8 +366,8 @@ class Kinklist:
             else:
                 data_a = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (a,))
                 data_b = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (b,))
-                res = make_response(render_template('compare.html', kinks_a=self.resolve_ids(json.loads(data_a[0][3])), username_a=data_a[0][6], sex_a=data_a[0][7], age_a=data_a[0][8], fap_freq_a=data_a[0][9], sex_freq_a=data_a[0][10], body_count_a=data_a[0][11], created_a=[data_a[0][1]], choices=self.config['categories'],
-                                                    kinks_b=self.resolve_ids(json.loads(data_b[0][3])), username_b=data_b[0][6], sex_b=data_b[0][7], age_b=data_b[0][8], fap_freq_b=data_b[0][9], sex_freq_b=data_b[0][10], body_count_b=data_b[0][11], created_b=[data_b[0][1]]))
+                res = make_response(render_template('compare.html', kinks_a=self.resolve_ids(json.loads(data_a[0][2])), username_a=data_a[0][5], sex_a=data_a[0][6], age_a=data_a[0][7], fap_freq_a=data_a[0][8], sex_freq_a=data_a[0][9], body_count_a=data_a[0][10], created_a=[data_a[0][1]], choices=self.config['categories'],
+                                                    kinks_b=self.resolve_ids(json.loads(data_b[0][2])), username_b=data_b[0][5], sex_b=data_b[0][6], age_b=data_b[0][7], fap_freq_b=data_b[0][8], sex_freq_b=data_b[0][9], body_count_b=data_b[0][10], created_b=[data_b[0][1]]))
                 return res
 
 
@@ -386,10 +386,10 @@ class Kinklist:
                 data_b = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (b,))
                 data_c = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (c,))
                 data_d = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (d,))
-                res = make_response(render_template('compare4.html', kinks_a=self.resolve_ids(json.loads(data_a[0][3])), username_a=data_a[0][6], sex_a=data_a[0][7], age_a=data_a[0][8], fap_freq_a=data_a[0][9], sex_freq_a=data_a[0][10], body_count_a=data_a[0][11], created_a=[data_a[0][1]], choices=self.config['categories'],
-                                                    kinks_b=self.resolve_ids(json.loads(data_b[0][3])), username_b=data_b[0][6], sex_b=data_b[0][7], age_b=data_b[0][8], fap_freq_b=data_b[0][9], sex_freq_b=data_b[0][10], body_count_b=data_b[0][11], created_b=[data_b[0][1]],
-                                                    kinks_c=self.resolve_ids(json.loads(data_c[0][3])), username_c=data_c[0][6], sex_c=data_c[0][7], age_c=data_c[0][8], fap_freq_c=data_c[0][9], sex_freq_c=data_c[0][10], body_count_c=data_c[0][11], created_c=[data_c[0][1]],
-                                                    kinks_d=self.resolve_ids(json.loads(data_d[0][3])), username_d=data_d[0][6], sex_d=data_d[0][7], age_d=data_d[0][8], fap_freq_d=data_d[0][9], sex_freq_d=data_d[0][10], body_count_d=data_d[0][11], created_d=[data_d[0][1]]))
+                res = make_response(render_template('compare4.html', kinks_a=self.resolve_ids(json.loads(data_a[0][2])), username_a=data_a[0][5], sex_a=data_a[0][6], age_a=data_a[0][7], fap_freq_a=data_a[0][8], sex_freq_a=data_a[0][9], body_count_a=data_a[0][10], created_a=[data_a[0][1]], choices=self.config['categories'],
+                                                    kinks_b=self.resolve_ids(json.loads(data_b[0][2])), username_b=data_b[0][5], sex_b=data_b[0][6], age_b=data_b[0][7], fap_freq_b=data_b[0][8], sex_freq_b=data_b[0][9], body_count_b=data_b[0][10], created_b=[data_b[0][1]],
+                                                    kinks_c=self.resolve_ids(json.loads(data_c[0][2])), username_c=data_c[0][5], sex_c=data_c[0][6], age_c=data_c[0][7], fap_freq_c=data_c[0][8], sex_freq_c=data_c[0][9], body_count_c=data_c[0][10], created_c=[data_c[0][1]],
+                                                    kinks_d=self.resolve_ids(json.loads(data_d[0][2])), username_d=data_d[0][5], sex_d=data_d[0][6], age_d=data_d[0][7], fap_freq_d=data_d[0][8], sex_freq_d=data_d[0][9], body_count_d=data_d[0][10], created_d=[data_d[0][1]]))
                 return res
 
 
@@ -414,6 +414,9 @@ class Kinklist:
             response.status_code = 200
             return response
 
+        @self.app.route('/kot')
+        def kot():
+            return render_template("kot.html")
 
         @self.app.route('/byid')
         def byid():

@@ -240,6 +240,12 @@ h2.title {
     margin: 3px;
 }
 
+div.pairs {
+    display: grid;
+    grid-flow-direction: row;
+    grid-template-columns: 1fr 1fr;
+}
+
 #meta_container {
     display: grid;
     grid-flow-direction: row;
