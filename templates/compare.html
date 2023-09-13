@@ -43,12 +43,14 @@
                         <span class="kink_desc">{{ g['cols'] }}</span>
                         <br>
                         {% for k in g['rows'] %}
+
                             <div class="kink_row">
                                 {% for c in k['vals'] %}
-                                    <span class="choice noedit" style="background-color: {{ c }}"></span>
+                                    <span title="{{ get_cat(c['id'], choices) }}" class="choice noedit" style="background-color: {{ c['color'] }}" value_id="{{ c['id'] }}"></span>
                                 {% endfor %}
                                 <label class="kink">{{ k['name'] }}</label>
                             </div>
+
                         {% endfor %}
                     </div>
                 {% endfor %}
@@ -64,7 +66,7 @@
 
                             <div class="kink_row">
                                 {% for c in k['vals'] %}
-                                    <span title="{{ get_cat(c, choices) }}" class="choice noedit" style="background-color: {{ c }}"></span>
+                                    <span title="{{ get_cat(c['id'], choices) }}" class="choice noedit" style="background-color: {{ c['color'] }}" value_id="{{ c['id'] }}"></span>
                                 {% endfor %}
                                 <label class="kink">{{ k['name'] }}</label>
                             </div>

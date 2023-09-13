@@ -3,6 +3,7 @@
 {% block meta %}
 <meta name="description" content="Kinktest Results of {{ username }}"/>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="{{ url_for('static', filename='buildCharts.js') }}"></script>
 {% endblock %}
 {% block content %}
 <div id="container" class="bgc">
