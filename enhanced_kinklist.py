@@ -2,7 +2,6 @@ import random
 import string
 import time
 import uuid
-import argparse
 import json
 import logging
 import os
@@ -34,6 +33,7 @@ def get_cat(color, colors):
     return 'UNKNOWN CATEGORY'
 
 def read_args():
+    import argparse
     parser = argparse.ArgumentParser(
         description='Bot to provide tracking of submissions in certain discord channels')
     parser.add_argument('dbhost')
@@ -61,14 +61,15 @@ class Kinklist:
 
         self.byid = collections.OrderedDict(sorted(byid.items()))
 
+        if dbhost is None:
+            args = read_args()
+            dbhost = args['dbhost']
+            dbuser = args['dbuser']
+            dbpw = args['dbpw']
+            dbschema = args['dbschema']
 
-        args = read_args()
-        if not dbhost is None:
-            args['dbhost'] = dbhost
-            args['dbuser'] = dbuser
-            args['dbpw'] = dbpw
-            args['dbschema'] = dbschema
-        self.db = MySQLPool(host=args['dbhost'], user=args['dbuser'], password=args['dbpw'], database=args['dbschema'],
+
+        self.db = MySQLPool(host=dbhost, user=dbuser, password=dbpw, database=dbschema,
                        pool_size=15)
         self.results = []
         for r in self.db.execute("SELECT token FROM answers;"):
