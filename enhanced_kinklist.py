@@ -165,10 +165,13 @@ class Kinklist:
             ip = (request.environ['REMOTE_ADDR'])
         else:
             ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
-        logger.info(ip + " " + req.environ.get('REQUEST_URI'))
+        uri = req.environ.get('REQUEST_URI')
+        if uri is None:
+            uri = ""
+        logger.info(ip + " " + uri)
         self.db.execute("INSERT INTO hits(ip, timestamp, url, sec_ch_ua, sec_ch_ua_mobile, sec_ch_ua_platform, "
                         "user_agent, accept_language, path, query) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
-                        (ip, int(time.time()), req.environ.get('REQUEST_URI'), req.environ.get('HTTP_SEC_CH_UA'),
+                        (ip, int(time.time()), uri, req.environ.get('HTTP_SEC_CH_UA'),
                          req.environ.get('HTTP_SEC_CH_UA_MOBILE'), req.environ.get('HTTP_SEC_CH_UA_PLATFORM'),
                          req.environ.get('HTTP_USER_AGENT'), req.environ.get('HTTP_ACCEPT_LANGUAGE'),
                          req.environ.get('PATH_INFO'), req.environ.get('QUERY_STRING')), commit=True)
