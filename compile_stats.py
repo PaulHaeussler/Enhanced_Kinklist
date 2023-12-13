@@ -33,18 +33,27 @@ class StatCompiler:
         # get users
         result = db.execute("SELECT * FROM users;")
         users = list()
+
         for r in result:
             users.append(User(r[0], r[3], r[4], r[5], r[6], r[7], None, None))
 
+
+        c = 0
         for user in users:
+            print(f"Loading user {c}")
             tmp = db.execute("SELECT timestamp, choices_json FROM answers WHERE user_id=%s ORDER BY timestamp DESC;", (user.id,))
             user.choices = json.loads(tmp[0][1])
+            c += 1
 
         g_choices = self.__build_global_choices()
 
+        c = 0
         for user in users:
+            print(f"Compiling user {c}")
             self.compile_user(user, g_choices)
+            c += 1
 
+        print("Cleaning up...")
         g_stats = GlobalStats(users, g_choices)
         avg = self.build_average(g_stats)
         print()
