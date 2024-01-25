@@ -251,7 +251,7 @@
         },
         {
           "description": "Nipple piercings",
-          "tip": "Pierced nipples, male or female",
+          "tip": "Pierced nipples",
           "id": 1023
         },
         {
@@ -524,7 +524,7 @@
     },
     {
       "description": "Positions",
-      "tip": "Rate different sex positions, the giving part is penetrating, strap-on for females also counts",
+      "tip": "Rate different sex positions, the giving part is penetrating, strap-on for persons without a penis also counts",
       "columns": [
         "Giving",
         "Receiving"
@@ -586,7 +586,7 @@
       ]
     },
     {
-      "description": "Male specific",
+      "description": "Specific to persons with a penis",
       "tip": "Activities that can only be carried out with a penis, giving can only be entered if partner has penis, receiving can only be entered if self has penis. This means activities involving a real penis, not a strap-on or similar",
       "columns": [
         "Giving",
@@ -651,7 +651,7 @@
       ]
     },
     {
-      "description": "Female specific",
+      "description": "Specific to persons with a vagina",
       "tip": "Activities that can only be carried out with a vagina, giving can only be entered if partner has a vagina, receiving can only be entered if self has a vagina",
       "columns": [
         "Giving",
@@ -680,7 +680,7 @@
         },
         {
           "description": "Double Vaginal Penetration",
-          "tip": "Penetration of the vagina with two penisses at the same time, Giving has to be male, Receiving is being double penetrated",
+          "tip": "Penetration of the vagina with two penisses at the same time, Giving has to have a penis, Receiving is being double penetrated",
           "id": 6005
         },
         {
@@ -700,7 +700,7 @@
         },
         {
           "description": "Scissoring",
-          "tip": "Two females rubbing their vulvas on another, Giving and Receiving have to be the same",
+          "tip": "Two persons with vaginas rubbing their vulvas on another, Giving and Receiving have to be the same",
           "id": 6009
         },
         {
@@ -914,7 +914,7 @@
         },
         {
           "description": "Onahole",
-          "tip": "A silicone or TPE toy resembling a vagina, usually for male masturbation. Self can only be entered if self is male, partner can only be entered if partner is male",
+          "tip": "A silicone or TPE toy resembling a vagina, usually for masturbation for persons with a penis. Self can only be entered if self has a penis, partner can only be entered if partner has a penis",
           "id": 9012
         },
         {
@@ -1194,7 +1194,7 @@
         },
         {
           "description": "Feminization",
-          "tip": "Being made to dress or act feminine, usually in a Femdom Setting with males",
+          "tip": "Being made to dress or act feminine, usually in a Femdom Setting with male-identifying persons",
           "id": 13012
         },
         {
@@ -1512,7 +1512,7 @@
     },
     {
       "description": "Coomies",
-      "tip": "Everything involving Semen, or Cum. Giving can only be filled if self is male",
+      "tip": "Everything involving Semen, or Cum. Giving can only be filled if self can produce sperm",
       "columns": [
         "Giving",
         "Receiving"
@@ -1550,7 +1550,7 @@
         },
         {
           "description": "Creampie",
-          "tip": "Cumming inside the vagina of the Receiving Person without a condom. Can only enter Receiving if self is Female",
+          "tip": "Cumming inside the vagina of the Receiving Person without a condom. Can only enter Receiving if self has a vagina",
           "id": 17007
         },
         {
@@ -1590,7 +1590,7 @@
       "rows": [
         {
           "description": "Lactation",
-          "tip": "The Giving Person lactating and the Receiving Person being the other Partner (who might interact with it in any way). Giving can only be female",
+          "tip": "The Giving Person lactating and the Receiving Person being the other Partner (who might interact with it in any way). Giving can only be a person capable of lactation",
           "id": 18001
         },
         {
@@ -1700,7 +1700,7 @@
         },
         {
           "description": "Nipple Penetration",
-          "tip": "Penetration of (female) nipples with the nipple streching to accommodate the penetrating object",
+          "tip": "Penetration of nipples with the nipple streching to accommodate the penetrating object",
           "id": 19014
         },
         {
