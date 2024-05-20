@@ -9,7 +9,7 @@ class MySQLPool(object):
     """
     def __init__(self, host="172.0.0.1", port="3306", user="root",
                  password="123456", database="test", pool_name="mypool",
-                 pool_size=3):
+                 pool_size=1000):
         res = {}
         self._host = host
         self._port = port
@@ -25,7 +25,7 @@ class MySQLPool(object):
         self.dbconfig = res
         self.pool = self.create_pool(pool_name=pool_name, pool_size=pool_size)
 
-    def create_pool(self, pool_name="mypool", pool_size=3):
+    def create_pool(self, pool_name="mypool", pool_size=1000):
         """
         Create a connection pool, after created, the request of connecting
         MySQL could get a connection from this pool instead of request to
