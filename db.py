@@ -1,4 +1,5 @@
 import mysql.connector.pooling
+from loguru import logger
 from mysql.connector import IntegrityError
 
 
@@ -25,7 +26,7 @@ class MySQLPool(object):
         self.dbconfig = res
         self.pool = self.create_pool(pool_name=pool_name, pool_size=pool_size)
 
-    def create_pool(self, pool_name="mypool", pool_size=1000):
+    def create_pool(self, pool_name="mypool", pool_size=20):
         """
         Create a connection pool, after created, the request of connecting
         MySQL could get a connection from this pool instead of request to
@@ -68,8 +69,8 @@ class MySQLPool(object):
                 cursor.execute(sql, args)
             else:
                 cursor.execute(sql)
-        except IntegrityError:
-            pass
+        except IntegrityError as e:
+            logger.warning(e)
         if commit is True:
             conn.commit()
             self.close(conn, cursor)
