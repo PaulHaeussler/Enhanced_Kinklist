@@ -8,6 +8,7 @@ class MySQLPool(object):
     create a pool when connect mysql, which will decrease the time spent in
     request connection, create connection and close connection.
     """
+
     def __init__(self, host="172.0.0.1", port="3306", user="root",
                  password="123456", database="test", pool_name="mypool",
                  pool_size=1000):
@@ -62,6 +63,8 @@ class MySQLPool(object):
         :return: if commit, return None, else, return result
         """
         # get connection form connection pool instead of create one.
+        conn = None
+        cursor = None
         try:
             conn = self.pool.get_connection()
             cursor = conn.cursor()
@@ -69,16 +72,29 @@ class MySQLPool(object):
                 cursor.execute(sql, args)
             else:
                 cursor.execute(sql)
+
+            if commit is True:
+                conn.commit()
+                result = None
+            else:
+                result = cursor.fetchall()
+
+            return result
         except IntegrityError as e:
             logger.warning(e)
-        if commit is True:
-            conn.commit()
-            self.close(conn, cursor)
+            if conn and not commit:
+                conn.rollback()
             return None
-        else:
-            res = cursor.fetchall()
-            self.close(conn, cursor)
-            return res
+        except Exception as e:
+            logger.error(f"Database error: {e}")
+            if conn and not commit:
+                conn.rollback()
+            return None
+        finally:
+            if cursor:
+                cursor.close()
+            if conn:
+                conn.close()
 
     def executemany(self, sql, args, commit=False):
         """
@@ -90,14 +106,27 @@ class MySQLPool(object):
         :return: if commit, return None, else, return result
         """
         # get connection form connection pool instead of create one.
-        conn = self.pool.get_connection()
-        cursor = conn.cursor()
-        cursor.executemany(sql, args)
-        if commit is True:
-            conn.commit()
-            self.close(conn, cursor)
+        conn = None
+        cursor = None
+        try:
+            conn = self.pool.get_connection()
+            cursor = conn.cursor()
+            cursor.executemany(sql, args)
+
+            if commit is True:
+                conn.commit()
+                result = None
+            else:
+                result = cursor.fetchall()
+
+            return result
+        except Exception as e:
+            logger.error(f"Database error in executemany: {e}")
+            if conn and not commit:
+                conn.rollback()
             return None
-        else:
-            res = cursor.fetchall()
-            self.close(conn, cursor)
-            return res
+        finally:
+            if cursor:
+                cursor.close()
+            if conn:
+                conn.close()

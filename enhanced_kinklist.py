@@ -19,7 +19,7 @@ from werkzeug.utils import redirect
 
 from db import MySQLPool
 
-stage = os.environ["STAGE"]
+
 force_mobile = False
 
 log = logging.getLogger('werkzeug')
@@ -168,6 +168,7 @@ class Kinklist:
         uri = req.environ.get('REQUEST_URI')
         if uri is None:
             uri = ""
+        uri = uri[:200]
         logger.info(ip + " " + uri)
         self.db.execute("INSERT INTO hits(ip, timestamp, url, sec_ch_ua, sec_ch_ua_mobile, sec_ch_ua_platform, "
                         "user_agent, accept_language, path, query) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
