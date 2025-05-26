@@ -42,6 +42,9 @@ class StatCompiler:
         for user in users:
             print(f"Loading user {c}")
             tmp = db.execute("SELECT timestamp, choices_json FROM answers WHERE user_id=%s ORDER BY timestamp DESC;", (user.id,))
+            if tmp[0] is None:
+                print("No results, skipping")
+                continue
             user.choices = json.loads(tmp[0][1])
             c += 1
 
