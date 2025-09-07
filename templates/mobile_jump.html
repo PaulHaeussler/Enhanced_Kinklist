@@ -20,12 +20,15 @@
 
         {% endfor %}
     </ol>
-
+        <br>
+        <btn id="mobile_submit" class="submit">Submit</btn>
     </div>
+
     <br>
     <div id="feedback"></div>
 
     <script>
+        document.getElementById("mobile_submit").onclick = submit_results
         buildJumpProgress()
         buildFeedbackBtn()
     </script>
