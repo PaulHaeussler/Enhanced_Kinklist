@@ -469,7 +469,6 @@ function getProgress() {
 
     window.total_fields = total_fields;
     window.fields_filled = fields_filled;
-    updateProgressM();
 }
 
 function updateProgressM() {
