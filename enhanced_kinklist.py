@@ -21,7 +21,7 @@ from werkzeug.utils import redirect
 from db import MySQLPool
 
 
-force_mobile = True
+force_mobile = False
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
