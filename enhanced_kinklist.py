@@ -1,13 +1,14 @@
 import random
 import string
 import time
+import traceback
 import uuid
 import json
 import logging
 import os
 import copy
 import collections
-
+from datetime import datetime
 
 from loguru import logger
 from flask import Flask, jsonify, request, render_template, make_response, url_for, send_from_directory
@@ -25,6 +26,18 @@ force_mobile = False
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 logger.add("latest.log")
+
+# Configure separate error logger
+error_logger = logger.bind(name="errors")
+error_logger.add(
+    "errors_{time:YYYY-MM-DD}.log",
+    format="{time:YYYY-MM-DD HH:mm:ss.SSS} | {level} | {message} | {extra}",
+    rotation="00:00",  # Rotate daily
+    retention="30 days",  # Keep error logs for 30 days
+    level="WARNING",  # Only log warnings and above
+    backtrace=True,
+    diagnose=True,  # Add extra diagnostic info
+)
 
 def get_cat(color, colors):
     for c in colors:
@@ -178,6 +191,54 @@ class Kinklist:
                          req.environ.get('PATH_INFO'), req.environ.get('QUERY_STRING')), commit=True)
         return ip
 
+    def log_error(self, error_type, message, request_data=None, exception=None):
+
+        if exception is not None and exception.code == 404:
+            return
+        """Centralized error logging function"""
+        error_data = {
+            "timestamp": datetime.now().isoformat(),
+            "type": error_type,
+            "message": message,
+            "ip": self.get_client_ip(request) if request else "unknown",
+            "user_agent": request.headers.get('User-Agent', 'unknown') if request else "unknown",
+            "url": request.url if request else "unknown",
+            "method": request.method if request else "unknown",
+        }
+
+        if request_data:
+            error_data["request_data"] = request_data
+
+        if exception:
+            error_data["exception"] = {
+                "type": type(exception).__name__,
+                "message": str(exception),
+                "traceback": traceback.format_exc()
+            }
+
+        # Log to error-specific file
+        error_logger.error(json.dumps(error_data, indent=2))
+
+        # Also store critical errors in database
+        if error_type in ["EMPTY_SUBMISSION", "CORRUPT_DATA", "STORAGE_ERROR"]:
+            try:
+                self.db.execute(
+                    "INSERT INTO error_logs(timestamp, error_type, message, ip, user_agent, data) VALUES(%s, %s, %s, %s, %s, %s);",
+                    (int(time.time()), error_type, message, error_data["ip"],
+                     error_data["user_agent"], json.dumps(error_data)),
+                    commit=True
+                )
+            except Exception as db_err:
+                error_logger.critical(f"Failed to log to database: {db_err}")
+
+    def get_client_ip(self, req):
+        """Extract client IP from request"""
+        if req.environ.get('HTTP_X_FORWARDED_FOR'):
+            return req.environ['HTTP_X_FORWARDED_FOR'].split(',')[0]
+        return req.environ.get('REMOTE_ADDR', 'unknown')
+
+
+
     def isMobile(self, request):
         ua = request.headers.get('User-Agent')
         if ua is None:
@@ -199,70 +260,121 @@ class Kinklist:
         def short_results(token):
             return results(token)
 
-        @self.app.route('/', methods = ['GET', 'POST'])
+        @self.app.route('/', methods=['GET', 'POST'])
         def index():
-            self.__log(request)
-            user = request.cookies.get('user', default='')
-            secret = request.cookies.get('secret', default='')
-            values = request.cookies.get('values', default='')
+            try:
+                self.__log(request)
 
-            if request.method == 'GET':
+                if request.method == 'GET':
+                    # Your existing GET logic
+                    user = request.cookies.get('user', default='')
+                    secret = request.cookies.get('secret', default='')
 
-                if self.isMobile(request):
-                    res = make_response(render_template('mobile_index.html'))
-                else:
-                    res = make_response(render_template('index.html'))
-
-                res.set_cookie('values', self.get_val_string())
-                if user == '' or secret == '' or user == 'null' or secret == 'null':
-                    new_user = str(uuid.uuid4())
-                    new_secret = str(uuid.uuid4())
-                    res.set_cookie('user', new_user)
-                    res.set_cookie('secret', new_secret)
-                return res
-
-            elif request.method == 'POST':
-                inputs = request.get_json()
-
-                if user == '' or secret == '' or user == 'null' or secret == 'null':
-                    return redirect(render_template('error.html'))
-                else:
-                    ip = ""
-                    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-                        ip = (request.environ['REMOTE_ADDR'])
+                    if self.isMobile(request):
+                        res = make_response(render_template('mobile_index.html'))
                     else:
-                        ip = (request.environ['HTTP_X_FORWARDED_FOR'])  # if behind a proxy
-                    token = self.createHash()
-                    self.results.append(token)
-                    m = inputs['meta']
-                    for k in inputs['kinks']:
-                        if k["val"] is None:
-                            return redirect(render_template('error.html'))
-                        k["val"].replace("null", "0")
-                    t = round(time.time()*1000)
-                    if len(self.db.execute("SELECT * FROM users WHERE user=%s;", (user, ))) == 0:
-                        logging.info("Adding new User")
-                        self.db.execute("INSERT INTO users(user, username, sex, age, fap_freq, sex_freq, body_count, "
-                                        "ip, created) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);",
-                                        (user, self.get_item(m, 'name'), self.get_item(m, 'sex'),
-                                         self.get_item(m, 'age'), self.get_item(m, 'fap_freq'),
-                                         self.get_item(m, 'sex_freq'), self.get_item(m, 'body_count'), ip, t), commit=True)
-                    uid = self.db.execute("SELECT id FROM users WHERE user=%s;", (user,))[0][0]
-                    if uid is None:
-                        return redirect(url_for('error.html'))
-                    self.db.execute("INSERT INTO answers(user_id, timestamp, token, choices_json, hit_count) VALUES(%s, %s, %s, %s, 0);", (int(uid), t, token, json.dumps(inputs['kinks'])), commit=True)
-                    logger.info("Created result token " + token)
-                    res_results = make_response()
-                    res_results.set_cookie('token', token)
-                    return res_results
-            elif request.method == 'HEAD':
-                res = make_response()
-                res.status_code = 200
-                return res
-            else:
-                res = make_response()
-                res.status_code = 501
-                return res
+                        res = make_response(render_template('index.html'))
+
+                    res.set_cookie('values', self.get_val_string())
+                    if user == '' or secret == '' or user == 'null' or secret == 'null':
+                        new_user = str(uuid.uuid4())
+                        new_secret = str(uuid.uuid4())
+                        res.set_cookie('user', new_user)
+                        res.set_cookie('secret', new_secret)
+                    return res
+
+                elif request.method == 'POST':
+                    try:
+                        inputs = request.get_json()
+
+                        # Validate inputs exist
+                        if not inputs:
+                            self.log_error("EMPTY_SUBMISSION", "Received null/empty POST data", {
+                                "content_length": request.content_length,
+                                "content_type": request.content_type
+                            })
+                            return jsonify({"error": "No data received"}), 400
+
+                        # Validate required fields
+                        if 'kinks' not in inputs or not inputs['kinks']:
+                            self.log_error("EMPTY_SUBMISSION", "Missing or empty kinks array", {
+                                "received_keys": list(inputs.keys()) if inputs else [],
+                                "raw_data": str(inputs)[:500]  # First 500 chars for debugging
+                            })
+                            return jsonify({"error": "Invalid data structure"}), 400
+
+                        # Check for empty/corrupted kinks data
+                        valid_kinks = []
+                        for k in inputs['kinks']:
+                            if k.get("val") is None:
+                                self.log_error("CORRUPT_DATA", f"Null value in kink {k.get('id', 'unknown')}", {
+                                    "kink_data": k,
+                                    "all_kinks_count": len(inputs['kinks'])
+                                })
+                            else:
+                                valid_kinks.append(k)
+
+                        if not valid_kinks:
+                            self.log_error("EMPTY_SUBMISSION", "All kinks had null values", {
+                                "kinks_count": len(inputs['kinks']),
+                                "meta": inputs.get('meta', {})
+                            })
+                            return jsonify({"error": "No valid data to save"}), 400
+
+                        # Your existing logic with validated data
+                        user = request.cookies.get('user', default='')
+                        secret = request.cookies.get('secret', default='')
+
+                        if user == '' or secret == '' or user == 'null' or secret == 'null':
+                            self.log_error("AUTH_ERROR", "Invalid user/secret cookies during submission")
+                            return jsonify({"error": "Session expired"}), 401
+
+                        ip = self.get_client_ip(request)
+                        token = self.createHash()
+                        self.results.append(token)
+
+                        m = inputs.get('meta', [])
+                        t = round(time.time() * 1000)
+
+                        # Process with error handling
+                        if len(self.db.execute("SELECT * FROM users WHERE user=%s;", (user,))) == 0:
+                            logger.info("Adding new User")
+                            self.db.execute(
+                                "INSERT INTO users(user, username, sex, age, fap_freq, sex_freq, body_count, ip, created) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);",
+                                (user, self.get_item(m, 'name'), self.get_item(m, 'sex'),
+                                 self.get_item(m, 'age'), self.get_item(m, 'fap_freq'),
+                                 self.get_item(m, 'sex_freq'), self.get_item(m, 'body_count'), ip, t),
+                                commit=True
+                            )
+
+                        uid = self.db.execute("SELECT id FROM users WHERE user=%s;", (user,))[0][0]
+                        if uid is None:
+                            self.log_error("DB_ERROR", "Could not retrieve user ID after insert", {"user": user})
+                            return jsonify({"error": "Database error"}), 500
+
+                        self.db.execute(
+                            "INSERT INTO answers(user_id, timestamp, token, choices_json, hit_count) VALUES(%s, %s, %s, %s, 0);",
+                            (int(uid), t, token, json.dumps(valid_kinks)),
+                            commit=True
+                        )
+
+                        logger.info(f"Created result token {token}")
+                        res_results = make_response()
+                        res_results.set_cookie('token', token)
+                        return res_results
+
+                    except json.JSONDecodeError as e:
+                        self.log_error("JSON_ERROR", "Failed to parse POST data", {
+                            "raw_data": request.get_data(as_text=True)[:1000]
+                        }, e)
+                        return jsonify({"error": "Invalid JSON"}), 400
+                    except Exception as e:
+                        self.log_error("POST_ERROR", "Unexpected error during POST", None, e)
+                        return jsonify({"error": "Server error"}), 500
+
+            except Exception as e:
+                self.log_error("ROUTE_ERROR", "Unexpected error in index route", None, e)
+                return jsonify({"error": "Server error"}), 500
 
         @self.app.route('/quiz')
         def quiz():
@@ -396,6 +508,38 @@ class Kinklist:
                                                     kinks_c=self.resolve_ids(json.loads(data_c[0][3])), username_c=data_c[0][7], sex_c=data_c[0][8], age_c=data_c[0][9], fap_freq_c=data_c[0][10], sex_freq_c=data_c[0][11], body_count_c=data_c[0][12], created_c=[data_c[0][1]],
                                                     kinks_d=self.resolve_ids(json.loads(data_d[0][3])), username_d=data_d[0][7], sex_d=data_d[0][8], age_d=data_d[0][9], fap_freq_d=data_d[0][10], sex_freq_d=data_d[0][11], body_count_d=data_d[0][12], created_d=[data_d[0][1]]))
                 return res
+
+        @self.app.route('/log_client_error', methods=['POST'])
+        def log_client_error():
+            """Endpoint to receive client-side errors"""
+            try:
+                error_data = request.get_json()
+
+
+                self.log_error("CLIENT_ERROR", error_data.get('message', 'Unknown client error'), {
+                    "error": error_data.get('error'),
+                    "stack": error_data.get('stack'),
+                    "localStorage_size": error_data.get('localStorage_size'),
+                    "kinks_count": error_data.get('kinks_count'),
+                    "meta_count": error_data.get('meta_count'),
+                    "url": error_data.get('url'),
+                    "timestamp": error_data.get('timestamp')
+                })
+
+                return jsonify({"status": "logged"}), 200
+            except Exception as e:
+                error_logger.error(f"Failed to log client error: {e}")
+                return jsonify({"status": "error"}), 500
+
+        @self.app.errorhandler(Exception)
+        def handle_exception(e):
+            """Global error handler for uncaught exceptions"""
+            self.log_error("UNCAUGHT_ERROR", "Unhandled exception", None, e)
+
+            # Don't expose internal errors to users
+            if self.app.config.get('DEBUG'):
+                return jsonify({"error": str(e)}), 500
+            return jsonify({"error": "An error occurred"}), 500
 
 
         @self.app.route('/party')

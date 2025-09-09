@@ -2,6 +2,310 @@
 
 startKinkId = 1001;
 
+
+// Add the helper function at the top of mobile.js
+function getKinkCounts() {
+    let total_kinks = 0;
+    let entered_kinks = 0;
+    let total_fields = 0;
+    let entered_fields = 0;
+    let meta_count = 0;
+    let meta_entered = 0;
+
+    for (let key in localStorage) {
+        if (localStorage.hasOwnProperty(key)) {
+            if (key.startsWith('meta_')) {
+                meta_count++;
+                const value = localStorage.getItem(key);
+                if (value && value !== '' && value !== 'null') {
+                    meta_entered++;
+                }
+            } else if (!isNaN(parseInt(key))) {
+                total_kinks++;
+                try {
+                    const vals = JSON.parse(localStorage.getItem(key));
+                    if (Array.isArray(vals)) {
+                        total_fields += vals.length;
+                        let hasEntry = false;
+                        for (let val of vals) {
+                            if (val !== "0" && val !== 0) {
+                                entered_fields++;
+                                hasEntry = true;
+                            }
+                        }
+                        if (hasEntry) {
+                            entered_kinks++;
+                        }
+                    }
+                } catch(e) {
+                    console.error('Error parsing kink data for key:', key);
+                }
+            }
+        }
+    }
+
+    return {
+        total_kinks: total_kinks,
+        entered_kinks: entered_kinks,
+        total_fields: total_fields,
+        entered_fields: entered_fields,
+        completion_rate: total_fields > 0 ? Math.round((entered_fields / total_fields) * 100) : 0,
+        meta_count: meta_count,
+        meta_entered: meta_entered
+    };
+}
+
+// Enhanced mobile submit function
+function submit(){
+    try {
+        var lc = window.localStorage;
+        var kinks = [];
+        var meta = [];
+
+        // Get detailed counts for logging
+        const counts = getKinkCounts();
+
+        // Log submission attempt
+        fetch('/log_client_error', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                message: 'Mobile submission attempt',
+                event_type: 'MOBILE_SUBMIT_ATTEMPT',
+                kink_stats: counts,
+                localStorage_size: JSON.stringify(localStorage).length,
+                url: window.location.href,
+                timestamp: new Date().toISOString(),
+                user_agent: navigator.userAgent,
+                fields_filled: window.fields_filled,
+                total_fields: window.total_fields
+            })
+        });
+
+        // Critical check: Are we about to submit empty data?
+        if (counts.entered_fields === 0) {
+            fetch('/log_client_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: 'CRITICAL: Mobile attempting to submit with zero entered fields',
+                    event_type: 'MOBILE_EMPTY_SUBMIT_ATTEMPT',
+                    kink_stats: counts,
+                    localStorage_keys: Object.keys(localStorage),
+                    timestamp: new Date().toISOString(),
+                    user_agent: navigator.userAgent
+                })
+            });
+
+            alert('No data to submit. Please fill out the questionnaire.');
+            return;
+        }
+
+        // Your existing validation
+        if(window.fields_filled - window.total_fields !== 0){
+            if(!confirm("It seems you missed " + (window.total_fields - window.fields_filled) + " Questions, are you sure you want to submit your results? Click Cancel to go back")){
+                window.location.href = '/jump';
+                return;
+            }
+        }
+
+        // Validate meta_name
+        if(lc.getItem('meta_name') === null || lc.getItem('meta_name') === ''){
+            fetch('/log_client_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: 'Mobile submit missing meta_name',
+                    event_type: 'MOBILE_MISSING_META',
+                    kink_stats: counts,
+                    timestamp: new Date().toISOString()
+                })
+            });
+            window.location.href = '/meta?err=1';
+            return;
+        } else if(lc.getItem('meta_name').length > 100) {
+            window.location.href = '/meta?err=1';
+            return;
+        }
+
+        // Collect data with error handling
+        let parseErrors = 0;
+        $.each(Object.keys(lc), function(){
+            try {
+                val = lc.getItem(this);
+                if(this.startsWith('meta_')){
+                    meta.push({"id": this.valueOf().substring(5), "val": val});
+                } else if (!isNaN(parseInt(this))) {
+                    // Additional validation for mobile
+                    const kinkId = parseInt(String(this));
+                    if (kinkId > 0) {  // Sanity check
+                        kinks.push({"id": kinkId, "val": val});
+                    }
+                }
+            } catch(e) {
+                parseErrors++;
+                console.error('Error processing key:', this, e);
+            }
+        });
+
+        // Log if there were parsing errors
+        if (parseErrors > 0) {
+            fetch('/log_client_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: `Mobile submit had ${parseErrors} parsing errors`,
+                    event_type: 'MOBILE_PARSE_ERRORS',
+                    kink_stats: counts,
+                    timestamp: new Date().toISOString()
+                })
+            });
+        }
+
+        // Critical check: Do we have kinks array?
+        if (kinks.length === 0) {
+            fetch('/log_client_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: 'CRITICAL: Mobile has no kinks array after processing',
+                    event_type: 'MOBILE_NO_KINKS_PROCESSED',
+                    kink_stats: counts,
+                    localStorage_keys: Object.keys(localStorage).slice(0, 20), // First 20 keys for debugging
+                    meta_collected: meta.length,
+                    timestamp: new Date().toISOString(),
+                    user_agent: navigator.userAgent
+                })
+            });
+            alert('Error processing data. Please try again or use desktop version.');
+            return;
+        }
+
+        // Log pre-submission state
+        fetch('/log_client_error', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                message: 'Mobile pre-submission state',
+                event_type: 'MOBILE_PRE_SUBMIT',
+                kinks_count: kinks.length,
+                meta_count: meta.length,
+                kink_stats: counts,
+                timestamp: new Date().toISOString()
+            })
+        });
+
+        // Submit with error handling
+        fetch('/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({"meta": meta, "kinks": kinks}),
+        }).then(res => {
+            if (!res.ok) {
+                throw new Error(`Submit failed with status: ${res.status}`);
+            }
+
+            // Log successful submission
+            fetch('/log_client_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: 'Mobile submission successful',
+                    event_type: 'MOBILE_SUBMIT_SUCCESS',
+                    kink_stats: counts,
+                    timestamp: new Date().toISOString()
+                })
+            });
+
+            // Check if token cookie was set
+            const token = $.cookie('token');
+            if (!token) {
+                throw new Error('No token received from server');
+            }
+
+            window.location.href = '/results?token=' + token + "&justCreated=true";
+        }).catch(err => {
+            // Log submission failure with details
+            fetch('/log_client_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: 'Mobile submit failed',
+                    event_type: 'MOBILE_SUBMIT_FAILURE',
+                    error: err.toString(),
+                    kink_stats: counts,
+                    kinks_attempted: kinks.length,
+                    meta_attempted: meta.length,
+                    timestamp: new Date().toISOString(),
+                    user_agent: navigator.userAgent
+                })
+            });
+
+            alert('Submission failed. Please check your connection and try again.');
+            console.error('Submit error:', err);
+        });
+
+    } catch(e) {
+        // Catch-all for any unexpected errors
+        try {
+            const counts = getKinkCounts();
+            fetch('/log_client_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: 'Mobile submit function critical error',
+                    event_type: 'MOBILE_SUBMIT_CRITICAL_ERROR',
+                    error: e.toString(),
+                    stack: e.stack,
+                    kink_stats: counts || {},
+                    timestamp: new Date().toISOString(),
+                    user_agent: navigator.userAgent,
+                    localStorage_accessible: typeof localStorage !== 'undefined'
+                })
+            });
+        } catch(logErr) {
+            console.error('Failed to log critical error:', logErr);
+        }
+
+        alert('An error occurred during submission. Please try again or use the desktop version.');
+        console.error('Submit critical error:', e);
+    }
+}
+
+// Also add a mobile-specific health check
+function mobileHealthCheck() {
+    try {
+        const counts = getKinkCounts();
+
+        // Check for concerning states
+        if (window.total_fields && window.fields_filled !== undefined) {
+            // Check if the window variables match localStorage
+            if (Math.abs(counts.entered_fields - window.fields_filled) > 5) {
+                fetch('/log_client_error', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        message: 'Mobile state mismatch detected',
+                        event_type: 'MOBILE_STATE_MISMATCH',
+                        window_fields_filled: window.fields_filled,
+                        window_total_fields: window.total_fields,
+                        actual_entered: counts.entered_fields,
+                        actual_total: counts.total_fields,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+            }
+        }
+    } catch(e) {
+        console.error('Health check error:', e);
+    }
+}
+
+// Run health check periodically on mobile
+if (typeof setInterval !== 'undefined') {
+    setInterval(mobileHealthCheck, 45000); // Every 45 seconds on mobile
+}
+
 function checkForProgress(){
     res = false;
     for (var key in localStorage){
@@ -193,42 +497,6 @@ function fillChoices() {
 
 }
 
-
-function submit(){
-    var lc = window.localStorage
-    var kinks = []
-    var meta = []
-
-    if(window.fields_filled-window.total_fields !== 0){
-        if(!confirm("It seems you missed " + (window.total_fields-window.fields_filled) + " Questions, are you sure you want to submit your results? Click Cancel to go back")){
-            window.location.href = '/jump'
-            return
-        }
-    }
-
-    if(lc.getItem('meta_name') === null ||lc.getItem('meta_name') === ''){
-        window.location.href = '/meta?err=1'
-    } else if(lc.getItem('meta_name').length > 100) {
-         window.location.href = '/meta?err=1'
-    }else {
-        $.each(Object.keys(lc), function(){
-            val = lc.getItem(this);
-            if(this.startsWith('meta_')){
-                meta.push({"id": this.valueOf().substring(5), "val": val})
-            } else {
-                kinks.push({"id": parseInt(String(this)), "val": val})
-            }
-        })
-
-        fetch('/', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({"meta": meta, "kinks": kinks}),
-        }).then(res => {
-            window.location.href = '/results?token=' + $.cookie('token') + "&justCreated=true"
-        })
-    }
-}
 
 
 function enterChoiceM(sender){

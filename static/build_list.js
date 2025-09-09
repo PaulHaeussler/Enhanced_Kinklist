@@ -2,6 +2,271 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function getKinkCounts() {
+    let total_kinks = 0;
+    let entered_kinks = 0;
+    let total_fields = 0;
+    let entered_fields = 0;
+    let meta_count = 0;
+    let meta_entered = 0;
+
+    for (let key in localStorage) {
+        if (localStorage.hasOwnProperty(key)) {
+            if (key.startsWith('meta_')) {
+                meta_count++;
+                const value = localStorage.getItem(key);
+                if (value && value !== '' && value !== 'null') {
+                    meta_entered++;
+                }
+            } else if (!isNaN(parseInt(key))) {
+                total_kinks++;
+                try {
+                    const vals = JSON.parse(localStorage.getItem(key));
+                    if (Array.isArray(vals)) {
+                        total_fields += vals.length;
+                        let hasEntry = false;
+                        for (let val of vals) {
+                            if (val !== "0" && val !== 0) {
+                                entered_fields++;
+                                hasEntry = true;
+                            }
+                        }
+                        if (hasEntry) {
+                            entered_kinks++;
+                        }
+                    }
+                } catch(e) {
+                    console.error('Error parsing kink data for key:', key);
+                }
+            }
+        }
+    }
+
+    return {
+        total_kinks: total_kinks,
+        entered_kinks: entered_kinks,
+        total_fields: total_fields,
+        entered_fields: entered_fields,
+        completion_rate: total_fields > 0 ? Math.round((entered_fields / total_fields) * 100) : 0,
+        meta_count: meta_count,
+        meta_entered: meta_entered
+    };
+}
+
+// Enhanced error handler with better counting
+window.addEventListener('error', function(e) {
+    try {
+        // Filter out 404 errors for static images
+        if (e.target && e.target.tagName === 'IMG') {
+            const src = e.target.src;
+            if (src && (src.includes('/static/imgs/') || src.includes('/static/img'))) {
+                console.log('Expected 404 for image:', src);
+                return;
+            }
+        }
+
+        // Filter out other expected 404s
+        if (e.message && e.message.includes('404') && e.filename) {
+            if (e.filename.includes('/static/')) {
+                return;
+            }
+        }
+
+        // Get detailed kink counts
+        const counts = getKinkCounts();
+
+        // Log other errors with detailed counts
+        fetch('/log_client_error', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                message: e.message,
+                error: e.error ? e.error.toString() : 'Unknown',
+                stack: e.error ? e.error.stack : '',
+                localStorage_size: JSON.stringify(localStorage).length,
+                kink_stats: counts,  // Include the detailed counts
+                url: window.location.href,
+                timestamp: new Date().toISOString(),
+                user_agent: navigator.userAgent
+            })
+        });
+    } catch(err) {
+        console.error('Failed to log error:', err);
+    }
+}, true);
+
+// Updated submit function with better logging
+function submit(){
+    try {
+        const counts = getKinkCounts();
+
+        // Log submission attempt with detailed stats
+        fetch('/log_client_error', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                message: 'Submission attempt',
+                event_type: 'SUBMIT_ATTEMPT',
+                kink_stats: counts,
+                localStorage_size: JSON.stringify(localStorage).length,
+                url: window.location.href,
+                timestamp: new Date().toISOString()
+            })
+        });
+
+        // Check if actually empty
+        if (counts.entered_fields === 0) {
+            // Log this critical issue
+            fetch('/log_client_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: 'CRITICAL: Attempting to submit with zero entered fields',
+                    event_type: 'EMPTY_SUBMIT_ATTEMPT',
+                    kink_stats: counts,
+                    localStorage_keys: Object.keys(localStorage),
+                    timestamp: new Date().toISOString()
+                })
+            });
+
+            alert('No data to submit. Please fill out the questionnaire.');
+            return;
+        }
+
+        var lc = window.localStorage;
+        var kinks = [];
+        var meta = [];
+
+        // Your existing validation...
+        if(window.fields_filled-window.total_fields !== 0){
+            if(!confirm("It seems you missed " + (window.total_fields-window.fields_filled) + " Questions, are you sure you want to submit your results? Click Cancel to go back")){
+                window.location.href = '/jump';
+                return;
+            }
+        }
+
+        if(lc.getItem('meta_name') === null || lc.getItem('meta_name') === ''){
+            window.location.href = '/meta?err=1';
+            return;
+        } else if(lc.getItem('meta_name').length > 100) {
+            window.location.href = '/meta?err=1';
+            return;
+        }
+
+        // Collect data with validation
+        $.each(Object.keys(lc), function(){
+            val = lc.getItem(this);
+            if(this.startsWith('meta_')){
+                meta.push({"id": this.valueOf().substring(5), "val": val});
+            } else if (!isNaN(parseInt(this))) {
+                kinks.push({"id": parseInt(String(this)), "val": val});
+            }
+        });
+
+        // Final check before sending
+        if (kinks.length === 0) {
+            fetch('/log_client_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: 'CRITICAL: No kinks array after processing',
+                    event_type: 'NO_KINKS_PROCESSED',
+                    kink_stats: counts,
+                    localStorage_keys: Object.keys(localStorage),
+                    timestamp: new Date().toISOString()
+                })
+            });
+            alert('Error processing data. Please try again.');
+            return;
+        }
+
+        fetch('/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({"meta": meta, "kinks": kinks}),
+        }).then(res => {
+            if (!res.ok) {
+                throw new Error('Submit failed with status: ' + res.status);
+            }
+
+            // Log successful submission
+            fetch('/log_client_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: 'Submission successful',
+                    event_type: 'SUBMIT_SUCCESS',
+                    kink_stats: counts,
+                    timestamp: new Date().toISOString()
+                })
+            });
+
+            window.location.href = '/results?token=' + $.cookie('token') + "&justCreated=true";
+        }).catch(err => {
+            // Log submission failure
+            fetch('/log_client_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: 'Submit failed',
+                    event_type: 'SUBMIT_FAILURE',
+                    error: err.toString(),
+                    kink_stats: counts,
+                    timestamp: new Date().toISOString()
+                })
+            });
+            alert('Submission failed. Please try again.');
+        });
+
+    } catch(e) {
+        const counts = getKinkCounts();
+        fetch('/log_client_error', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                message: 'Submit function error',
+                event_type: 'SUBMIT_ERROR',
+                error: e.toString(),
+                stack: e.stack,
+                kink_stats: counts,
+                timestamp: new Date().toISOString()
+            })
+        });
+        alert('An error occurred during submission. Please try again.');
+    }
+}
+
+// Add periodic health checks (optional but useful for debugging)
+function logHealthCheck() {
+    const counts = getKinkCounts();
+
+    // Only log if there's concerning data
+    if (counts.total_kinks > 0 && counts.entered_fields === 0) {
+        fetch('/log_client_error', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                message: 'Health check: User has kinks but no entries',
+                event_type: 'HEALTH_CHECK_EMPTY',
+                kink_stats: counts,
+                timestamp: new Date().toISOString()
+            })
+        });
+    }
+}
+
+// Run health check every 30 seconds while user is active
+let healthCheckInterval = setInterval(logHealthCheck, 30000);
+
+// Clear interval when page is hidden
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        clearInterval(healthCheckInterval);
+    } else {
+        healthCheckInterval = setInterval(logHealthCheck, 30000);
+    }
+});
+
 function enterChoice(sender){
     var div = sender.srcElement.parentNode;
     var id = sender.srcElement.value;
@@ -502,8 +767,12 @@ function build_list(){
                     var timg = document.createElement('img')
                     timg.classList.add('tipimg')
                     timg.setAttribute('src', imglink)
-                    timg.onerror = function (image) {
-                        var p = image.srcElement.parentNode.parentNode;
+                    timg.onerror = function (event) {
+                        // Prevent the error from bubbling up
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        var p = event.target.parentNode.parentNode;
                         p.innerHTML = "";
                         return true;
                     }
