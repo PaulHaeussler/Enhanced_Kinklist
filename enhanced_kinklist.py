@@ -260,12 +260,16 @@ class Kinklist:
         def short_results(token):
             return results(token)
 
-        @self.app.route('/', methods=['GET', 'POST'])
+        @self.app.route('/', methods=['GET', 'POST', 'HEAD'])
         def index():
             try:
                 self.__log(request)
+                if request.method == 'HEAD':
+                    res = make_response()
+                    res.status_code = 200
+                    return res
 
-                if request.method == 'GET':
+                elif request.method == 'GET':
                     # Your existing GET logic
                     user = request.cookies.get('user', default='')
                     secret = request.cookies.get('secret', default='')
