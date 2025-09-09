@@ -56,7 +56,7 @@ function getKinkCounts() {
 }
 
 // Enhanced mobile submit function
-function submit(){
+function mobile_submit(){
     try {
         var lc = window.localStorage;
         var kinks = [];
