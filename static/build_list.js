@@ -249,6 +249,8 @@ function logHealthCheck() {
                 message: 'Health check: User has kinks but no entries',
                 event_type: 'HEALTH_CHECK_EMPTY',
                 kink_stats: counts,
+                kink_counts: counts.total_kinks,
+                entered_fields: counts.entered_fields,
                 timestamp: new Date().toISOString()
             })
         });
