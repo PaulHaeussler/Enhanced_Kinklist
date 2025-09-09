@@ -520,15 +520,7 @@ class Kinklist:
                 error_data = request.get_json()
 
 
-                self.log_error("CLIENT_ERROR", error_data.get('message', 'Unknown client error'), {
-                    "error": error_data.get('error'),
-                    "stack": error_data.get('stack'),
-                    "localStorage_size": error_data.get('localStorage_size'),
-                    "kinks_count": error_data.get('kinks_count'),
-                    "meta_count": error_data.get('meta_count'),
-                    "url": error_data.get('url'),
-                    "timestamp": error_data.get('timestamp')
-                })
+                self.log_error("CLIENT_ERROR", error_data.get('message', 'Unknown client error'), request_data=error_data)
 
                 return jsonify({"status": "logged"}), 200
             except Exception as e:
