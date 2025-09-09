@@ -65,6 +65,8 @@ function mobile_submit(){
         // Get detailed counts for logging
         const counts = getKinkCounts();
 
+        getProgress();
+
         // Log submission attempt
         fetch('/log_client_error', {
             method: 'POST',
