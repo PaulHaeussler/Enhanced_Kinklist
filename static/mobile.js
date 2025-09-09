@@ -183,19 +183,7 @@ function mobile_submit(){
             return;
         }
 
-        // Log pre-submission state
-        fetch('/log_client_error', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                message: 'Mobile pre-submission state',
-                event_type: 'MOBILE_PRE_SUBMIT',
-                kinks_count: kinks.length,
-                meta_count: meta.length,
-                kink_stats: counts,
-                timestamp: new Date().toISOString()
-            })
-        });
+
 
         // Submit with error handling
         fetch('/', {
@@ -207,17 +195,6 @@ function mobile_submit(){
                 throw new Error(`Submit failed with status: ${res.status}`);
             }
 
-            // Log successful submission
-            fetch('/log_client_error', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    message: 'Mobile submission successful',
-                    event_type: 'MOBILE_SUBMIT_SUCCESS',
-                    kink_stats: counts,
-                    timestamp: new Date().toISOString()
-                })
-            });
 
             // Check if token cookie was set
             const token = $.cookie('token');
