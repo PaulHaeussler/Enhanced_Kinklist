@@ -21,7 +21,7 @@ from werkzeug.utils import redirect
 from db import MySQLPool
 
 
-force_mobile = False
+force_mobile = True
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -518,7 +518,7 @@ class Kinklist:
             """Endpoint to receive client-side errors"""
             try:
                 error_data = request.get_json()
-
+                if error_data["message"] == "Unknown error": return jsonify({"status": "logged"}), 202
 
                 self.log_error("CLIENT_ERROR", error_data.get('message', 'Unknown client error'), request_data=error_data)
 

@@ -55,7 +55,6 @@ function getKinkCounts() {
     };
 }
 
-// Enhanced mobile submit function
 function mobile_submit(){
     try {
         var lc = window.localStorage;
@@ -66,7 +65,7 @@ function mobile_submit(){
         const counts = getKinkCounts();
 
         getProgress();
-
+/*
         // Log submission attempt
         fetch('/log_client_error', {
             method: 'POST',
@@ -80,10 +79,11 @@ function mobile_submit(){
                 timestamp: new Date().toISOString(),
                 user_agent: navigator.userAgent,
                 fields_filled: window.fields_filled,
-                total_fields: window.total_fields
+                total_fields: window.total_fields,
+                browser_keys: counts.browser_keys // Log any non-kink keys found
             })
         });
-
+*/
         // Critical check: Are we about to submit empty data?
         if (counts.entered_fields === 0) {
             fetch('/log_client_error', {
@@ -94,6 +94,7 @@ function mobile_submit(){
                     event_type: 'MOBILE_EMPTY_SUBMIT_ATTEMPT',
                     kink_stats: counts,
                     localStorage_keys: Object.keys(localStorage),
+                    browser_keys: counts.browser_keys,
                     timestamp: new Date().toISOString(),
                     user_agent: navigator.userAgent
                 })
@@ -130,26 +131,51 @@ function mobile_submit(){
             return;
         }
 
-        // Collect data with error handling
+        // Collect data with FIXED validation for numeric keys
         let parseErrors = 0;
+        let skippedKeys = [];
+
         $.each(Object.keys(lc), function(){
+            const key = String(this);
+
             try {
-                val = lc.getItem(this);
-                if(this.startsWith('meta_')){
-                    meta.push({"id": this.valueOf().substring(5), "val": val});
-                } else if (!isNaN(parseInt(this))) {
-                    // Additional validation for mobile
-                    const kinkId = parseInt(String(this));
-                    if (kinkId > 0) {  // Sanity check
+                val = lc.getItem(key);
+
+                if(key.startsWith('meta_')){
+                    meta.push({"id": key.substring(5), "val": val});
+                } else {
+                    // STRICTER CHECK: Must be a valid positive integer
+                    const kinkId = parseInt(key);
+
+                    // Check: is it a number, is it positive, and is the parsed value equal to the original key?
+                    if (!isNaN(kinkId) && kinkId > 0 && kinkId.toString() === key) {
                         kinks.push({"id": kinkId, "val": val});
+                    } else {
+                        // Track what we're skipping (like "dark")
+                        skippedKeys.push(key);
                     }
                 }
             } catch(e) {
                 parseErrors++;
-                console.error('Error processing key:', this, e);
+                console.error('Error processing key:', key, e);
             }
         });
-
+/*
+        // Log skipped keys if any (for debugging browser-specific keys)
+        if (skippedKeys.length > 0) {
+            console.log('Skipped non-kink keys:', skippedKeys);
+            fetch('/log_client_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: 'Mobile submit skipped browser keys',
+                    event_type: 'MOBILE_BROWSER_KEYS',
+                    skipped_keys: skippedKeys,
+                    timestamp: new Date().toISOString()
+                })
+            });
+        }
+*/
         // Log if there were parsing errors
         if (parseErrors > 0) {
             fetch('/log_client_error', {
@@ -166,6 +192,10 @@ function mobile_submit(){
 
         // Critical check: Do we have kinks array?
         if (kinks.length === 0) {
+            // Enhanced debugging for empty kinks
+            const allKeys = Object.keys(localStorage);
+            const numericKeys = allKeys.filter(k => !isNaN(parseInt(k)) && parseInt(k) > 0);
+
             fetch('/log_client_error', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -173,7 +203,10 @@ function mobile_submit(){
                     message: 'CRITICAL: Mobile has no kinks array after processing',
                     event_type: 'MOBILE_NO_KINKS_PROCESSED',
                     kink_stats: counts,
-                    localStorage_keys: Object.keys(localStorage).slice(0, 20), // First 20 keys for debugging
+                    all_keys_count: allKeys.length,
+                    numeric_keys_count: numericKeys.length,
+                    sample_keys: allKeys.slice(0, 20),
+                    skipped_keys: skippedKeys,
                     meta_collected: meta.length,
                     timestamp: new Date().toISOString(),
                     user_agent: navigator.userAgent
@@ -182,8 +215,6 @@ function mobile_submit(){
             alert('Error processing data. Please try again or use desktop version.');
             return;
         }
-
-
 
         // Submit with error handling
         fetch('/', {
@@ -194,7 +225,6 @@ function mobile_submit(){
             if (!res.ok) {
                 throw new Error(`Submit failed with status: ${res.status}`);
             }
-
 
             // Check if token cookie was set
             const token = $.cookie('token');
@@ -251,49 +281,43 @@ function mobile_submit(){
     }
 }
 
-// Also add a mobile-specific health check
-function mobileHealthCheck() {
-    try {
-        const counts = getKinkCounts();
-
-        // Check for concerning states
-        if (window.total_fields && window.fields_filled !== undefined) {
-            // Check if the window variables match localStorage
-            if (Math.abs(counts.entered_fields - window.fields_filled) > 5) {
-                fetch('/log_client_error', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        message: 'Mobile state mismatch detected',
-                        event_type: 'MOBILE_STATE_MISMATCH',
-                        window_fields_filled: window.fields_filled,
-                        window_total_fields: window.total_fields,
-                        actual_entered: counts.entered_fields,
-                        actual_total: counts.total_fields,
-                        timestamp: new Date().toISOString()
-                    })
-                });
-            }
-        }
-    } catch(e) {
-        console.error('Health check error:', e);
-    }
-}
-
-// Run health check periodically on mobile
-if (typeof setInterval !== 'undefined') {
-    setInterval(mobileHealthCheck, 45000); // Every 45 seconds on mobile
-}
 
 function checkForProgress(){
-    res = false;
-    for (var key in localStorage){
-        if(!key.startsWith("meta")){
-            res = true
-            break
-        }
+    if(window.localStorage.getItem('meta_name') === '' || window.localStorage.getItem('meta_name') === null){
+        return;
     }
-    return res
+    window.id_left_off = "1001";
+    $.ajax({
+    type: 'GET',
+    url: 'byid',
+    dataType: 'json',
+    success: function (data) {
+        $.each(Object.keys(data), function(){
+            const key = String(this);
+
+            // Nur numerische Keys prüfen
+            if (!isNaN(parseInt(key)) && parseInt(key) > 0) {
+                try {
+                    var cols = JSON.parse(window.localStorage.getItem(key));
+                    if(cols && !cols.includes("0")){
+                        window.id_left_off = key;
+                    } else {
+                        return false;
+                    }
+                } catch(e) {
+                    console.error('Error checking progress for key:', key);
+                }
+            }
+        })
+
+        console.log("Result: " + window.id_left_off)
+        if(window.id_left_off !== "1001"){
+            document.getElementById("tip_progress").classList.remove("hidden");
+            document.getElementById("continue").onclick = function(){
+                window.location.href = '/quiz?id=' + window.id_left_off;
+            }
+        }
+    }})
 }
 
 function checkForMeta() {
@@ -431,18 +455,27 @@ function checkForProgress(){
 function getProgress() {
     var total_fields = 0;
     var fields_filled = 0;
-    $.each(Object.keys(window.localStorage), function(){
-        if(!this.startsWith("meta")){
-            var cols = JSON.parse(window.localStorage.getItem(this));
-            total_fields += cols.length;
-            for(var i = 0; i < cols.length; i++){
 
-                if(cols[i] !== "0"){
-                    fields_filled += 1;
+    $.each(Object.keys(window.localStorage), function(){
+        const key = String(this);
+
+        // Nur numerische Keys verarbeiten (Kink IDs)
+        if (!isNaN(parseInt(key)) && parseInt(key) > 0) {
+            try {
+                var cols = JSON.parse(window.localStorage.getItem(key));
+                if (Array.isArray(cols)) {
+                    total_fields += cols.length;
+                    for(var i = 0; i < cols.length; i++){
+                        if(cols[i] !== "0" && cols[i] !== 0){
+                            fields_filled += 1;
+                        }
+                    }
                 }
+            } catch(e) {
+                console.error('Error parsing kink data for key:', key, e);
             }
         }
-    })
+    });
 
     window.total_fields = total_fields;
     window.fields_filled = fields_filled;
@@ -606,3 +639,43 @@ function buildFeedbackBtn(){
 
 
 }
+
+
+
+function cleanBrowserKeys() {
+    const safeKeys = [];
+    const browserKeys = [];
+
+    for (let key in localStorage) {
+        if (localStorage.hasOwnProperty(key)) {
+            if (key.startsWith('meta_') || (!isNaN(parseInt(key)) && parseInt(key) > 0)) {
+                safeKeys.push(key);
+            } else {
+                if (key !== "")
+                {
+                    browserKeys.push(key);
+                }
+            }
+        }
+    }
+
+    if (browserKeys.length > 0) {
+        console.log('Found browser-specific keys:', browserKeys);
+        // Optional: Keys loggen für Debugging
+        fetch('/log_client_error', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                message: 'Browser-specific localStorage keys detected',
+                event_type: 'BROWSER_KEYS',
+                browser_keys: browserKeys,
+                user_agent: navigator.userAgent,
+                timestamp: new Date().toISOString()
+            })
+        });
+    }
+
+    return safeKeys;
+}
+
+cleanBrowserKeys();

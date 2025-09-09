@@ -53,7 +53,6 @@ function getKinkCounts() {
     };
 }
 
-// Enhanced error handler with better counting
 window.addEventListener('error', function(e) {
     try {
         // Filter out 404 errors for static images
@@ -75,20 +74,44 @@ window.addEventListener('error', function(e) {
         // Get detailed kink counts
         const counts = getKinkCounts();
 
+        // Extract error information properly
+        let errorMessage = e.message || 'Unknown error';
+        let errorDetails = 'No details available';
+        let stackTrace = '';
+
+        // For script errors, the error object is in e.error
+        if (e.error) {
+            errorDetails = e.error.toString();
+            stackTrace = e.error.stack || '';
+        } else {
+            // Fallback for when e.error is not available
+            errorDetails = `${errorMessage} at ${e.filename || 'unknown'}:${e.lineno || 'unknown'}:${e.colno || 'unknown'}`;
+
+            // Build a minimal stack trace from available info
+            if (e.filename) {
+                stackTrace = `at ${e.filename}:${e.lineno || 'unknown'}:${e.colno || 'unknown'}`;
+            }
+        }
+
         // Log other errors with detailed counts
         fetch('/log_client_error', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                message: e.message,
-                error: e.error ? e.error.toString() : 'Unknown',
-                stack: e.error ? e.error.stack : '',
+                message: errorMessage,
+                error: errorDetails,
+                stack: stackTrace,
+                filename: e.filename || '',
+                lineno: e.lineno || 0,
+                colno: e.colno || 0,
                 localStorage_size: JSON.stringify(localStorage).length,
-                kink_stats: counts,  // Include the detailed counts
+                kink_stats: counts,
                 url: window.location.href,
                 timestamp: new Date().toISOString(),
                 user_agent: navigator.userAgent
             })
+        }).catch(fetchErr => {
+            console.error('Failed to send error log:', fetchErr);
         });
     } catch(err) {
         console.error('Failed to log error:', err);
@@ -236,38 +259,7 @@ function submit(){
     }
 }
 
-// Add periodic health checks (optional but useful for debugging)
-function logHealthCheck() {
-    const counts = getKinkCounts();
 
-    // Only log if there's concerning data
-    if (counts.total_kinks > 0 && counts.entered_fields === 0) {
-        fetch('/log_client_error', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                message: 'Health check: User has kinks but no entries',
-                event_type: 'HEALTH_CHECK_EMPTY',
-                kink_stats: counts,
-                kink_counts: counts.total_kinks,
-                entered_fields: counts.entered_fields,
-                timestamp: new Date().toISOString()
-            })
-        });
-    }
-}
-
-// Run health check every 30 seconds while user is active
-let healthCheckInterval = setInterval(logHealthCheck, 30000);
-
-// Clear interval when page is hidden
-document.addEventListener('visibilitychange', function() {
-    if (document.hidden) {
-        clearInterval(healthCheckInterval);
-    } else {
-        healthCheckInterval = setInterval(logHealthCheck, 30000);
-    }
-});
 
 function enterChoice(sender){
     var div = sender.srcElement.parentNode;
