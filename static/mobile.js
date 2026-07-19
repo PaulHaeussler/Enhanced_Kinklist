@@ -431,10 +431,21 @@ function checkForProgress(){
     dataType: 'json',
     success: function (data) {
         $.each(Object.keys(data), function(){
-            var cols = JSON.parse(window.localStorage.getItem(this));
-            if(!cols.includes("0")){
-                window.id_left_off = this
-            } else {
+            const key = String(this);
+            const stored = window.localStorage.getItem(key);
+            if (!stored) {
+                return false;
+            }
+
+            try {
+                var cols = JSON.parse(stored);
+                if(Array.isArray(cols) && !cols.includes("0")){
+                    window.id_left_off = key
+                } else {
+                    return false;
+                }
+            } catch(e) {
+                console.error('Error checking progress for key:', key, e);
                 return false;
             }
 
@@ -482,16 +493,39 @@ function getProgress() {
 }
 
 function updateProgressM() {
-    var progress = Math.round(window.fields_filled / window.total_fields * 1000)/10;
-    document.getElementById("msprog").innerText = progress + "%";
+    var progress = 0;
+    if (window.total_fields > 0) {
+        progress = Math.round(window.fields_filled / window.total_fields * 1000)/10;
+    }
+    var progressElement = document.getElementById("msprog");
+    if (progressElement) {
+        progressElement.innerText = progress + "%";
+    }
 }
 
 
 
 function fillChoices() {
     var id = parseInt(document.getElementById("kinkID").innerText);
-    var vals = JSON.parse(window.localStorage.getItem(id))
     var cols = document.getElementsByClassName('mchoices');
+    var vals = null;
+
+    try {
+        vals = JSON.parse(window.localStorage.getItem(id));
+    } catch(e) {
+        console.error('Error parsing stored choices for kink:', id, e);
+    }
+
+    if (!Array.isArray(vals)) {
+        vals = [];
+    }
+
+    while (vals.length < cols.length) {
+        vals.push("0");
+    }
+
+    window.localStorage.setItem(id, JSON.stringify(vals));
+
     for(var i = 0; i < vals.length; i++){
         if(vals[i] === "0"){
             continue;
@@ -514,8 +548,6 @@ function enterChoiceM(sender){
     var parent = sender.parentNode;
     var val = sender.value;
     var id = parseInt(document.getElementById("kinkID").innerText);
-    window.fields_filled += 1;
-    updateProgressM();
     $.each(parent.childNodes, function(){
         if(this.nodeName === "#text"){
             return;
@@ -526,6 +558,11 @@ function enterChoiceM(sender){
         }
         if(this.classList.contains("entered") && this.getAttribute("value") === val){
             var pos = this.getAttribute("index")
+            var current = JSON.parse(window.localStorage.getItem(id))[parseInt(pos)];
+            if(current === "0" || current === 0){
+                window.fields_filled += 1;
+                updateProgressM();
+            }
             updateLS(id, val, parseInt(pos))
 
             this.classList.remove("hidden");
@@ -541,10 +578,13 @@ function enterChoiceM(sender){
 
 function removeChoiceM(sender){
     var parent = sender.parentNode;
-    var val = sender.value;
     var id = parseInt(document.getElementById("kinkID").innerText);
-    window.fields_filled -= 1;
-    updateProgressM();
+    var pos = sender.getAttribute("index")
+    var current = JSON.parse(window.localStorage.getItem(id))[parseInt(pos)];
+    if(current !== "0" && current !== 0){
+        window.fields_filled -= 1;
+        updateProgressM();
+    }
     $.each(parent.childNodes, function(){
         if(this.nodeName === "#text"){
             return;
@@ -555,7 +595,6 @@ function removeChoiceM(sender){
         }
     })
     sender.classList.add("hidden")
-    var pos = sender.getAttribute("index")
     updateLS(id, "0", parseInt(pos))
 }
 
@@ -574,7 +613,7 @@ function updateLS(id, value, pos){
 function buildJumpProgress(){
     $.each(document.getElementsByClassName('li_kink'), function() {
         var id = this.getAttribute("id")
-        var vals = JSON.parse(window.localStorage.getItem(parseInt(id)))
+        var vals = JSON.parse(window.localStorage.getItem(parseInt(id)) || "[]")
         var pstr = "["
         var done = "✅"
         var not_done = " "

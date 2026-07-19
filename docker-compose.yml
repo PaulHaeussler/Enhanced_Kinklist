@@ -1,0 +1,49 @@
+services:
+  app:
+    build:
+      context: .
+    image: enhanced-kinklist:local
+    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_SCHEMA: ${DB_SCHEMA:-kl}
+      DB_USER: ${DB_USER:-kinklist}
+      DB_PW: ${DB_PW:?Set DB_PW in .env}
+      LOG_DIR: /app/logs
+      GUNICORN_BIND: 0.0.0.0:8000
+      GUNICORN_WORKERS: ${GUNICORN_WORKERS:-2}
+      GUNICORN_THREADS: ${GUNICORN_THREADS:-4}
+      GUNICORN_TIMEOUT: ${GUNICORN_TIMEOUT:-60}
+    ports:
+      - "${APP_PORT:-5055}:8000"
+    volumes:
+      - app_logs:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    command:
+      - mariadbd
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    environment:
+      MARIADB_DATABASE: ${DB_SCHEMA:-kl}
+      MARIADB_USER: ${DB_USER:-kinklist}
+      MARIADB_PASSWORD: ${DB_PW:?Set DB_PW in .env}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:?Set MARIADB_ROOT_PASSWORD in .env}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./create_db_mysql.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -uroot -p$${MARIADB_ROOT_PASSWORD} --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  app_logs:
+  mariadb_data:

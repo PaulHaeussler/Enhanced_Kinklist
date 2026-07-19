@@ -2,6 +2,13 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function eventTarget(eventOrElement) {
+    if (!eventOrElement) {
+        return null;
+    }
+    return eventOrElement.currentTarget || eventOrElement.target || eventOrElement.srcElement || eventOrElement;
+}
+
 function getKinkCounts() {
     let total_kinks = 0;
     let entered_kinks = 0;
@@ -262,8 +269,9 @@ function submit(){
 
 
 function enterChoice(sender){
-    var div = sender.srcElement.parentNode;
-    var id = sender.srcElement.value;
+    var src = eventTarget(sender);
+    var div = src.parentNode;
+    var id = src.value;
     var tr = div;
     var td = null;
     var pos = 0;
@@ -296,7 +304,7 @@ function enterChoice(sender){
     tdiv.classList.add('choiceText')
     tdiv.innerText = lu[0]
     div.style.backgroundColor = lu[1]
-    var index = sender.srcElement.getAttribute("index")
+    var index = src.getAttribute("index")
 
     window.doneKinks += 1;
     window.remnKinks -= 1;
@@ -317,8 +325,9 @@ function enterChoice(sender){
 }
 
 function removeChoice(sender){
-    var div = sender.srcElement;
-    var id = sender.srcElement.value;
+    var src = eventTarget(sender);
+    var div = src;
+    var id = src.value;
     var tr = div;
     var td = null;
     var cdiv = null;
@@ -343,7 +352,7 @@ function removeChoice(sender){
 
     var kc = tr.childNodes[0]
     var kink = kc.childNodes[0].childNodes[0].childNodes[0].textContent;
-    var index = sender.srcElement.getAttribute("index");
+    var index = src.getAttribute("index");
 
     window.doneKinks -= 1;
     window.remnKinks += 1;
@@ -519,7 +528,7 @@ function checkLocalStorage(){
 }
 
 function meta_changed(sender){
-    var src = sender.srcElement
+    var src = eventTarget(sender)
     src.classList.remove('err')
     window.localStorage.setItem(src.id, src.value)
 }
@@ -952,7 +961,7 @@ function buildCollapsibles(){
 
 
 function toggleFilter(event) {
-    var src = event.srcElement;
+    var src = eventTarget(event);
 
 
     var current = document.getElementsByClassName("filter_active")

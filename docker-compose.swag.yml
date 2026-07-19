@@ -1,0 +1,13 @@
+services:
+  app:
+    container_name: enhanced-kinklist
+    networks:
+      default:
+      swag_proxy:
+        aliases:
+          - enhanced-kinklist
+
+networks:
+  swag_proxy:
+    external: true
+    name: ${SWAG_NETWORK:-swag_proxy}

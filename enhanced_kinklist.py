@@ -25,12 +25,14 @@ force_mobile = False
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
-logger.add("latest.log")
+log_dir = os.environ.get("LOG_DIR", ".")
+os.makedirs(log_dir, exist_ok=True)
+logger.add(os.path.join(log_dir, "latest.log"))
 
 # Configure separate error logger
 error_logger = logger.bind(name="errors")
 error_logger.add(
-    "errors_{time:YYYY-MM-DD}.log",
+    os.path.join(log_dir, "errors_{time:YYYY-MM-DD}.log"),
     format="{time:YYYY-MM-DD HH:mm:ss.SSS} | {level} | {message} | {extra}",
     rotation="00:00",  # Rotate daily
     retention="30 days",  # Keep error logs for 30 days
@@ -85,7 +87,7 @@ class Kinklist:
         self.db = MySQLPool(host=dbhost, user=dbuser, password=dbpw, database=dbschema,
                        pool_size=15)
         self.results = []
-        for r in self.db.execute("SELECT token FROM answers;"):
+        for r in self.db.execute("SELECT token FROM answers;") or []:
             self.results.append(r[0])
 
 
@@ -93,9 +95,11 @@ class Kinklist:
     def retrofind_hits(self):
         c = 1
         for token in self.results:
-            res = self.db.execute("SELECT COUNT(*) FROM kl.hits WHERE query LIKE '%" + token + "%';")
+            res = self.db.execute("SELECT COUNT(*) FROM hits WHERE query LIKE %s;", (f"%{token}%",))
+            if not res:
+                continue
             print(str(c) + ". " + token + " --- " + str(res[0][0]))
-            self.db.execute("UPDATE kl.answers SET hit_count = %s WHERE token = %s;", (res[0][0], token,), commit=True)
+            self.db.execute("UPDATE answers SET hit_count = %s WHERE token = %s;", (res[0][0], token,), commit=True)
             c += 1
 
 
@@ -193,7 +197,7 @@ class Kinklist:
 
     def log_error(self, error_type, message, request_data=None, exception=None):
 
-        if exception is not None and exception.code == 404:
+        if exception is not None and getattr(exception, "code", None) == 404:
             return
         """Centralized error logging function"""
         error_data = {
@@ -335,13 +339,19 @@ class Kinklist:
 
                         ip = self.get_client_ip(request)
                         token = self.createHash()
-                        self.results.append(token)
+                        while self.check_token(token):
+                            token = self.createHash()
 
                         m = inputs.get('meta', [])
                         t = round(time.time() * 1000)
 
                         # Process with error handling
-                        if len(self.db.execute("SELECT * FROM users WHERE user=%s;", (user,))) == 0:
+                        existing_users = self.db.execute("SELECT * FROM users WHERE user=%s;", (user,))
+                        if existing_users is None:
+                            self.log_error("DB_ERROR", "Could not query user during submission", {"user": user})
+                            return jsonify({"error": "Database error"}), 500
+
+                        if len(existing_users) == 0:
                             logger.info("Adding new User")
                             self.db.execute(
                                 "INSERT INTO users(user, username, sex, age, fap_freq, sex_freq, body_count, ip, created) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);",
@@ -351,16 +361,22 @@ class Kinklist:
                                 commit=True
                             )
 
-                        uid = self.db.execute("SELECT id FROM users WHERE user=%s;", (user,))[0][0]
-                        if uid is None:
+                        uid_rows = self.db.execute("SELECT id FROM users WHERE user=%s;", (user,))
+                        if not uid_rows:
                             self.log_error("DB_ERROR", "Could not retrieve user ID after insert", {"user": user})
                             return jsonify({"error": "Database error"}), 500
+                        uid = uid_rows[0][0]
 
                         self.db.execute(
                             "INSERT INTO answers(user_id, timestamp, token, choices_json, hit_count) VALUES(%s, %s, %s, %s, 0);",
                             (int(uid), t, token, json.dumps(valid_kinks)),
                             commit=True
                         )
+                        saved_answer = self.db.execute("SELECT token FROM answers WHERE token=%s;", (token,))
+                        if not saved_answer:
+                            self.log_error("DB_ERROR", "Could not retrieve answer after insert", {"token": token})
+                            return jsonify({"error": "Database error"}), 500
+                        self.results.append(token)
 
                         logger.info(f"Created result token {token}")
                         res_results = make_response()
@@ -444,8 +460,10 @@ class Kinklist:
             if not self.check_token(t):
                 return redirect('/')
             else:
-                self.db.execute("UPDATE kl.answers SET hit_count = hit_count + 1 WHERE token = %s;", (t,), commit=True)
+                self.db.execute("UPDATE answers SET hit_count = hit_count + 1 WHERE token = %s;", (t,), commit=True)
                 dbdata = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (t,))
+                if not dbdata:
+                    return redirect('/')
                 data = [list(d) for d in dbdata]
                 for index in range(6, 12):
                     if data[0][index] is None:
@@ -470,7 +488,8 @@ class Kinklist:
         def missingKink():
             ip = self.__log(request)
             logger.info("New suggestion!")
-            mk = request.get_json()['missingkink']
+            data = request.get_json(silent=True) or {}
+            mk = data.get('missingkink')
             if mk == '' or mk is None:
                 return make_response('', 400)
             self.db.execute("INSERT INTO suggestions VALUES(%s, %s, %s);", (int(time.time()), mk, ip), commit=True)
@@ -487,6 +506,8 @@ class Kinklist:
             else:
                 data_a = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (a,))
                 data_b = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (b,))
+                if not data_a or not data_b:
+                    return redirect('/')
                 res = make_response(render_template('compare.html', kinks_a=self.resolve_ids(json.loads(data_a[0][3])), username_a=data_a[0][7], sex_a=data_a[0][8], age_a=data_a[0][9], fap_freq_a=data_a[0][10], sex_freq_a=data_a[0][11], body_count_a=data_a[0][12], created_a=[data_a[0][1]], choices=self.config['categories'],
                                                     kinks_b=self.resolve_ids(json.loads(data_b[0][3])), username_b=data_b[0][7], sex_b=data_b[0][8], age_b=data_b[0][9], fap_freq_b=data_b[0][10], sex_freq_b=data_b[0][11], body_count_b=data_b[0][12], created_b=[data_b[0][1]]))
                 return res
@@ -507,6 +528,8 @@ class Kinklist:
                 data_b = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (b,))
                 data_c = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (c,))
                 data_d = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (d,))
+                if not data_a or not data_b or not data_c or not data_d:
+                    return redirect('/')
                 res = make_response(render_template('compare4.html', kinks_a=self.resolve_ids(json.loads(data_a[0][3])), username_a=data_a[0][7], sex_a=data_a[0][8], age_a=data_a[0][9], fap_freq_a=data_a[0][10], sex_freq_a=data_a[0][11], body_count_a=data_a[0][12], created_a=[data_a[0][1]], choices=self.config['categories'],
                                                     kinks_b=self.resolve_ids(json.loads(data_b[0][3])), username_b=data_b[0][7], sex_b=data_b[0][8], age_b=data_b[0][9], fap_freq_b=data_b[0][10], sex_freq_b=data_b[0][11], body_count_b=data_b[0][12], created_b=[data_b[0][1]],
                                                     kinks_c=self.resolve_ids(json.loads(data_c[0][3])), username_c=data_c[0][7], sex_c=data_c[0][8], age_c=data_c[0][9], fap_freq_c=data_c[0][10], sex_freq_c=data_c[0][11], body_count_c=data_c[0][12], created_c=[data_c[0][1]],
@@ -518,7 +541,12 @@ class Kinklist:
             """Endpoint to receive client-side errors"""
             try:
                 error_data = request.get_json()
-                if error_data["message"] == "Unknown error": return jsonify({"status": "logged"}), 202
+                if not error_data:
+                    return jsonify({"status": "ignored"}), 202
+                if error_data.get("message") == "Unknown error":
+                    return jsonify({"status": "logged"}), 202
+                if error_data.get("event_type") in ["SUBMIT_ATTEMPT", "SUBMIT_SUCCESS", "MOBILE_SUBMIT_ATTEMPT", "MOBILE_BROWSER_KEYS", "BROWSER_KEYS"]:
+                    return jsonify({"status": "ignored"}), 202
 
                 self.log_error("CLIENT_ERROR", error_data.get('message', 'Unknown client error'), request_data=error_data)
 
@@ -541,6 +569,7 @@ class Kinklist:
         @self.app.route('/party')
         def party():
             self.__log(request)
+            return render_template('party.html')
 
 
         @self.app.route('/party/draw', methods = ["GET"])
@@ -561,7 +590,7 @@ class Kinklist:
 
         @self.app.route('/kot')
         def kot():
-            return render_template("kot.html")
+            return redirect(url_for('index'))
 
         @self.app.route('/byid')
         def byid():
@@ -575,6 +604,8 @@ class Kinklist:
         def globalStats():
             self.__log(request)
             res = self.db.execute("SELECT * FROM stats ORDER BY created DESC LIMIT 1;")
+            if not res:
+                return jsonify({"categories": [], "colors": [], "distr_cat": {}})
             response = jsonify(json.loads(res[0][1]))
             response.status_code = 200
             return response
@@ -594,7 +625,7 @@ class Kinklist:
             return send_from_directory(self.app.static_folder, request.path[1:])
 
         if __name__ == '__main__':
-            self.app.run(host='0.0.0.0', port=5000)
+            self.app.run(host='0.0.0.0', port=int(os.environ.get("DEV_PORT", "5055")))
         else:
             return self.app
 

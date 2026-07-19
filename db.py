@@ -68,7 +68,7 @@ class MySQLPool(object):
         try:
             conn = self.pool.get_connection()
             cursor = conn.cursor()
-            if args:
+            if args is not None:
                 cursor.execute(sql, args)
             else:
                 cursor.execute(sql)
@@ -82,12 +82,12 @@ class MySQLPool(object):
             return result
         except IntegrityError as e:
             logger.warning(e)
-            if conn and not commit:
+            if conn:
                 conn.rollback()
             return None
         except Exception as e:
             logger.error(f"Database error: {e}")
-            if conn and not commit:
+            if conn:
                 conn.rollback()
             return None
         finally:
@@ -122,7 +122,7 @@ class MySQLPool(object):
             return result
         except Exception as e:
             logger.error(f"Database error in executemany: {e}")
-            if conn and not commit:
+            if conn:
                 conn.rollback()
             return None
         finally:

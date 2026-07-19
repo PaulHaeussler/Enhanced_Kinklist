@@ -54,7 +54,7 @@
             </span>
             <a href="/jump">Jump ⬈</a>
         </div>
-        <button id="next" {% if id == last %}onclick="submit()">Submit{% else %}onclick="location.href='/quiz?id={{next}}'">Next{% endif %}
+        <button id="next" {% if id == last %}onclick="mobile_submit()">Submit{% else %}onclick="location.href='/quiz?id={{next}}'">Next{% endif %}
         </button>
     </footer>
     <script>
