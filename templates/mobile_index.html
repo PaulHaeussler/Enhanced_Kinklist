@@ -2,6 +2,7 @@
 {% block title %}Index{% endblock %}
 {% block meta %}
 <meta name="description" content="An in-depth questionare hoping to cover every (major) kink there is"/>
+<script defer src="{{ url_for('static', filename='home_stats.js') }}"></script>
 {% endblock %}
 {% block body %}
     <div class="vc mc">
@@ -12,6 +13,8 @@
             This is an extensive questionnaire to aggregate what kinks you've tried, how you liked them and what you want to try.
             You can share and compare the results!
         </span>
+        <br>
+        <div id="home_stats" class="home-stats bgc hidden"></div>
         <br>
         <div class="vc hidden" id="tip_progress">
             <span class="mdesc">

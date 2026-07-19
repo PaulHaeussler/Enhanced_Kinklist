@@ -22,6 +22,22 @@ services:
       db:
         condition: service_healthy
 
+  stats:
+    image: enhanced-kinklist:local
+    build:
+      context: .
+    restart: unless-stopped
+    command: ["python", "compile_stats.py", "--loop"]
+    environment:
+      DB_HOST: db
+      DB_SCHEMA: ${DB_SCHEMA:-kl}
+      DB_USER: ${DB_USER:-kinklist}
+      DB_PW: ${DB_PW:?Set DB_PW in .env}
+      STATS_INTERVAL: ${STATS_INTERVAL:-21600}
+    depends_on:
+      db:
+        condition: service_healthy
+
   db:
     image: mariadb:10.11
     restart: unless-stopped

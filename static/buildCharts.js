@@ -13,13 +13,21 @@ function distrChart() {
     async: false,
     url: 'globalStats',
     dataType: 'json',
-    success: function (data) {
-        gstats = data;
-    }})
+	    success: function (data) {
+	        gstats = data;
+	    }})
 
-    var c = gstats["colors"]
+    if (!gstats || !gstats["categories"] || !gstats["distr_cat"] || gstats["categories"].length === 0) {
+        var chartContainer = document.getElementById("distr_cat");
+        if (chartContainer) {
+            chartContainer.innerText = "Not enough community stats yet.";
+        }
+        return;
+    }
 
-    var cats = gstats["categories"]
+	    var c = gstats["colors"]
+
+	    var cats = gstats["categories"].slice()
     cats.unshift("Choices")
     var all = ["All Users"]
     var you = []

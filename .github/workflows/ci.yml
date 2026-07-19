@@ -34,6 +34,7 @@ jobs:
           node --check static/build_list.js
           node --check static/mobile.js
           node --check static/buildCharts.js
+          node --check static/home_stats.js
 
   docker-build:
     name: Docker build
