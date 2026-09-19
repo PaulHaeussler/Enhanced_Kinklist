@@ -9,6 +9,7 @@ import os
 import copy
 import collections
 import re
+import hashlib
 import secrets
 from datetime import datetime
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
@@ -22,6 +23,7 @@ from os.path import dirname, abspath
 from werkzeug.utils import redirect
 
 from db import MySQLPool
+from db_postgres import PostgresPool
 
 
 force_mobile = False
@@ -134,8 +136,14 @@ class Kinklist:
             dbschema = args['dbschema']
 
 
-        self.db = MySQLPool(host=dbhost, user=dbuser, password=dbpw, database=dbschema,
-                       pool_size=15)
+        # DB_BACKEND=mysql is the rollback path during the Postgres cutover.
+        if os.environ.get("DB_BACKEND", "postgres").lower() == "mysql":
+            self.db = MySQLPool(host=dbhost, user=dbuser, password=dbpw, database=dbschema,
+                           pool_size=15)
+        else:
+            self.db = PostgresPool(host=dbhost, port=os.environ.get("DB_PORT", "5432"),
+                                   user=dbuser, password=dbpw, database=dbschema,
+                                   pool_size=15)
         self.__ensure_catalog_snapshots()
         self.__load_catalog_snapshots_from_db()
         self.results = []
@@ -208,7 +216,8 @@ class Kinklist:
 
     def __insert_catalog_snapshot(self, snapshot):
         self.db.execute(
-            "INSERT IGNORE INTO catalog_snapshots(catalog_id, catalog_version, data, created) VALUES(%s, %s, %s, %s);",
+            "INSERT INTO catalog_snapshots(catalog_id, catalog_version, data, created) "
+            "VALUES(%s, %s, %s::jsonb, %s) ON CONFLICT (catalog_id, catalog_version) DO NOTHING;",
             (
                 snapshot["catalog_id"],
                 snapshot["catalog_version"],
@@ -357,12 +366,12 @@ class Kinklist:
         columns = [
             "answers.timestamp",
             "answers.choices_json",
-            "users.username",
-            "users.sex",
-            "users.age",
-            "users.fap_freq",
-            "users.sex_freq",
-            "users.body_count",
+            "answers.submitter->>'username'",
+            "answers.submitter->>'sex'",
+            "answers.submitter->>'age'",
+            "answers.submitter->>'fap_freq'",
+            "answers.submitter->>'sex_freq'",
+            "answers.submitter->>'body_count'",
         ]
         if include_catalog_context:
             columns.extend([
@@ -378,7 +387,7 @@ class Kinklist:
     def get_result_data(self, token):
         query = (
             f"SELECT {self.__result_select_columns()} "
-            "FROM answers INNER JOIN users ON answers.user_id=users.id "
+            "FROM answers "
             "WHERE token=%s;"
         )
         rows = self.db.execute(query, (token,))
@@ -386,7 +395,7 @@ class Kinklist:
         if rows is None:
             query = (
                 f"SELECT {self.__result_select_columns(include_catalog_context=False)} "
-                "FROM answers INNER JOIN users ON answers.user_id=users.id "
+                "FROM answers "
                 "WHERE token=%s;"
             )
             rows = self.db.execute(query, (token,))
@@ -423,15 +432,6 @@ class Kinklist:
             return default
 
 
-    def retrofind_hits(self):
-        c = 1
-        for token in self.results:
-            res = self.db.execute("SELECT COUNT(*) FROM hits WHERE query LIKE %s;", (f"%{token}%",))
-            if not res:
-                continue
-            print(str(c) + ". " + token + " --- " + str(res[0][0]))
-            self.db.execute("UPDATE answers SET hit_count = %s WHERE token = %s;", (res[0][0], token,), commit=True)
-            c += 1
 
 
     def get_val_string(self):
@@ -621,12 +621,8 @@ class Kinklist:
         path = self.__sanitize_path(req.environ.get('PATH_INFO'))
         query = self.__sanitize_query(req.environ.get('QUERY_STRING'))
         logger.info(ip + " " + uri)
-        self.db.execute("INSERT INTO hits(ip, timestamp, url, sec_ch_ua, sec_ch_ua_mobile, sec_ch_ua_platform, "
-                        "user_agent, accept_language, path, query) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
-                        (ip, int(time.time()), uri, req.environ.get('HTTP_SEC_CH_UA'),
-                         req.environ.get('HTTP_SEC_CH_UA_MOBILE'), req.environ.get('HTTP_SEC_CH_UA_PLATFORM'),
-                         req.environ.get('HTTP_USER_AGENT'), req.environ.get('HTTP_ACCEPT_LANGUAGE'),
-                         path, query), commit=True)
+        # Request logging is no longer persisted. The hits table stored raw IPs
+        # and query strings and was dropped in the Postgres migration.
         return ip
 
     def log_error(self, error_type, message, request_data=None, exception=None):
@@ -779,37 +775,25 @@ class Kinklist:
                         m = inputs.get('meta', [])
                         t = round(time.time() * 1000)
 
-                        # Process with error handling
-                        existing_users = self.db.execute("SELECT id FROM users WHERE user=%s;", (user,))
-                        if existing_users is None:
-                            self.log_error("DB_ERROR", "Could not query user during submission", {"user": user})
-                            return jsonify({"error": "Database error"}), 500
-
-                        if len(existing_users) == 0:
-                            logger.info("Adding new User")
-                            self.db.execute(
-                                "INSERT INTO users(user, username, sex, age, fap_freq, sex_freq, body_count, ip, created) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);",
-                                (user, self.get_item(m, 'name'), self.get_item(m, 'sex'),
-                                 self.get_item(m, 'age'), self.get_item(m, 'fap_freq'),
-                                 self.get_item(m, 'sex_freq'), self.get_item(m, 'body_count'), ip, t),
-                                commit=True
-                            )
-
-                        if existing_users:
-                            uid = existing_users[0][0]
-                        else:
-                            uid_rows = self.db.execute("SELECT id FROM users WHERE user=%s;", (user,))
-                            if not uid_rows:
-                                self.log_error("DB_ERROR", "Could not retrieve user ID after insert", {"user": user})
-                                return jsonify({"error": "Database error"}), 500
-                            uid = uid_rows[0][0]
+                        # Submitter metadata is a point-in-time snapshot stored on
+                        # the answer itself. No users table, and no IP address.
+                        submitter = {
+                            "username": self.get_item(m, 'name'),
+                            "sex": self.get_item(m, 'sex'),
+                            "age": self.get_item(m, 'age'),
+                            "fap_freq": self.get_item(m, 'fap_freq'),
+                            "sex_freq": self.get_item(m, 'sex_freq'),
+                            "body_count": self.get_item(m, 'body_count'),
+                            "created": t,
+                        }
+                        submitter = {k: v for k, v in submitter.items() if v is not None}
 
                         max_spice_level = inputs.get("max_spice_level")
                         answer_context = self.get_answer_context(inputs)
                         partner_personas = self.get_partner_personas(inputs)
                         self.db.execute(
-                            "INSERT INTO answers(user_id, timestamp, token, choices_json, hit_count, catalog_id, catalog_version, max_spice_level, shown_item_ids, answer_context, partner_personas) VALUES(%s, %s, %s, %s, 0, %s, %s, %s, %s, %s, %s);",
-                            (int(uid), t, token, json.dumps(valid_kinks), self.get_catalog_id(),
+                            "INSERT INTO answers(user_uuid, submitter, timestamp, token, choices_json, hit_count, catalog_id, catalog_version, max_spice_level, shown_item_ids, answer_context, partner_personas) VALUES(%s, %s::jsonb, %s, %s, %s::jsonb, 0, %s, %s, %s, %s::jsonb, %s, %s::jsonb);",
+                            (user, json.dumps(submitter), t, token, json.dumps(valid_kinks), self.get_catalog_id(),
                              self.get_catalog_version(), max_spice_level, json.dumps(self.get_shown_item_ids()),
                              answer_context, json.dumps(partner_personas)),
                             commit=True
@@ -817,8 +801,8 @@ class Kinklist:
                         saved_answer = self.db.execute("SELECT token FROM answers WHERE token=%s;", (token,))
                         if not saved_answer:
                             self.db.execute(
-                                "INSERT INTO answers(user_id, timestamp, token, choices_json, hit_count) VALUES(%s, %s, %s, %s, 0);",
-                                (int(uid), t, token, json.dumps(valid_kinks)),
+                                "INSERT INTO answers(user_uuid, submitter, timestamp, token, choices_json, hit_count) VALUES(%s, %s::jsonb, %s, %s, %s::jsonb, 0);",
+                                (user, json.dumps(submitter), t, token, json.dumps(valid_kinks)),
                                 commit=True
                             )
                             saved_answer = self.db.execute("SELECT token FROM answers WHERE token=%s;", (token,))
@@ -939,7 +923,12 @@ class Kinklist:
             mk = data.get('missingkink')
             if mk == '' or mk is None:
                 return make_response('', 400)
-            self.db.execute("INSERT INTO suggestions VALUES(%s, %s, %s);", (int(time.time()), mk, ip), commit=True)
+            ts = int(time.time())
+            digest = hashlib.md5(f"{ts}\x00{mk}".encode("utf-8")).hexdigest()
+            self.db.execute(
+                'INSERT INTO suggestions("timestamp", suggestion, legacy_digest) VALUES(%s, %s, %s) '
+                "ON CONFLICT (legacy_digest) DO NOTHING;",
+                (ts, mk, digest), commit=True)
             return make_response('', 200)
 
 
@@ -1058,10 +1047,8 @@ class Kinklist:
         @self.app.route("/globalStats")
         def globalStats():
             self.__log(request)
-            res = self.db.execute("SELECT data FROM stats ORDER BY created DESC LIMIT 1;")
-            if not res:
-                return jsonify({"categories": [], "colors": [], "distr_cat": {}})
-            response = jsonify(json.loads(res[0][0]))
+            # The stats compiler was retired with the Postgres migration.
+            response = jsonify({"categories": [], "colors": [], "distr_cat": {}})
             response.status_code = 200
             return response
 

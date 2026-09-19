@@ -6,8 +6,10 @@ itsdangerous==2.1.0
 Jinja2==3.0.3
 loguru==0.6.0
 MarkupSafe==2.1.0
-mysql==0.0.3
-mysql-connector==2.2.9
-mysqlclient==2.1.0
+psycopg[binary,pool]==3.2.3
 Werkzeug==2.0.3
 win32-setctime==1.1.0
+# Retained only so DB_BACKEND=mysql can still boot during the migration
+# rollback window. Pure Python, needs no build toolchain. Remove once the
+# Postgres cutover is confirmed.
+mysql-connector==2.2.9
