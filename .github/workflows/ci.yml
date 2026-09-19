@@ -45,11 +45,30 @@ jobs:
 
   docker-build:
     name: Docker build
+    needs: [static-checks]
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Log in to GHCR
+        if: github.event_name == 'push'
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
       - name: Build image
-        run: docker build --pull --tag enhanced-kinklist:test .
+        run: |
+          docker build --pull \
+            -t ghcr.io/paulhaeussler/enhanced-kinklist:${{ github.sha }} \
+            -t ghcr.io/paulhaeussler/enhanced-kinklist:master \
+            .
+
+      - name: Push image
+        if: github.event_name == 'push'
+        run: |
+          docker push ghcr.io/paulhaeussler/enhanced-kinklist:${{ github.sha }}
+          docker push ghcr.io/paulhaeussler/enhanced-kinklist:master
