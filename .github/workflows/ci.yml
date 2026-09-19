@@ -27,7 +27,7 @@ jobs:
           node-version: "20"
 
       - name: Compile Python sources
-        run: python -m py_compile enhanced_kinklist.py db.py compile_stats.py wsgi.py tools/*.py
+        run: python -m py_compile enhanced_kinklist.py db.py db_postgres.py compile_stats.py wsgi.py tools/*.py
 
       - name: Validate catalog JSON
         run: |
