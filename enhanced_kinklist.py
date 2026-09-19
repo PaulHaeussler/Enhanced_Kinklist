@@ -8,7 +8,10 @@ import logging
 import os
 import copy
 import collections
+import re
+import secrets
 from datetime import datetime
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from loguru import logger
 from flask import Flask, jsonify, request, render_template, make_response, url_for, send_from_directory
@@ -22,6 +25,39 @@ from db import MySQLPool
 
 
 force_mobile = False
+DEFAULT_CATALOG_ID = "main"
+DEFAULT_CATALOG_VERSION = "legacy"
+DEFAULT_DOMAIN = "irl"
+DEFAULT_SPICE_LEVEL = 2
+DEFAULT_VISIBILITY = "default"
+DEFAULT_ANSWER_CONTEXT = "realistic_adult_partner"
+CATALOG_SNAPSHOT_DIR = "catalog_snapshots"
+RESULT_TOKEN_PATTERN = re.compile(r"^[A-Za-z0-9_-]{5,64}$")
+SENSITIVE_LOG_KEYS = {"token", "a", "b", "c", "d", "secret", "password", "cookie", "authorization"}
+SAFE_PUBLIC_PATH_SEGMENTS = {
+    "android-chrome-192x192.png",
+    "android-chrome-512x512.png",
+    "apple-touch-icon.png",
+    "byid",
+    "cinfo",
+    "compare",
+    "compare4",
+    "config",
+    "favicon-16x16.png",
+    "favicon-32x32.png",
+    "favicon.ico",
+    "globalStats",
+    "jump",
+    "kot",
+    "log_client_error",
+    "meta",
+    "missingKink",
+    "party",
+    "quiz",
+    "results",
+    "robots.txt",
+    "sitemap.xml",
+}
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -43,7 +79,7 @@ error_logger.add(
 
 def get_cat(color, colors):
     for c in colors:
-        if c['color'] == color:
+        if str(c.get('color')) == str(color) or str(c.get('id')) == str(color):
             return c['description']
     return 'UNKNOWN CATEGORY'
 
@@ -63,7 +99,10 @@ class Kinklist:
     @logger.catch
     def __init__(self, dbhost=None, dbuser=None, dbpw=None, dbschema=None):
         json_file = dirname(abspath(__file__)) + "/enhanced_kinklist.json"
-        self.config = json.load(open(json_file))
+        with open(json_file) as config:
+            self.config = json.load(config)
+        self.__normalize_config()
+        self.catalog_snapshots = self.__load_catalog_snapshot_files()
         logger.info("Starting up...")
 
         byid = {}
@@ -72,7 +111,18 @@ class Kinklist:
                 tip = ''
                 if "tip" in kink.keys():
                     tip = kink["tip"]
-                byid[kink['id']] = {"name": kink["description"], "tip": tip, "group_name": group["description"], "group_tip": group["tip"], "cols": group["columns"]}
+                byid[kink['id']] = {
+                    "name": kink["description"],
+                    "tip": tip,
+                    "group_name": group["description"],
+                    "group_tip": group["tip"],
+                    "cols": group["columns"],
+                    "domain": kink["domain"],
+                    "spice_level": kink["spice_level"],
+                    "visibility": kink["visibility"],
+                    "flags": kink["flags"],
+                    "aliases": kink["aliases"],
+                }
 
         self.byid = collections.OrderedDict(sorted(byid.items()))
 
@@ -86,10 +136,291 @@ class Kinklist:
 
         self.db = MySQLPool(host=dbhost, user=dbuser, password=dbpw, database=dbschema,
                        pool_size=15)
+        self.__ensure_catalog_snapshots()
+        self.__load_catalog_snapshots_from_db()
         self.results = []
         for r in self.db.execute("SELECT token FROM answers;") or []:
             self.results.append(r[0])
 
+
+    def __normalize_config(self):
+        self.config.setdefault("catalog_id", DEFAULT_CATALOG_ID)
+        self.config.setdefault("catalog_version", DEFAULT_CATALOG_VERSION)
+        self.config.setdefault("default_domain", DEFAULT_DOMAIN)
+        self.config.setdefault("default_spice_level", DEFAULT_SPICE_LEVEL)
+        self.config.setdefault("default_visibility", DEFAULT_VISIBILITY)
+        self.config.setdefault("default_answer_context", DEFAULT_ANSWER_CONTEXT)
+        self.config.setdefault("answer_contexts", [
+            {
+                "id": DEFAULT_ANSWER_CONTEXT,
+                "label": "Realistic adult partner",
+                "description": "Answer for a consenting adult partner you would realistically choose for this activity, not necessarily your current partner.",
+            }
+        ])
+
+        for group in self.config["kink_groups"]:
+            group.setdefault("domain", self.config["default_domain"])
+            group.setdefault("spice_level", self.config["default_spice_level"])
+            group.setdefault("visibility", self.config["default_visibility"])
+            group.setdefault("flags", [])
+
+            for kink in group["rows"]:
+                kink.setdefault("domain", group["domain"])
+                kink.setdefault("spice_level", group["spice_level"])
+                kink.setdefault("visibility", group["visibility"])
+                kink.setdefault("flags", list(group["flags"]))
+                kink.setdefault("aliases", [])
+
+    def __load_catalog_snapshot_files(self):
+        snapshots = {}
+        snapshot_dir = os.path.join(dirname(abspath(__file__)), CATALOG_SNAPSHOT_DIR)
+        if not os.path.isdir(snapshot_dir):
+            return snapshots
+
+        for filename in os.listdir(snapshot_dir):
+            if not filename.endswith(".json"):
+                continue
+            path = os.path.join(snapshot_dir, filename)
+            try:
+                with open(path) as snapshot_file:
+                    snapshot = self.__normalize_catalog_snapshot(json.load(snapshot_file))
+            except Exception as e:
+                logger.warning(f"Could not load catalog snapshot {path}: {e}")
+                continue
+            snapshots[(snapshot["catalog_id"], snapshot["catalog_version"])] = snapshot
+
+        current_key = (self.get_catalog_id(), self.get_catalog_version())
+        legacy_key = (self.get_catalog_id(), DEFAULT_CATALOG_VERSION)
+        if current_key in snapshots and legacy_key not in snapshots:
+            legacy_snapshot = copy.deepcopy(snapshots[current_key])
+            legacy_snapshot["catalog_version"] = DEFAULT_CATALOG_VERSION
+            snapshots[legacy_key] = legacy_snapshot
+
+        return snapshots
+
+    def __ensure_catalog_snapshots(self):
+        current_snapshot = self.get_catalog_snapshot()
+        current_key = (current_snapshot["catalog_id"], current_snapshot["catalog_version"])
+        self.catalog_snapshots.setdefault(current_key, current_snapshot)
+
+        for snapshot in self.catalog_snapshots.values():
+            self.__insert_catalog_snapshot(snapshot)
+
+    def __insert_catalog_snapshot(self, snapshot):
+        self.db.execute(
+            "INSERT IGNORE INTO catalog_snapshots(catalog_id, catalog_version, data, created) VALUES(%s, %s, %s, %s);",
+            (
+                snapshot["catalog_id"],
+                snapshot["catalog_version"],
+                json.dumps(snapshot),
+                int(time.time()),
+            ),
+            commit=True,
+        )
+
+    def __load_catalog_snapshots_from_db(self):
+        rows = self.db.execute("SELECT catalog_id, catalog_version, data FROM catalog_snapshots;")
+        if rows is None:
+            return
+
+        for catalog_id, catalog_version, data in rows:
+            snapshot = self.__parse_json_value(data, None)
+            if not isinstance(snapshot, dict):
+                continue
+            snapshot = self.__normalize_catalog_snapshot(snapshot)
+            self.catalog_snapshots[(catalog_id, catalog_version)] = snapshot
+
+    def __normalize_catalog_snapshot(self, snapshot):
+        snapshot.setdefault("catalog_id", self.get_catalog_id())
+        snapshot.setdefault("catalog_version", self.get_catalog_version())
+        snapshot.setdefault("categories", copy.deepcopy(self.config["categories"]))
+        snapshot.setdefault("kink_groups", [])
+
+        for group in snapshot["kink_groups"]:
+            group.setdefault("description", "")
+            group.setdefault("tip", "")
+            group.setdefault("columns", [])
+            group.setdefault("rows", [])
+            for kink in group["rows"]:
+                kink.setdefault("id", "")
+                kink.setdefault("description", "")
+                kink.setdefault("tip", "")
+
+        return snapshot
+
+    def get_catalog_snapshot(self, shown_item_ids=None):
+        shown = None
+        if shown_item_ids is not None:
+            shown = {str(item_id) for item_id in shown_item_ids}
+
+        groups = []
+        for group in self.config["kink_groups"]:
+            rows = []
+            for kink in group["rows"]:
+                if shown is not None and str(kink["id"]) not in shown:
+                    continue
+                if shown is None and kink["visibility"] == "blocked":
+                    continue
+                rows.append({
+                    "id": kink["id"],
+                    "description": kink["description"],
+                    "tip": kink.get("tip", ""),
+                    "domain": kink["domain"],
+                    "spice_level": kink["spice_level"],
+                    "visibility": kink["visibility"],
+                    "flags": copy.deepcopy(kink["flags"]),
+                    "aliases": copy.deepcopy(kink["aliases"]),
+                })
+            if rows:
+                groups.append({
+                    "description": group["description"],
+                    "tip": group.get("tip", ""),
+                    "columns": copy.deepcopy(group["columns"]),
+                    "domain": group["domain"],
+                    "spice_level": group["spice_level"],
+                    "visibility": group["visibility"],
+                    "flags": copy.deepcopy(group["flags"]),
+                    "rows": rows,
+                })
+
+        return {
+            "catalog_id": self.get_catalog_id(),
+            "catalog_version": self.get_catalog_version(),
+            "categories": copy.deepcopy(self.config["categories"]),
+            "kink_groups": groups,
+        }
+
+    def get_catalog_for_result(self, result):
+        catalog_id = result.get("catalog_id", DEFAULT_CATALOG_ID)
+        catalog_version = result.get("catalog_version", DEFAULT_CATALOG_VERSION)
+        snapshot = self.catalog_snapshots.get((catalog_id, catalog_version))
+        if snapshot is not None:
+            return copy.deepcopy(snapshot)
+
+        if catalog_version == DEFAULT_CATALOG_VERSION:
+            current_snapshot = self.catalog_snapshots.get((catalog_id, self.get_catalog_version()))
+            if current_snapshot is not None:
+                legacy_snapshot = copy.deepcopy(current_snapshot)
+                legacy_snapshot["catalog_version"] = DEFAULT_CATALOG_VERSION
+                return legacy_snapshot
+
+        return self.get_catalog_snapshot(result.get("shown_item_ids"))
+
+    def get_result_choices(self, *catalogs):
+        choices = []
+        seen = set()
+        for catalog in catalogs:
+            for choice in catalog.get("categories", []):
+                key = (choice.get("id"), choice.get("color"))
+                if key not in seen:
+                    seen.add(key)
+                    choices.append(choice)
+        return choices
+
+    def get_catalog_id(self):
+        return self.config["catalog_id"]
+
+    def get_catalog_version(self):
+        return self.config["catalog_version"]
+
+    def get_shown_item_ids(self):
+        # Until client-side catalog filtering exists, every configured row is still shown.
+        return [kink["id"] for group in self.config["kink_groups"] for kink in group["rows"]]
+
+    def get_answer_context(self, inputs):
+        valid_contexts = {context["id"] for context in self.config["answer_contexts"]}
+        answer_context = inputs.get("answer_context", self.config["default_answer_context"])
+        if answer_context not in valid_contexts:
+            return self.config["default_answer_context"]
+        return answer_context
+
+    def get_partner_personas(self, inputs):
+        personas = inputs.get("partner_personas", [])
+        if not isinstance(personas, list):
+            return []
+
+        result = []
+        for index, persona in enumerate(personas[:5]):
+            if not isinstance(persona, dict):
+                continue
+            label = str(persona.get("label", "")).strip()
+            if not label:
+                continue
+            result.append({
+                "id": str(persona.get("id") or f"persona_{index + 1}")[:64],
+                "label": label[:80],
+                "domain": str(persona.get("domain") or self.config["default_domain"])[:32],
+            })
+        return result
+
+    def __result_select_columns(self, include_catalog_context=True):
+        columns = [
+            "answers.timestamp",
+            "answers.choices_json",
+            "users.username",
+            "users.sex",
+            "users.age",
+            "users.fap_freq",
+            "users.sex_freq",
+            "users.body_count",
+        ]
+        if include_catalog_context:
+            columns.extend([
+                "answers.catalog_id",
+                "answers.catalog_version",
+                "answers.max_spice_level",
+                "answers.shown_item_ids",
+                "answers.answer_context",
+                "answers.partner_personas",
+            ])
+        return ", ".join(columns)
+
+    def get_result_data(self, token):
+        query = (
+            f"SELECT {self.__result_select_columns()} "
+            "FROM answers INNER JOIN users ON answers.user_id=users.id "
+            "WHERE token=%s;"
+        )
+        rows = self.db.execute(query, (token,))
+
+        if rows is None:
+            query = (
+                f"SELECT {self.__result_select_columns(include_catalog_context=False)} "
+                "FROM answers INNER JOIN users ON answers.user_id=users.id "
+                "WHERE token=%s;"
+            )
+            rows = self.db.execute(query, (token,))
+
+        if not rows:
+            return None
+
+        row = rows[0]
+        return {
+            "created": row[0],
+            "choices": self.__parse_json_value(row[1], []),
+            "username": row[2] or "---",
+            "sex": row[3] or "---",
+            "age": row[4] or "---",
+            "fap_freq": row[5] or "---",
+            "sex_freq": row[6] or "---",
+            "body_count": row[7] or "---",
+            "catalog_id": row[8] if len(row) > 8 else DEFAULT_CATALOG_ID,
+            "catalog_version": row[9] if len(row) > 9 else DEFAULT_CATALOG_VERSION,
+            "max_spice_level": row[10] if len(row) > 10 else None,
+            "shown_item_ids": self.__parse_json_value(row[11], None) if len(row) > 11 else None,
+            "answer_context": row[12] if len(row) > 12 else DEFAULT_ANSWER_CONTEXT,
+            "partner_personas": self.__parse_json_value(row[13], []) if len(row) > 13 else [],
+        }
+
+    def __parse_json_value(self, value, default):
+        if value is None:
+            return default
+        if isinstance(value, (dict, list)):
+            return value
+        try:
+            return json.loads(value)
+        except (TypeError, json.JSONDecodeError):
+            return default
 
 
     def retrofind_hits(self):
@@ -120,20 +451,22 @@ class Kinklist:
                     return m['val']
 
 
-    def resolve_ids(self, data):
+    def resolve_ids(self, data, catalog=None):
+        if catalog is None:
+            catalog = self.get_catalog_snapshot()
         result = []
-        for group in self.config['kink_groups']:
+        for group in catalog['kink_groups']:
             g = {"name": group['description'], "cols": self.__serialize_cols(group['columns'])}
             rows = []
             for k in group['rows']:
-                vals = self.__get_id_val(k['id'], data)
+                vals = self.__get_id_val(k['id'], data, catalog['categories'], len(group['columns']))
 
                 if vals is None:
-                    vals = ["0"]
+                    vals = [self.__get_default_color(catalog['categories']) for _ in group['columns']]
 
                 vv = []
                 for index, v in enumerate(vals):
-                    vv.append({"color": vals[index], "id": self.__get_id_by_color(vals[index])})
+                    vv.append({"color": vals[index], "id": self.__get_id_by_color(vals[index], catalog['categories'])})
                 rows.append({"name": k['description'], "vals": vv})
             g['rows'] = rows
             result.append(g)
@@ -147,26 +480,73 @@ class Kinklist:
         return result[:-2]
 
 
-    def __get_id_by_color(self, color):
-        for c in self.config["categories"]:
+    def __get_id_by_color(self, color, choices=None):
+        if choices is None:
+            choices = self.config["categories"]
+        for c in choices:
             if c["color"] == color:
                 return c["id"]
+        return 0
 
 
-    def __get_id_val(self, id, data):
+    def __get_id_val(self, id, data, choices=None, expected_len=None):
+        if choices is None:
+            choices = self.config["categories"]
         for d in data:
-            if id == d['id']:
-                return self.__get_color(json.loads(d['val'].replace('null', '\"0\"')))
+            if not isinstance(d, dict):
+                continue
+            if str(id) == str(d.get('id')):
+                raw = d.get('val')
+                if raw is None:
+                    return None
+                if isinstance(raw, list):
+                    values = raw
+                elif isinstance(raw, str):
+                    values = self.__parse_json_value(raw.replace('null', '\"0\"'), [])
+                else:
+                    values = [raw]
+
+                colors = self.__get_color(values, choices)
+                if expected_len is not None:
+                    default_color = self.__get_default_color(choices)
+                    colors = colors[:expected_len]
+                    while len(colors) < expected_len:
+                        colors.append(default_color)
+                return colors
 
 
 
-    def __get_color(self, vals):
+    def __get_color(self, vals, choices=None):
+        if choices is None:
+            choices = self.config["categories"]
         result = []
+        default_color = self.__get_default_color(choices)
         for val in vals:
-            for choice in self.config['categories']:
-                if int(val) == choice['id']:
+            if isinstance(val, str) and val.startswith("#"):
+                result.append(val)
+                continue
+
+            try:
+                choice_id = int(val)
+            except (TypeError, ValueError):
+                result.append(default_color)
+                continue
+
+            found = False
+            for choice in choices:
+                if choice_id == choice['id']:
                     result.append(choice['color'])
+                    found = True
+                    break
+            if not found:
+                result.append(default_color)
         return result
+
+    def __get_default_color(self, choices):
+        for choice in choices:
+            if choice.get("default") or choice.get("id") == 0:
+                return choice["color"]
+        return "#d1d1d1"
 
 
     def check_token(self, token):
@@ -174,7 +554,59 @@ class Kinklist:
 
 
     def createHash(self):
-        return ''.join(random.choices(string.ascii_letters + string.digits, k=5))
+        return secrets.token_urlsafe(18)
+
+    def __sanitize_query(self, query):
+        if not query:
+            return ""
+        safe_values = []
+        for key, value in parse_qsl(query, keep_blank_values=True):
+            if key.lower() in SENSITIVE_LOG_KEYS:
+                safe_values.append((key, "[redacted]"))
+            else:
+                safe_values.append((key, value[:200]))
+        return urlencode(safe_values)
+
+    def __sanitize_path(self, path):
+        if not path:
+            return ""
+        stripped = path.strip("/")
+        if "/" not in stripped and stripped not in SAFE_PUBLIC_PATH_SEGMENTS and RESULT_TOKEN_PATTERN.match(stripped):
+            return "/[result-token]"
+        return path[:255]
+
+    def __sanitize_url(self, url):
+        if not url:
+            return ""
+        try:
+            parts = urlsplit(url)
+            return urlunsplit((
+                parts.scheme,
+                parts.netloc,
+                self.__sanitize_path(parts.path),
+                self.__sanitize_query(parts.query),
+                "",
+            ))[:512]
+        except Exception:
+            return "[redacted-url]"
+
+    def __sanitize_log_value(self, value):
+        if isinstance(value, dict):
+            result = {}
+            for key, nested in value.items():
+                key_text = str(key)
+                if key_text.lower() in SENSITIVE_LOG_KEYS or key_text.lower() in {"raw_data", "request_data"}:
+                    result[key_text] = "[redacted]"
+                elif key_text.lower() == "url":
+                    result[key_text] = self.__sanitize_url(str(nested))
+                else:
+                    result[key_text] = self.__sanitize_log_value(nested)
+            return result
+        if isinstance(value, list):
+            return [self.__sanitize_log_value(item) for item in value[:50]]
+        if isinstance(value, str):
+            return self.__sanitize_url(value) if "://" in value else value[:500]
+        return value
 
     def __log(self, req):
         ip = ""
@@ -185,14 +617,16 @@ class Kinklist:
         uri = req.environ.get('REQUEST_URI')
         if uri is None:
             uri = ""
-        uri = uri[:200]
+        uri = self.__sanitize_url(uri)[:200]
+        path = self.__sanitize_path(req.environ.get('PATH_INFO'))
+        query = self.__sanitize_query(req.environ.get('QUERY_STRING'))
         logger.info(ip + " " + uri)
         self.db.execute("INSERT INTO hits(ip, timestamp, url, sec_ch_ua, sec_ch_ua_mobile, sec_ch_ua_platform, "
                         "user_agent, accept_language, path, query) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
                         (ip, int(time.time()), uri, req.environ.get('HTTP_SEC_CH_UA'),
                          req.environ.get('HTTP_SEC_CH_UA_MOBILE'), req.environ.get('HTTP_SEC_CH_UA_PLATFORM'),
                          req.environ.get('HTTP_USER_AGENT'), req.environ.get('HTTP_ACCEPT_LANGUAGE'),
-                         req.environ.get('PATH_INFO'), req.environ.get('QUERY_STRING')), commit=True)
+                         path, query), commit=True)
         return ip
 
     def log_error(self, error_type, message, request_data=None, exception=None):
@@ -206,12 +640,12 @@ class Kinklist:
             "message": message,
             "ip": self.get_client_ip(request) if request else "unknown",
             "user_agent": request.headers.get('User-Agent', 'unknown') if request else "unknown",
-            "url": request.url if request else "unknown",
+            "url": self.__sanitize_url(request.url) if request else "unknown",
             "method": request.method if request else "unknown",
         }
 
         if request_data:
-            error_data["request_data"] = request_data
+            error_data["request_data"] = self.__sanitize_log_value(request_data)
 
         if exception:
             error_data["exception"] = {
@@ -346,7 +780,7 @@ class Kinklist:
                         t = round(time.time() * 1000)
 
                         # Process with error handling
-                        existing_users = self.db.execute("SELECT * FROM users WHERE user=%s;", (user,))
+                        existing_users = self.db.execute("SELECT id FROM users WHERE user=%s;", (user,))
                         if existing_users is None:
                             self.log_error("DB_ERROR", "Could not query user during submission", {"user": user})
                             return jsonify({"error": "Database error"}), 500
@@ -361,18 +795,33 @@ class Kinklist:
                                 commit=True
                             )
 
-                        uid_rows = self.db.execute("SELECT id FROM users WHERE user=%s;", (user,))
-                        if not uid_rows:
-                            self.log_error("DB_ERROR", "Could not retrieve user ID after insert", {"user": user})
-                            return jsonify({"error": "Database error"}), 500
-                        uid = uid_rows[0][0]
+                        if existing_users:
+                            uid = existing_users[0][0]
+                        else:
+                            uid_rows = self.db.execute("SELECT id FROM users WHERE user=%s;", (user,))
+                            if not uid_rows:
+                                self.log_error("DB_ERROR", "Could not retrieve user ID after insert", {"user": user})
+                                return jsonify({"error": "Database error"}), 500
+                            uid = uid_rows[0][0]
 
+                        max_spice_level = inputs.get("max_spice_level")
+                        answer_context = self.get_answer_context(inputs)
+                        partner_personas = self.get_partner_personas(inputs)
                         self.db.execute(
-                            "INSERT INTO answers(user_id, timestamp, token, choices_json, hit_count) VALUES(%s, %s, %s, %s, 0);",
-                            (int(uid), t, token, json.dumps(valid_kinks)),
+                            "INSERT INTO answers(user_id, timestamp, token, choices_json, hit_count, catalog_id, catalog_version, max_spice_level, shown_item_ids, answer_context, partner_personas) VALUES(%s, %s, %s, %s, 0, %s, %s, %s, %s, %s, %s);",
+                            (int(uid), t, token, json.dumps(valid_kinks), self.get_catalog_id(),
+                             self.get_catalog_version(), max_spice_level, json.dumps(self.get_shown_item_ids()),
+                             answer_context, json.dumps(partner_personas)),
                             commit=True
                         )
                         saved_answer = self.db.execute("SELECT token FROM answers WHERE token=%s;", (token,))
+                        if not saved_answer:
+                            self.db.execute(
+                                "INSERT INTO answers(user_id, timestamp, token, choices_json, hit_count) VALUES(%s, %s, %s, %s, 0);",
+                                (int(uid), t, token, json.dumps(valid_kinks)),
+                                commit=True
+                            )
+                            saved_answer = self.db.execute("SELECT token FROM answers WHERE token=%s;", (token,))
                         if not saved_answer:
                             self.log_error("DB_ERROR", "Could not retrieve answer after insert", {"token": token})
                             return jsonify({"error": "Database error"}), 500
@@ -461,13 +910,11 @@ class Kinklist:
                 return redirect('/')
             else:
                 self.db.execute("UPDATE answers SET hit_count = hit_count + 1 WHERE token = %s;", (t,), commit=True)
-                dbdata = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (t,))
-                if not dbdata:
+                data = self.get_result_data(t)
+                if data is None:
                     return redirect('/')
-                data = [list(d) for d in dbdata]
-                for index in range(6, 12):
-                    if data[0][index] is None:
-                        data[0][index] = "---"
+                catalog = self.get_catalog_for_result(data)
+                choices = self.get_result_choices(catalog)
 
                 ua = request.headers.get('User-Agent')
                 if ua is None:
@@ -480,7 +927,7 @@ class Kinklist:
                     page = 'results.html'
 
 
-                res = make_response(render_template(page, kinks=self.resolve_ids(json.loads(data[0][3])), username=data[0][7], sex=data[0][8], age=data[0][9], fap_freq=data[0][10], sex_freq=data[0][11], body_count=data[0][12], created=[data[0][1]], choices=self.config['categories']))
+                res = make_response(render_template(page, kinks=self.resolve_ids(data["choices"], catalog), username=data["username"], sex=data["sex"], age=data["age"], fap_freq=data["fap_freq"], sex_freq=data["sex_freq"], body_count=data["body_count"], created=[data["created"]], choices=choices))
                 return res
 
 
@@ -504,12 +951,15 @@ class Kinklist:
             if not self.check_token(a) or not self.check_token(b):
                 return redirect('/')
             else:
-                data_a = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (a,))
-                data_b = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (b,))
-                if not data_a or not data_b:
+                data_a = self.get_result_data(a)
+                data_b = self.get_result_data(b)
+                if data_a is None or data_b is None:
                     return redirect('/')
-                res = make_response(render_template('compare.html', kinks_a=self.resolve_ids(json.loads(data_a[0][3])), username_a=data_a[0][7], sex_a=data_a[0][8], age_a=data_a[0][9], fap_freq_a=data_a[0][10], sex_freq_a=data_a[0][11], body_count_a=data_a[0][12], created_a=[data_a[0][1]], choices=self.config['categories'],
-                                                    kinks_b=self.resolve_ids(json.loads(data_b[0][3])), username_b=data_b[0][7], sex_b=data_b[0][8], age_b=data_b[0][9], fap_freq_b=data_b[0][10], sex_freq_b=data_b[0][11], body_count_b=data_b[0][12], created_b=[data_b[0][1]]))
+                catalog_a = self.get_catalog_for_result(data_a)
+                catalog_b = self.get_catalog_for_result(data_b)
+                choices = self.get_result_choices(catalog_a, catalog_b)
+                res = make_response(render_template('compare.html', kinks_a=self.resolve_ids(data_a["choices"], catalog_a), username_a=data_a["username"], sex_a=data_a["sex"], age_a=data_a["age"], fap_freq_a=data_a["fap_freq"], sex_freq_a=data_a["sex_freq"], body_count_a=data_a["body_count"], created_a=[data_a["created"]], choices=choices,
+                                                    kinks_b=self.resolve_ids(data_b["choices"], catalog_b), username_b=data_b["username"], sex_b=data_b["sex"], age_b=data_b["age"], fap_freq_b=data_b["fap_freq"], sex_freq_b=data_b["sex_freq"], body_count_b=data_b["body_count"], created_b=[data_b["created"]]))
                 return res
 
 
@@ -524,16 +974,21 @@ class Kinklist:
             if not self.check_token(a) or not self.check_token(b) or not self.check_token(c) or not self.check_token(d):
                 return redirect('/')
             else:
-                data_a = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (a,))
-                data_b = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (b,))
-                data_c = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (c,))
-                data_d = self.db.execute("SELECT * FROM answers INNER JOIN users ON answers.user_id=users.id WHERE token=%s;", (d,))
-                if not data_a or not data_b or not data_c or not data_d:
+                data_a = self.get_result_data(a)
+                data_b = self.get_result_data(b)
+                data_c = self.get_result_data(c)
+                data_d = self.get_result_data(d)
+                if data_a is None or data_b is None or data_c is None or data_d is None:
                     return redirect('/')
-                res = make_response(render_template('compare4.html', kinks_a=self.resolve_ids(json.loads(data_a[0][3])), username_a=data_a[0][7], sex_a=data_a[0][8], age_a=data_a[0][9], fap_freq_a=data_a[0][10], sex_freq_a=data_a[0][11], body_count_a=data_a[0][12], created_a=[data_a[0][1]], choices=self.config['categories'],
-                                                    kinks_b=self.resolve_ids(json.loads(data_b[0][3])), username_b=data_b[0][7], sex_b=data_b[0][8], age_b=data_b[0][9], fap_freq_b=data_b[0][10], sex_freq_b=data_b[0][11], body_count_b=data_b[0][12], created_b=[data_b[0][1]],
-                                                    kinks_c=self.resolve_ids(json.loads(data_c[0][3])), username_c=data_c[0][7], sex_c=data_c[0][8], age_c=data_c[0][9], fap_freq_c=data_c[0][10], sex_freq_c=data_c[0][11], body_count_c=data_c[0][12], created_c=[data_c[0][1]],
-                                                    kinks_d=self.resolve_ids(json.loads(data_d[0][3])), username_d=data_d[0][7], sex_d=data_d[0][8], age_d=data_d[0][9], fap_freq_d=data_d[0][10], sex_freq_d=data_d[0][11], body_count_d=data_d[0][12], created_d=[data_d[0][1]]))
+                catalog_a = self.get_catalog_for_result(data_a)
+                catalog_b = self.get_catalog_for_result(data_b)
+                catalog_c = self.get_catalog_for_result(data_c)
+                catalog_d = self.get_catalog_for_result(data_d)
+                choices = self.get_result_choices(catalog_a, catalog_b, catalog_c, catalog_d)
+                res = make_response(render_template('compare4.html', kinks_a=self.resolve_ids(data_a["choices"], catalog_a), username_a=data_a["username"], sex_a=data_a["sex"], age_a=data_a["age"], fap_freq_a=data_a["fap_freq"], sex_freq_a=data_a["sex_freq"], body_count_a=data_a["body_count"], created_a=[data_a["created"]], choices=choices,
+                                                    kinks_b=self.resolve_ids(data_b["choices"], catalog_b), username_b=data_b["username"], sex_b=data_b["sex"], age_b=data_b["age"], fap_freq_b=data_b["fap_freq"], sex_freq_b=data_b["sex_freq"], body_count_b=data_b["body_count"], created_b=[data_b["created"]],
+                                                    kinks_c=self.resolve_ids(data_c["choices"], catalog_c), username_c=data_c["username"], sex_c=data_c["sex"], age_c=data_c["age"], fap_freq_c=data_c["fap_freq"], sex_freq_c=data_c["sex_freq"], body_count_c=data_c["body_count"], created_c=[data_c["created"]],
+                                                    kinks_d=self.resolve_ids(data_d["choices"], catalog_d), username_d=data_d["username"], sex_d=data_d["sex"], age_d=data_d["age"], fap_freq_d=data_d["fap_freq"], sex_freq_d=data_d["sex_freq"], body_count_d=data_d["body_count"], created_d=[data_d["created"]]))
                 return res
 
         @self.app.route('/log_client_error', methods=['POST'])
@@ -603,10 +1058,10 @@ class Kinklist:
         @self.app.route("/globalStats")
         def globalStats():
             self.__log(request)
-            res = self.db.execute("SELECT * FROM stats ORDER BY created DESC LIMIT 1;")
+            res = self.db.execute("SELECT data FROM stats ORDER BY created DESC LIMIT 1;")
             if not res:
                 return jsonify({"categories": [], "colors": [], "distr_cat": {}})
-            response = jsonify(json.loads(res[0][1]))
+            response = jsonify(json.loads(res[0][0]))
             response.status_code = 200
             return response
 

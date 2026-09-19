@@ -27,7 +27,13 @@ jobs:
           node-version: "20"
 
       - name: Compile Python sources
-        run: python -m py_compile enhanced_kinklist.py db.py compile_stats.py wsgi.py
+        run: python -m py_compile enhanced_kinklist.py db.py compile_stats.py wsgi.py tools/*.py
+
+      - name: Validate catalog JSON
+        run: |
+          python -m json.tool enhanced_kinklist.json > /tmp/enhanced_kinklist_json_check
+          python -m json.tool catalog_snapshots/main-2026.1.json > /tmp/catalog_snapshot_json_check
+          python tools/validate_catalog_metadata.py --config enhanced_kinklist.json --metadata catalog_metadata/main.csv
 
       - name: Check JavaScript syntax
         run: |
@@ -35,6 +41,7 @@ jobs:
           node --check static/mobile.js
           node --check static/buildCharts.js
           node --check static/home_stats.js
+          node --check static/export_results.js
 
   docker-build:
     name: Docker build

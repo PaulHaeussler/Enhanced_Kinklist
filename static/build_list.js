@@ -533,6 +533,102 @@ function meta_changed(sender){
     window.localStorage.setItem(src.id, src.value)
 }
 
+function answer_context_changed(sender){
+    var src = eventTarget(sender)
+    if (!src) {
+        return
+    }
+    window.localStorage.setItem('answer_context', src.value)
+}
+
+function partner_personas_changed(sender){
+    var src = eventTarget(sender)
+    if (!src) {
+        return
+    }
+    window.localStorage.setItem('partner_personas_raw', src.value)
+}
+
+function slugPartnerPersona(label, index) {
+    var slug = label.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').substring(0, 50)
+    if (slug === '') {
+        return 'persona_' + (index + 1)
+    }
+    return slug
+}
+
+function parsePartnerPersonas(raw) {
+    if (!raw) {
+        return []
+    }
+
+    var personas = []
+    $.each(raw.split(/\r?\n/), function() {
+        var label = String(this).trim()
+        if (label !== '' && personas.length < 5) {
+            personas.push({
+                id: slugPartnerPersona(label, personas.length),
+                label: label.substring(0, 80),
+                domain: 'irl'
+            })
+        }
+    })
+    return personas
+}
+
+function getAnswerContextPayload() {
+    var defaultContext = 'realistic_adult_partner'
+    var context = window.localStorage.getItem('answer_context') || defaultContext
+    var selector = document.getElementById('answer_context')
+    if (selector && selector.value) {
+        context = selector.value
+    }
+
+    return {
+        answer_context: context,
+        partner_personas: parsePartnerPersonas(window.localStorage.getItem('partner_personas_raw') || '')
+    }
+}
+
+function buildAnswerContextOptions(data) {
+    var selector = document.getElementById('answer_context')
+    if (!selector) {
+        return
+    }
+
+    var contexts = data['answer_contexts'] || []
+    var defaultContext = data['default_answer_context'] || 'realistic_adult_partner'
+    if (contexts.length === 0) {
+        contexts = [{
+            id: defaultContext,
+            label: 'Realistic adult partner',
+            description: 'Answer for a consenting adult partner you would realistically choose for this activity.'
+        }]
+    }
+
+    selector.innerHTML = ''
+    $.each(contexts, function() {
+        var option = document.createElement('option')
+        option.value = this['id']
+        option.innerText = this['label']
+        option.title = this['description'] || ''
+        selector.appendChild(option)
+    })
+
+    selector.onchange = answer_context_changed
+    selector.value = window.localStorage.getItem('answer_context') || defaultContext
+    if (!selector.value) {
+        selector.value = defaultContext
+    }
+
+    var personas = document.getElementById('partner_personas')
+    if (personas) {
+        personas.value = window.localStorage.getItem('partner_personas_raw') || ''
+        personas.onchange = partner_personas_changed
+        personas.oninput = partner_personas_changed
+    }
+}
+
 function test(){
         var t = '5009=0=0'
         if(t.length > 2) {
@@ -619,6 +715,7 @@ function build_list(){
             document.getElementById('meta_fap_freq').value = window.localStorage.getItem('meta_fap_freq')
             document.getElementById('meta_sex_freq').value = window.localStorage.getItem('meta_sex_freq')
             document.getElementById('meta_body_count').value = window.localStorage.getItem('meta_body_count')
+            buildAnswerContextOptions(data)
 
             var submit = document.createElement('btn')
             submit.classList.add('submit')
@@ -684,6 +781,8 @@ function build_list(){
                     window.localStorage.removeItem('meta_age');
                     window.localStorage.removeItem('meta_fap_freq');
                     window.localStorage.removeItem('meta_body_count');
+                    window.localStorage.removeItem('answer_context');
+                    window.localStorage.removeItem('partner_personas_raw');
                     window.location.reload();
                     $('html, body').animate({ scrollTop: 0 }, 'fast');
                 }
@@ -917,10 +1016,14 @@ function submit_results(){
         })
         */
 
+        var payload = getAnswerContextPayload()
+        payload.meta = meta
+        payload.kinks = kinks
+
         fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({"meta": meta, "kinks": kinks}),
+            body: JSON.stringify(payload),
         }).then(res => {
             window.location.href = '/results?token=' + $.cookie('token') + "&justCreated=true"
         })

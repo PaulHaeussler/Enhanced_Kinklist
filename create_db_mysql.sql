@@ -48,10 +48,28 @@ CREATE TABLE IF NOT EXISTS answers (
   token VARCHAR(36) NOT NULL,
   choices_json JSON NOT NULL,
   hit_count INT NOT NULL DEFAULT 0,
+  catalog_id VARCHAR(64) NOT NULL DEFAULT 'main',
+  catalog_version VARCHAR(64) NOT NULL DEFAULT 'legacy',
+  max_spice_level TINYINT NULL,
+  shown_item_ids JSON NULL,
+  answer_context VARCHAR(64) NOT NULL DEFAULT 'realistic_adult_partner',
+  partner_personas JSON NULL,
   PRIMARY KEY (user_id, timestamp),
   UNIQUE KEY answers_token_idx (token),
+  KEY answers_catalog_idx (catalog_id, catalog_version),
   KEY answers_user_id_idx (user_id),
   CONSTRAINT answers_user_id_fk FOREIGN KEY (user_id) REFERENCES users (id)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS catalog_snapshots (
+  catalog_id VARCHAR(64) NOT NULL,
+  catalog_version VARCHAR(64) NOT NULL,
+  data JSON NOT NULL,
+  created BIGINT NOT NULL,
+  PRIMARY KEY (catalog_id, catalog_version)
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4

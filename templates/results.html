@@ -4,6 +4,7 @@
 <meta name="description" content="Kinktest Results of {{ username }}"/>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="{{ url_for('static', filename='buildCharts.js') }}"></script>
+<script src="{{ url_for('static', filename='export_results.js') }}"></script>
 {% endblock %}
 {% block content %}
 <div id="container" class="bgc">
@@ -28,6 +29,7 @@
         </div>
         <br>
         <button id="btn_copy" class="submit" onclick="copyToClipboard()">Copy result link to clipboard</button>
+        <button id="btn_export_img" class="submit" onclick="downloadResultsImage()">Download result image</button>
         <br>
         <span id="justCreatedTip">
             Noticed something that's not quite right yet? Just go back (your progress will still be there) and create a new result! Be sure to copy and save the link to your results with the button above if you want to come back to your results later!
@@ -77,13 +79,13 @@
         </div>
 </div>
 <script>
-  var urlParams = new URLSearchParams(window.location.search);
-  var token = urlParams.get('token');
-  if(token === null){
-    paths = window.location.pathname.split('/')
-    window.token = paths[paths.length - 1]
-  }
-  window.token = token
+	  var urlParams = new URLSearchParams(window.location.search);
+	  var token = urlParams.get('token');
+	  if(token === null){
+	    var paths = window.location.pathname.split('/')
+	    token = paths[paths.length - 1]
+	  }
+	  window.token = token
   window.justCreated = urlParams.get('justCreated');
   console.log(window.token)
   console.log(window.justCreated)

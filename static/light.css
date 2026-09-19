@@ -239,6 +239,21 @@
         transition: 0.2s;
     }
 
+    #btn_export_img {
+        background: #1f5f91;
+        border-radius: 10px;
+        border: 1px solid black;
+        color: white;
+        height: 40px;
+        font-size: 16px;
+        margin-top: 8px;
+    }
+
+    #btn_export_img:hover {
+        background: #327eb8;
+        transition: 0.2s;
+    }
+
     .collapsible {
       border-radius: 5px;
       margin: 5px;

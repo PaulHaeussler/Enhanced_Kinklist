@@ -217,10 +217,14 @@ function mobile_submit(){
         }
 
         // Submit with error handling
+        var payload = getAnswerContextPayload()
+        payload.meta = meta
+        payload.kinks = kinks
+
         fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({"meta": meta, "kinks": kinks}),
+            body: JSON.stringify(payload),
         }).then(res => {
             if (!res.ok) {
                 throw new Error(`Submit failed with status: ${res.status}`);
@@ -416,6 +420,7 @@ function buildMeta() {
             document.getElementById('meta_fap_freq').value = window.localStorage.getItem('meta_fap_freq')
             document.getElementById('meta_sex_freq').value = window.localStorage.getItem('meta_sex_freq')
             document.getElementById('meta_body_count').value = window.localStorage.getItem('meta_body_count')
+            buildAnswerContextOptions(data)
     }})
 }
 
@@ -687,7 +692,7 @@ function cleanBrowserKeys() {
 
     for (let key in localStorage) {
         if (localStorage.hasOwnProperty(key)) {
-            if (key.startsWith('meta_') || (!isNaN(parseInt(key)) && parseInt(key) > 0)) {
+            if (key.startsWith('meta_') || key === 'answer_context' || key === 'partner_personas_raw' || (!isNaN(parseInt(key)) && parseInt(key) > 0)) {
                 safeKeys.push(key);
             } else {
                 if (key !== "")

@@ -1,0 +1,3549 @@
+{
+  "catalog_id": "main",
+  "catalog_version": "2026.1",
+  "categories": [
+    {
+      "description": "Have tried - Favorite",
+      "color": "#0004ff",
+      "have_tried": true,
+      "id": 1
+    },
+    {
+      "description": "Have tried - Liked",
+      "color": "#007a18",
+      "have_tried": true,
+      "id": 2
+    },
+    {
+      "description": "Have tried - Was okay",
+      "color": "#c2a200",
+      "have_tried": true,
+      "id": 3
+    },
+    {
+      "description": "Have tried - Didn't like",
+      "color": "#d48600",
+      "have_tried": true,
+      "id": 4
+    },
+    {
+      "description": "Have tried - Hated",
+      "color": "#a60000",
+      "have_tried": true,
+      "id": 5
+    },
+    {
+      "description": "Haven't tried - Would love to try",
+      "color": "#75f6ff",
+      "have_tried": false,
+      "id": 6
+    },
+    {
+      "description": "Haven't tried - Would want to try",
+      "color": "#7aff88",
+      "have_tried": false,
+      "id": 7
+    },
+    {
+      "description": "Haven't tried - Indifferent to it",
+      "color": "#fffca8",
+      "have_tried": false,
+      "id": 8
+    },
+    {
+      "description": "Haven't tried - Might try",
+      "color": "#ffd8ba",
+      "have_tried": false,
+      "id": 9
+    },
+    {
+      "description": "Haven't tried - Won't ever try",
+      "color": "#ff7575",
+      "have_tried": false,
+      "id": 10
+    },
+    {
+      "description": "Confused",
+      "color": "#ae00ff",
+      "id": -1
+    },
+    {
+      "description": "Not applicable",
+      "color": "#f0f0f0",
+      "id": -2
+    },
+    {
+      "description": "Not entered",
+      "color": "#d1d1d1",
+      "default": true,
+      "id": 0
+    }
+  ],
+  "kink_groups": [
+    {
+      "description": "Bodies",
+      "tip": "Preferences in sexual Partners Bodies. It's intentional that some points don't cover 'average' sizes",
+      "columns": [
+        "Partner"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 1001,
+          "description": "Skinny",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1002,
+          "description": "Chubby",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1003,
+          "description": "Fit",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1004,
+          "description": "Muscular",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1005,
+          "description": "Small Breasts",
+          "tip": "A-B Cups",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1006,
+          "description": "Large Breasts",
+          "tip": "D+ Cups",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1007,
+          "description": "Small Cocks",
+          "tip": "<10cm",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1008,
+          "description": "Large Cocks",
+          "tip": ">17cm",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1009,
+          "description": "Hairy Body",
+          "tip": "Significant chest/back hair",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1033,
+          "description": "Some Body Hair",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1010,
+          "description": "Shaved Body",
+          "tip": "Fully shaven Body or unnoticeable hair",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1011,
+          "description": "Hairy Crotch",
+          "tip": "Unshaved Genitals",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1012,
+          "description": "Trimmed Crotch",
+          "tip": "Pubic hair styled as Landingstrip or similar",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1013,
+          "description": "Shaved Crotch",
+          "tip": "Fully shaved pubic hair",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1014,
+          "description": "Pregnant",
+          "tip": "Women with noticeably pregnant belly",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1015,
+          "description": "Tall",
+          "tip": "Very tall persons > 185cm",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1016,
+          "description": "Short",
+          "tip": "Very short persons < 165cm",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1017,
+          "description": "Tanned",
+          "tip": "Persons with tanned skin (by sunbathing or solarium)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1018,
+          "description": "Pale",
+          "tip": "Persons with very pale skin, probably don't go outside often",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1019,
+          "description": "Freckles",
+          "tip": "Persons with significant and not seasonal freckles",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1020,
+          "description": "Some Tattoos",
+          "tip": "1-4 small to medium-sized tattoos",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1021,
+          "description": "Lots of Tattoos",
+          "tip": "Many tattoos, significant body portions covered",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1022,
+          "description": "Nonsexual piercings",
+          "tip": "All non-genital piercings",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1023,
+          "description": "Nipple piercings",
+          "tip": "Pierced nipples",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1024,
+          "description": "Genital piercings",
+          "tip": "Piercings in and around Penis or Vulva",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1025,
+          "description": "Bald Hair",
+          "tip": "People with no or very little hair",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1026,
+          "description": "Short Hair",
+          "tip": "People with short hair <15cm",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1027,
+          "description": "Long Hair",
+          "tip": "Hair at least shoulder-long",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1028,
+          "description": "Very long Hair",
+          "tip": "Hair at least waist-long",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1029,
+          "description": "Glasses",
+          "tip": "People wearing glasses, sunglasses don't count",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1030,
+          "description": "Plus-sized",
+          "tip": "Partners a bit thiccer than chubby",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1031,
+          "description": "Redhead",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1032,
+          "description": "Dyed Hair (unnatural colors)",
+          "tip": "Persons with their hair dyed in unnatural colors like green or blue",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1034,
+          "description": "Some Beard",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 1035,
+          "description": "Large Beard",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Body/Style Archetypes",
+      "tip": "Common combinations of several body features and clothing choices. This is very hetero-normative, but can be helpful to categorise interests, even though a lot of people will not fit any of these",
+      "columns": [
+        "Partner"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 23001,
+          "description": "Twinks",
+          "tip": "Younger, thin to slim athletic men with little body hair and usually smooth chest",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 23002,
+          "description": "Otters",
+          "tip": "Thin to slim athletic build men with a lot of body hair",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 23003,
+          "description": "Bears",
+          "tip": "Middle-aged to older men with a larger/chubbier body build and a lot of hair",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 23004,
+          "description": "Hunk",
+          "tip": "A large, strong, muscular man",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 23005,
+          "description": "Femboy",
+          "tip": "Adding to the twink build, younger, slim men, usually completely without body hair wearing mostly feminine apparel",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 23006,
+          "description": "E-Boy",
+          "tip": "Young slim boys with fluffy, dark hair, long bangs. Wears (usually too large) band shirts, silver chains, darker colors. Often skater and emo influences",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 23007,
+          "description": "Sissy",
+          "tip": "A man who doesn't demonstrate any masculine features and usually displays effeminate behaviour",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 23008,
+          "description": "Tomboy",
+          "tip": "Young women featuring a non-feminine/masculine behaviour and/or clothes, also referred to as butch",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 23009,
+          "description": "E-Girl",
+          "tip": "Wearing a mix of emo, scene and goth fashion, with typical makeup. Usually dyed hair, apparel sometimes involves features from bdsm like chokers and harnesses. Other popular choices are large platform boots, baggy, thrifted clothes, rave clothes and split dyed hair.",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Clothing",
+      "tip": "Kinks centered around Clothing and Apparel. Self means you wearing it, Partner means having/seeing your partner wear it",
+      "columns": [
+        "Self",
+        "Partner"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 2001,
+          "description": "Clothed Sex",
+          "tip": "Self or Partner (almost) fully clothed during sex",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2002,
+          "description": "CFNM",
+          "tip": "Clothed Female Nude Male",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2003,
+          "description": "CMNF",
+          "tip": "Clothed Male Nude Female",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2004,
+          "description": "Lingerie",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2005,
+          "description": "Kneesocks",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2006,
+          "description": "Stockings and/or Garterbelt",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2007,
+          "description": "High Heels",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2008,
+          "description": "Knee-high boots",
+          "tip": "Large boots reaching to the knee",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2009,
+          "description": "Corset",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2010,
+          "description": "Gloves",
+          "tip": "Can be leather or latex, one-time-use gloves don't count, often covering the entire lower arm",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2011,
+          "description": "Harness",
+          "tip": "Harness usually made of leather strips connected by metal rings",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2012,
+          "description": "Leather",
+          "tip": "Clothing centered around leather as material. Specifically lingerie or similar clothes made of usually shiny leather, this does not include your average biker jacket or Lederhose",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2013,
+          "description": "Latex",
+          "tip": "Clothing centered around the shiny usually black or red rubber latex",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2014,
+          "description": "Spandex",
+          "tip": "Elastic materials often used in sportswear",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2015,
+          "description": "Gas Masks",
+          "tip": "Plays revolving around wearing gas masks, often seen with latex clothing and breath play",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2016,
+          "description": "Uniform/\u200bCostume",
+          "tip": "Costumes for roleplays like police officer, nurse, teacher etc.",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2017,
+          "description": "Cosplay",
+          "tip": "Costumes specifically imitating fictional characters, often from games or anime",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2018,
+          "description": "Crossdressing",
+          "tip": "Wearing clothes associated with the opposite gender",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2019,
+          "description": "Soft Gloves",
+          "tip": "Gloves not made from latex or leather but silk, lace or similar 'soft' materials",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2020,
+          "description": "Choker",
+          "tip": "Close-fitting Necklace made from cloth or leather, may feature other elements such as metal rings or hearts, not to be confused with a collar",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2021,
+          "description": "Masks",
+          "tip": "Masks covering part or all of the face, can be a fancy one covering just eyes and nose, or a simple balaclava",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2022,
+          "description": "Fishnets",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 2023,
+          "description": "Formal/Business Clothing",
+          "tip": "Suits, button shirts and similar",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Groupings",
+      "tip": "Parings with different partners",
+      "columns": [
+        "Self"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 3001,
+          "description": "You and 1 male",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 3002,
+          "description": "You and 1 female",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 3003,
+          "description": "You and MtF trans",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 3004,
+          "description": "You and FtM trans",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 3005,
+          "description": "You and 1 male, 1 female",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 3006,
+          "description": "You and 2 females",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 3007,
+          "description": "You and 2 males",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 3008,
+          "description": "Orgy",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Positions",
+      "tip": "Rate different sex positions, the giving part is penetrating, strap-on for persons without a penis also counts",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 4001,
+          "description": "Missionary",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 4002,
+          "description": "Doggystyle",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 4003,
+          "description": "Sixty-Nine",
+          "tip": "Giving part is on top or just enter the same if you do it sideways",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 4004,
+          "description": "Cowgirl",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 4005,
+          "description": "Reverse-Cowgirl",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 4006,
+          "description": "Piledriver",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 4007,
+          "description": "Mating Press",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 4008,
+          "description": "Spit Roasting",
+          "tip": "Simultaneous oral and vaginal or anal intercourse on all fours, giving can be at front or back",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 4009,
+          "description": "Prone Bone",
+          "tip": "Receiving is laying completely flat on their belly with Giving penetrating from behind/above",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 4010,
+          "description": "Spooning",
+          "tip": "Receiving is little spoon, Giving is big spoon",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 4011,
+          "description": "Sex Swing",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 4012,
+          "description": "Lotus",
+          "tip": "Similar to cowgirl, but the giving partner is sitting upright, embracing the receiving partner (Receiving is who sits on top)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Specific to persons with a penis",
+      "tip": "Activities that can only be carried out with a penis, giving can only be entered if partner has penis, receiving can only be entered if self has penis. This means activities involving a real penis, not a strap-on or similar",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 5001,
+          "description": "Handjob",
+          "tip": "Pleasuring the penis with hands, Giving is active person, receiving is passive",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 5002,
+          "description": "Blowjob",
+          "tip": "Pleasuring the penis orally, Receiving has their penis in Givings mouth",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 5003,
+          "description": "Deepthroat",
+          "tip": "Pleasuring the penis orally taking in almost the complete length, Receiving has their penis in Givings mouth",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 5004,
+          "description": "Facefuck",
+          "tip": "Giving slides their penis in and out of Receivings mouth while holding their head",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 5005,
+          "description": "Teabagging",
+          "tip": "Sucking on Balls, Giving has their balls in Receivings mouth",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 5006,
+          "description": "Cockring",
+          "tip": "Sextoy restricting bloodflow out of the penis leading to a harder erection and increased endurance for some, Giving is self wearing the ring, Receiving is having partner wear it",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 5007,
+          "description": "Frottage",
+          "tip": "Rubbing two penis together, Giving and Receiving have to be the same",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 5008,
+          "description": "Thighjob",
+          "tip": "Giving is pleasuring Receivings Penis with their thighs",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 5009,
+          "description": "Assjob",
+          "tip": "Giving is pleasuring Receivings Penis with their Buttocks",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 5010,
+          "description": "Docking",
+          "tip": "Inserting givings penis into receivings foreskin",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 5011,
+          "description": "Flaccid Play",
+          "tip": "Playing with receivings flaccid penis (e.g. attempting insertion or a blowjob)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Specific to persons with a vagina",
+      "tip": "Activities that can only be carried out with a vagina, giving can only be entered if partner has a vagina, receiving can only be entered if self has a vagina",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 6001,
+          "description": "Fingering",
+          "tip": "Playing with the labia and penetrating the vagina with fingers, Giving is fingering Receiving",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 6002,
+          "description": "Cunnilingus",
+          "tip": "Pleasuring the vulva orally, excluding the facesitting postion, Giving is licking Receivings Vulva",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 6003,
+          "description": "Facesitting",
+          "tip": "Special form of Cunnilingus where Receiving is sitting on Givings face, creating a smothering feeling",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 6004,
+          "description": "Fisting",
+          "tip": "Vaginal Fisting, inserting one or more complete Hands into the Vagina, Giving is inserting their hand into Receiving",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 6005,
+          "description": "Double Vaginal Penetration",
+          "tip": "Penetration of the vagina with two penisses at the same time, Giving has to have a penis, Receiving is being double penetrated",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 6006,
+          "description": "Titjob / Paizuri",
+          "tip": "Rubbing Givings penis between Receivings breasts, only really works with larger breasts",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 6007,
+          "description": "Clit stimulation",
+          "tip": "Pleasuring specifically the clitoris with fingers, tongue and toys. Giving is pleasuring Receivings clitoris",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 6008,
+          "description": "Squirting",
+          "tip": "Plays centered around making Receiving squirt",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 6009,
+          "description": "Scissoring",
+          "tip": "Two persons with vaginas rubbing their vulvas on another, Giving and Receiving have to be the same",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 6010,
+          "description": "Double Penetration",
+          "tip": "Simultaneous vaginal and anal penetration, Giving is one of the penetrating persons, Receiving is being penetrated",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 6011,
+          "description": "Triple Penetration",
+          "tip": "Simultaneous vaginal, anal and oral intercourse, Giving is one of the penetrating persons, Receiving is being penetrated",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 6012,
+          "description": "Vaginal Streching",
+          "tip": "Plays revolving around achieving as large as possible insertions in the vagina",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Touch & Stimulation",
+      "tip": "",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 7001,
+          "description": "Cock/\u200bPussy Worship",
+          "tip": "Giving is worshipping (heavily complimenting and caressing) Receivings Cock/Pussy",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 7002,
+          "description": "Ass Worship",
+          "tip": "Giving is worshipping Receivings Butt",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 7012,
+          "description": "Breast Worship",
+          "tip": "Giving is worshipping Receivings Breasts. Also includes nipple worship",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 7003,
+          "description": "Electro Stimulation",
+          "tip": "Stimulation using electric current, Giving is administering to Receiving",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 7004,
+          "description": "Tickling",
+          "tip": "Giving is tickling Receiving with at least some sexual intent",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 7005,
+          "description": "Sensation play",
+          "tip": "Often involving light bondage and blindfolds, can involve pain, Giving is stimulating Receiving with specific sensations",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 7006,
+          "description": "Foot job",
+          "tip": "Giving is pleasuring Receivings Genitals with their feet",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 7007,
+          "description": "Nipple play",
+          "tip": "Plays centered around Giving stimulating Receivings Nipples with different means",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 7008,
+          "description": "Food Play",
+          "tip": "Eating food or cosuming drinks(usually shots) from your partners body (Giving), or having the food on your body and getting eaten from (receiving)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 7009,
+          "description": "Temperature Play",
+          "tip": "Playing with sensations like heated lube or ice cubes",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 7010,
+          "description": "Massages",
+          "tip": "Giving or Receiving Massages (with some sexual massaging)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 7011,
+          "description": "Hickies",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Ass play",
+      "tip": "Everything revolving around anal penetration and play",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 8001,
+          "description": "Anal sex",
+          "tip": "Giving penetrating Receivings butt with their penis, not to be confused with pegging, giving can only be entered if self has penis, receiving can only be entered if partner has penis",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 8002,
+          "description": "Pegging",
+          "tip": "Giving is penetrating Receivings butt with a strap-on",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 8003,
+          "description": "Rimming",
+          "tip": "Giving is pleasuring Receivings anus orally",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 8004,
+          "description": "Double Anal Penetration",
+          "tip": "Simultaneous penetration of the anus by two penisses, or other things such as toys (which have to be at least penis-sized though, two sharpies don't count) Giving is penetrating Receivings anus",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 8005,
+          "description": "Anal Fisting",
+          "tip": "Full insertion of at least one hand into the anus, Giving is inserting their hand into Receiving",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 8006,
+          "description": "Anal Streching/\u200bTraining",
+          "tip": "Plays centered around achieving anal insertions as large as possible, Giving is streching Receiving, usually with larger Dildos",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 8007,
+          "description": "Gaping",
+          "tip": "Similar to Anal Streching, this means plays trying to achieve longer and larger gapes, that is the anus temporarily staying open",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 8008,
+          "description": "Prolapse",
+          "tip": "Plays trying to get the colon walls inside the anus to collapse outwards, relaxing the tissue so much that the last part of the colon walls can 'fall out' a few centimeters. Giving is trying to get Receivings Anus to prolapse",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 8009,
+          "description": "Enema",
+          "tip": "Plays fetishizing Enema intake which is usally the rectal intake of saline solution or just water to clean the rectum, Giving is administering the enema to Receiving",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 8010,
+          "description": "Inflation/\u200bStomach bulge",
+          "tip": "Plays around achieving a visibly rounded belly by large enemas (inflation) or a visible stomach bulge by large anal insertions (stomach bulge). Giving is causing the bulge/inflation to Receiving",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Toys",
+      "tip": "Fetishes encompassing different sex toys, Self means toy being used on self by partner or when masturbating, Partner means self using toy on partner",
+      "columns": [
+        "Self",
+        "Partner"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 9001,
+          "description": "Realistic Dildos",
+          "tip": "Phallus-shaped Dildos based on human penisses",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9002,
+          "description": "Knotted/\u200bCanine Dildos",
+          "tip": "Dildos often modelled after canine penisses featuring a large round knot near their base siginificantly larger than the shaft, see Bad Dragon Rex, Fenrir, Cole",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9003,
+          "description": "Horse Dildos",
+          "tip": "Dildos modelled after equine penisses featuring a large shaft with equal thickness and sometimes a flared tip, see Bad Dragon Chance, Tucker, Vector",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9004,
+          "description": "Other Fantasy Dildos",
+          "tip": "Designs not mentioned above modelling fantasy creatures",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9005,
+          "description": "Buttplugs",
+          "tip": "Usually teardrop shaped toys with a small shaft and large flared base for insertion in the anus and temporary wear",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9006,
+          "description": "Hollow Plugs",
+          "tip": "Plugs similar to normal Buttplugs made for the insertion in the anus or vagina featuring a opening in the center, exposing and providing a view into the anus/vagina",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9007,
+          "description": "Vibrators",
+          "tip": "Vibrating sex toys like bullet vibes, satisfyer, and phallic shaped vibrators",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9008,
+          "description": "Sounding",
+          "tip": "Insertion of steel or silicone rods in the urethra (thats where you pee from)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9009,
+          "description": "Speculum",
+          "tip": "Device usually used by gynecologists to spread the vagina and allow to see inside, can be used vaginally or anally, often involved in medical play",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9010,
+          "description": "Ovipositor",
+          "tip": "Special toy with which Gelatine-Eggs can be inserted and 'layed' in vagina or anus, often used  with roleplaying monsters or aliens (The gelatine eggs dissolve over time from the body heat)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9011,
+          "description": "Fuck Machine",
+          "tip": "A machine driven by an electric motor thrusting a toy mounted on it at variable speeds",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9012,
+          "description": "Onahole",
+          "tip": "A silicone or TPE toy resembling a vagina, usually for masturbation for persons with a penis. Self can only be entered if self has a penis, partner can only be entered if partner has a penis",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9013,
+          "description": "Strap-On",
+          "tip": "A harness with a dildo mounted on it enabling women to take the penetrating part in activities. Self means self is being penetrated by partner wearing one, Partner means self is wearing one and penetrating partner",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9014,
+          "description": "Nipple Sucker",
+          "tip": "Toys sucking on the nipple by creating negative pressure",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9015,
+          "description": "Cock/Pussy Pump",
+          "tip": "Pump to enlarge/swell the genitals",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9016,
+          "description": "Anal Beads",
+          "tip": "A string of connected (rigid or loose) beads/spheres usually with increasing diameter",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 9017,
+          "description": "Magic Wand",
+          "tip": "Large vibrating wands like the Hitachi magic wand",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "General",
+      "tip": "",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 10001,
+          "description": "Romance/\u200bAffection",
+          "tip": "Valuing received Romance/Affection (Receiving) involved with sexual activities or Giving Affection",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 10002,
+          "description": "Edging",
+          "tip": "Repeatedly bringing the receiving partner to the edge of climax only to let off before achieving it",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 10003,
+          "description": "Teasing",
+          "tip": "Teasing refers to repeatedly invoking a sexual desire in the receiving partner without satisfying it (immediately) afterwards",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 10004,
+          "description": "JOI, SI",
+          "tip": "Jerk-off instructions/Sex instructions given by the Giving partner how the Receiving partner should proceed",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 10005,
+          "description": "Dirty Talking",
+          "tip": "The act of speaking in a typically explicit manner to provoke sexual stimulation from a participant, sometimes one's self; often in the context of seduction or foreplay.",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 10006,
+          "description": "Photography/\u200bVideotaping",
+          "tip": "The act of visually recording a scene amongst participants, often as a form of humiliation or exhibitionist fetishism",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 10007,
+          "description": "Vanilla Sex",
+          "tip": "Sex not involving any kinks, Giving is penetrating Receiving",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 10008,
+          "description": "French Kissing",
+          "tip": "Kissing with lots of tongue, giving and receiving have to be the same",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 10009,
+          "description": "Ignoring",
+          "tip": "Actively ignoring (Giving) your partner during sex by scrolling your phone for example, or being ignored (Receiving)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 10010,
+          "description": "Cybersex/Sexting",
+          "tip": "Communicating fantasies via digital media, usually text but can also be images or videos, Receiving is receiving these and Giving is sending",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 10011,
+          "description": "Multiple orgasms/\u200bMarathon Sex",
+          "tip": "Having multiple orgasms one after the other (can be some time apart, but there's no pause in sexual action), Receiving means having multiple orgasms, giving means giving multiple",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 10012,
+          "description": "Pet names",
+          "tip": "Calling (Giving) or being called (Receiving) pet names, like: Bunny, Kitten, Slut, Princess, Whore, Queen, Daddy etc.",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Restrictive",
+      "tip": "Everything about Bondage. Self means being used on self, Partner means self using on Partner",
+      "columns": [
+        "Self",
+        "Partner"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 11001,
+          "description": "Ball Gag",
+          "tip": "Gags using a large plastic ball, often perforated for easier breathing to gag the subject",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11002,
+          "description": "Ring Gag",
+          "tip": "Gags using a metal ring vertically to keep the mouth open, spider gags have addionally four prongs extending outside to prevent the ring from being flipped by the subjects tongue",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11003,
+          "description": "Collar",
+          "tip": "Leather or Metal Collar worn around the neck to attach a leash or designating ownership, sometimes with an inscription",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11004,
+          "description": "Leash",
+          "tip": "The subject being held by a leash demonstrating domination over the subject",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11005,
+          "description": "Chastity",
+          "tip": "Chastity belts for women and chastity cages for men are used to prevent the subject gentials from receiving any stimulation",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11006,
+          "description": "Bondage (Light)",
+          "tip": "General movement is restricted, minor movement and readjustment is possible (e.g. cuffs to back or bedpost, spreader bar)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11007,
+          "description": "Bondage (Heavy)",
+          "tip": "Movement is little to not at all possible, almost full restrainment",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11008,
+          "description": "Suspended Bondage",
+          "tip": "Bondage (usually more extensive Bondage) with the subject hanging from the ceiling or similar, being partially or fully suspended",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11009,
+          "description": "Encasement",
+          "tip": "The subject (usually already thightly bondaged) being encased in boxes, tape, garbage bags, or a latex vacuum box",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11010,
+          "description": "Nose Hook",
+          "tip": "A metal piece hooking in the nostrils from above with a strap over the head being secured behind it, pulling the nostrils up and creating a pig-like look, usually degrading",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11011,
+          "description": "Anal Hook",
+          "tip": "A buttplug with a U-shaped metal rod as a shaft on which end ropes can be connected to incorporate it into bondage",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11012,
+          "description": "Blindfold",
+          "tip": "Depriving the subject of their visual senses can heighten all remains senses and creates a feeling of being at mercy",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11013,
+          "description": "Monoglove/\u200bArmbinder",
+          "tip": "Device, usually made out of leather, to hold both arms along the full length of the arm tightly together, usually used to bind the arms behind the back",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11014,
+          "description": "Shibari",
+          "tip": "Special japanese kind of bondage with a larger focus on art and aesthetics",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11015,
+          "description": "Bit Gag",
+          "tip": "Similar to a horse bit, a metal or silicone bar placed horizontally",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 11016,
+          "description": "Tape Gag",
+          "tip": "Using duct tape or similar to gag your subject, might hurt in removing it and has higher asphyxiation risk",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "CNC",
+      "tip": "Consensual Non-Consent means roleplaying non-consent situations such as rape with predefined consent, boundaries and safewords.",
+      "columns": [
+        "Aggressor",
+        "Target"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 12001,
+          "description": "(Consensual) Rape",
+          "tip": "The target being forced to intercourse with the Aggressor, usually under the threat of violence",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 12002,
+          "description": "Blackmail/\u200bCoercion",
+          "tip": "Similar to rape only here the Aggressor uses some other threat than violence against the Target to make the target 'voluntarily' chose to give in",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 12003,
+          "description": "Kidnapping",
+          "tip": "The target being taken away by a unknown Aggressor to an unknown location, usually followed by rape",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 12004,
+          "description": "Drugs/\u200bAlcohol",
+          "tip": "The target being drugged or made to get drunk to then take advantage of them, usually in Bar or Club Setting",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 12005,
+          "description": "Sleep Play",
+          "tip": "The target being sexually approached and used by the Aggressor to their needs while they sleep",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Domination",
+      "tip": "All things involving a power differential. The Dominant Column means you as the dominant part, the Submissive Column means you as the submissive counterpart",
+      "columns": [
+        "Dominant",
+        "Submissive"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 13001,
+          "description": "Dominant/\u200bSubmissive",
+          "tip": "Being sexually dominant or submissive in general",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13002,
+          "description": "Domestic servitude",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13003,
+          "description": "Slavery",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13004,
+          "description": "Pet Play",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13005,
+          "description": "DD/lg, MD/lb",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13006,
+          "description": "Discipline",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13007,
+          "description": "Begging",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13008,
+          "description": "Forced orgasm",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13009,
+          "description": "Orgasm control",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13010,
+          "description": "Orgasm denial",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13011,
+          "description": "Power exchange",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13012,
+          "description": "Feminization",
+          "tip": "Being made to dress or act feminine, usually in a Femdom Setting with male-identifying persons",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13013,
+          "description": "Choking",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13014,
+          "description": "Hair Pulling",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13015,
+          "description": "Hate Sex",
+          "tip": "Rough sex while the active partner is angry/jealous/mad, Giving is the active partner and Receiving is passive",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13016,
+          "description": "Praise",
+          "tip": "Enjoying getting praised (receiving) like 'Good boy/girl', or enjoying praising your partner (giving)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13017,
+          "description": "Breath Play",
+          "tip": "Actively and precisely managing and limiting the air the subject gets",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13018,
+          "description": "Pony Play",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13019,
+          "description": "Overstimulation",
+          "tip": "Continuing to pleasure the submissive after they've cum, similar to forced orgasm",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 13020,
+          "description": "Bratting",
+          "tip": "A submissive that likes to push their doms buttons on purpose hoping that they\u2019ll punish them",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Pain",
+      "tip": "Everything involving Pain",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 14001,
+          "description": "Light pain",
+          "tip": "Light spankings or similar that won't leave any longer marks",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14002,
+          "description": "Heavy pain",
+          "tip": "More severe beatings leaving visible marks like Hematoma, Scratches, small injuries, but no permanent injuries",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14003,
+          "description": "Nipple Clamps",
+          "tip": "Clamps attached to the nipple, weights can be added to the clamp to increase the pull and resulting pain on the nipple",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14004,
+          "description": "Clothes Pins",
+          "tip": "Clothes Pins usually used to hang wet clothes on a line being clamped to various body locations",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14005,
+          "description": "Caning",
+          "tip": "Beating with a long thin cane historically used to punish children in school, leaves recognisable horizontal red stripes",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14006,
+          "description": "Flogging",
+          "tip": "Beating with a device having several leather straps attached to a handle (called a Flogger)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14007,
+          "description": "Beating",
+          "tip": "Simple beating just by hand",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14008,
+          "description": "Spanking",
+          "tip": "Beating the butt of the subject with either the flat hand or a paddle or similar",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14009,
+          "description": "Cock/\u200bPussy Slapping",
+          "tip": "Slaps directed at the subjects genitals",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14010,
+          "description": "Cock/\u200bPussy Torture",
+          "tip": "Tormenting the subjects genitals more using various methods to inflict greater pain than slapping",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14011,
+          "description": "Nipple Torture",
+          "tip": "Tormenting the subjects nipples with various methods such as clamps with heavy weights, clothes pins or piercing of breast or nipple with needles",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14012,
+          "description": "Hot wax",
+          "tip": "Dropping bits of hot molten wax on the subject to inflict a brief burning sensation while leaving little marks",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14013,
+          "description": "Scratching",
+          "tip": "Scratching the subject to inflict pain and leave recognizeable scratch marks",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14014,
+          "description": "Biting",
+          "tip": "Biting the subject to inflict pain and leave recognizable bite marks",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14015,
+          "description": "Cutting/\u200bKnife Play",
+          "tip": "Cutting involves cutting the subject (in places where possible, such as the butt or upper arms) with very sharp tools such as razor blades or scalpels to inflict pain and/or cut initials or symbols into the subject, not leaving any permanent marks",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14016,
+          "description": "Needle Play/\u200bPiercing (temporary)",
+          "tip": "Involves inserting (hypodermic) Needles through the subjects skin. Needles might be arranged in shapes, might pierce genitals to inflict larger pain or be used to create temporary piercings, see corset-piercing",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14017,
+          "description": "Scarring",
+          "tip": "Similarly to Knife Play, cutting into Receivings skin in order to leave permanent scars",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 14018,
+          "description": "Branding",
+          "tip": "Creating permanent scars by pressing heated metal onto Receiving's skin",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Degradation",
+      "tip": "Fetishes involving humiliating or degrading the subject, almost always in a Dom/Sub Relationship with predefined boundaries and safewords",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 15001,
+          "description": "Name Calling",
+          "tip": "The Giving party calling the Receiving Person derogatory terms (slut, whore, bitch, pig, useless, etc.)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 15002,
+          "description": "Humiliation",
+          "tip": "The Giving Person humiliating the Receiving Person by different means, such as embarrassing tasks or acts",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 15003,
+          "description": "Body Writing",
+          "tip": "The Giving Person writing derogatory or humiliating terms on the Receiving persons skin, such as slut, whore, cumdump, etc.",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 15004,
+          "description": "Glory Hole",
+          "tip": "Giving is putting their penis/strap-on through a hole in a wall for Receiving to service it (for either option there's a 'unknown' person on the other side of the wall)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 15005,
+          "description": "Forced Exposure",
+          "tip": "The Giving Party orders the Receiving Person to perform public exposures or other embarassing or indecent acts without them having an exhibitionism kink",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 15006,
+          "description": "Lending out",
+          "tip": "The Giving Person 'lending' their sub to a person familiar to them but not necessarily familiar to the sub for them to assume the dominant part of the relationship temporarily",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 15007,
+          "description": "Public Use",
+          "tip": "The Giving Person instructing the Receiving Person to engage in sexual acts in (secluded) public with complete strangers with no permission to deny a strangers sexual request",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 15008,
+          "description": "Spitting",
+          "tip": "Spitting or getting spit on (usually the face)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Misc. Fetish",
+      "tip": "Misc. Fetishes not really belonging to any other category. Partner here usually asks for your opinion if your partner would have/has had this kink (e.g. Exhibitionism: How do you feel about having a exhibitionistic partner?)",
+      "columns": [
+        "Self",
+        "Partner"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 16001,
+          "description": "Free Use",
+          "tip": "A previously made agreement to which the subject can be used sexually at any time in any way (within the agreement) by their partner whenever they feel like it no matter what the subject is doing at that time. Self means self is subject and partner is the 'empowered' party, Partner means partner is subject and self is the 'empowered' party",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16002,
+          "description": "Swinging",
+          "tip": "Frequent partner exchange with other couples. Usually done as a couple (in that case Self and Partner have to be the same) but can also be done by just one partner",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16003,
+          "description": "Cheating",
+          "tip": "Cheating your Partner with someone else (hotter) without your partner knowing or their consent. Usually frowned upon.",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16004,
+          "description": "Exhibitionism",
+          "tip": "Self or Partner being aroused by performing sexual acts in public with the risk of being found out or knowingly being watched",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16005,
+          "description": "Voyeurism",
+          "tip": "Self or Partner being aroused by watching other people performing sexual acts",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16006,
+          "description": "Furry",
+          "tip": "Self or Partner engaging in Furry play, roleplaying animal persona(fursona), might involve animal themed sex toys and full fursuits",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16007,
+          "description": "Foot fetish",
+          "tip": "Self or Partner being aroused by the others feet in sexual activities",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16008,
+          "description": "Bimbofication/\u200b-ism",
+          "tip": "Self or Partner trying to appear hyperfeminine and airheaded, in a sexual sense also promiscous, see Bimbo",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16009,
+          "description": "Gangbang",
+          "tip": "Self or Partner being the subject in a gangbang (4+ partners)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16010,
+          "description": "Cuckold/\u200bCuckquean",
+          "tip": "Being unfaithful in a relationship with the partner knowing in the intent to evoke jealousy. Self means self is cuck/cuckquean (the person being 'cheated'), Parnter means partner is cuck/cuckquean",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16011,
+          "description": "Diaper Play",
+          "tip": "Self or Partner wearing a diaper (as a fetish)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16012,
+          "description": "Shooting Porn",
+          "tip": "Photographing or videotaping porn and uploading it to public porn sites such as PornHub or Onlyfans, Self means self is involved (visible in some videos or pictures), Partner means Partner is visible in footage",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16013,
+          "description": "Loudness",
+          "tip": "Do you like to be loud in bed, and do you like your partner to be?",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16014,
+          "description": "Mirror Sex",
+          "tip": "Having sex in front of a mirror and seeing your reflection, with you liking to see (your)self in the mirror, and/or your partner",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16015,
+          "description": "Armpits",
+          "tip": "Self or Partner being aroused by / enjoy playing around armpits",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16016,
+          "description": "Socks",
+          "tip": "Similar to foot fetish, self or partner being aroused by worn socks, shoes and similar",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16017,
+          "description": "Hypnotism",
+          "tip": "Self or Partner being hypnotized and having sexual things suggested in trance",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16018,
+          "description": "Used Underwear",
+          "tip": "Self or Partner being aroused by used underwear (of partner)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16019,
+          "description": "Oiled",
+          "tip": "Self or Partner being partially covered in body oil, lube or similar for a particularly shiny smooth ass",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16020,
+          "description": "Roleplay",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16021,
+          "description": "Strangers",
+          "tip": "Anything involving sexual interactions with strangers, can be anonymous hookups, sexting or arranged partners by someone else. Self means self interacting with strangers, Partner means partner doing it.",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16022,
+          "description": "Crying",
+          "tip": "Gaining arousal from being made to cry (self) or making your partner cry (usually in bdsm punishments or cnc)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16023,
+          "description": "Scent/Musk",
+          "tip": "Self or Partner being aroused by the body odor of the other. This can be a slight smell, or, after not washing for a bit, a stronger musk",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 16024,
+          "description": "Age Play",
+          "tip": "Self or Partner enjoying to roleplay a different age than they are old, most commonly a younger role",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Coomies",
+      "tip": "Everything involving Semen, or Cum. Giving can only be filled if self can produce sperm",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 17001,
+          "description": "Facial",
+          "tip": "The giving person cumming on the face of the receiving person, receiving person usually has their eyes closed and mouth open",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 17002,
+          "description": "Bukkake",
+          "tip": "The receiving person getting their face covered in several Facials by several Giving Persons",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 17003,
+          "description": "Swallowing",
+          "tip": "Swallowing the semen after a blowjob, either cumming directly in the throat (Throatpie) or cumming in the receiving Persons mouth and them swallowing it afterwards",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 17004,
+          "description": "Cum on Back/Butt",
+          "tip": "The Giving Person cumming on the back or the butt of the receiving person, often after doggystyle sex",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 17005,
+          "description": "Cum on Stomach/\u200bGenitals",
+          "tip": "The Giving Person cumming on the stomach or the genitals of the receiving person, often after missionary sex or similar",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 17006,
+          "description": "Cum on Breasts",
+          "tip": "The Giving Person cumming on the breasts of the receiving person",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 17007,
+          "description": "Creampie",
+          "tip": "Cumming inside the vagina of the Receiving Person without a condom. Can only enter Receiving if self has a vagina",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 17008,
+          "description": "Anal Creampie",
+          "tip": "Cumming inside the anus of the Receiving Person without a condom",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 17009,
+          "description": "Cum swapping",
+          "tip": "Swapping the previously on/in the Giving Person ejaculated cum with another Receiving Person back and forth",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 17010,
+          "description": "Cum Eating",
+          "tip": "The Receiving Person eating the cum ejaculated by the Giving Person (from the floor, from another partner or one of their orifices)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 17011,
+          "description": "Breeding",
+          "tip": "Giving Person cumming inside the Receiving Person without a condom with special emphasis on the creampie, also for the imagination of being bred and getting pregnant (even though the woman might be on birth control)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 17012,
+          "description": "Sloppy Seconds",
+          "tip": "Having sex with Receiving in whom a previous partner has ejaculated and the semen is still inside",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Fluids",
+      "tip": "Fetishes around bodily Fluids other than Cum",
+      "columns": [
+        "Giving",
+        "Receiving"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 18001,
+          "description": "Lactation",
+          "tip": "The Giving Person lactating and the Receiving Person being the other Partner (who might interact with it in any way). Giving can only be a person capable of lactation",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 18002,
+          "description": "Smegma",
+          "tip": "The Receiving Person eating/cleaning the smegma(dead oily cells collecting on foreskin and around clitoris after not washing for some time) of the Giving Person, often used in a derogatory sense",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 18003,
+          "description": "Watersports",
+          "tip": "The Giving Person pissing on the Receiving Person",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 18004,
+          "description": "Piss Drinking",
+          "tip": "The Giving Person urinating into the Receiving Persons mouth and them swallowing it",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 18005,
+          "description": "Internal Urination",
+          "tip": "The Giving Person urinating inside the vagina or anus of the Receiving Person",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 18006,
+          "description": "Scat",
+          "tip": "Playing with human feces, defecating on someone or receiving",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 18007,
+          "description": "Blood",
+          "tip": "Pertains to the inclusion of blood in any form in a sexual context",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Fantasy",
+      "tip": "Purely fictional kinks that could appear in consumed porn, hentais, manga or artists artwork. Self doesnt have to be involved in the act of the kink but could also be a third party observing. You can only answer with Haven't tried",
+      "columns": [
+        "General"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 19001,
+          "description": "Incest",
+          "tip": "Intercourse between by blood related family members, often Brother-Sister, Mother-Son, Father-Daughter",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19002,
+          "description": "Bestiality",
+          "tip": "Intercourse between Human and Animal, most often Equine or Canine",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19003,
+          "description": "Rape",
+          "tip": "Intercourse against the victims will, usually under threat of violence",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19004,
+          "description": "Lolicon",
+          "tip": "Fetishizing girls aged around 10-14 years old, or appearing to be around that age (small and usually flat-chested)",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19005,
+          "description": "Onee-Shota",
+          "tip": "Adult women having intercourse with young boys aged around 10-14 years old, with the adult usually taking the initiative",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19006,
+          "description": "Furries",
+          "tip": "Anthropomorphic beings with features of humans and animals, has to have significant fur to count as furry, animal ears or tails don't count",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19007,
+          "description": "Gender Change",
+          "tip": "Changing gender and body to the opposite gender",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19008,
+          "description": "Transformation",
+          "tip": "Being transformed into anything really, usually other persons or species",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19009,
+          "description": "Cumflation",
+          "tip": "Being cummed in so much it causes significant belly inflation",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19010,
+          "description": "Tentacles",
+          "tip": "I've seen enough Hentai to know where this is going",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19011,
+          "description": "All the way through",
+          "tip": "Usually tentacles or very large penisses penetrating the anus and exiting through the mouth",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19012,
+          "description": "X-Ray",
+          "tip": "Being able to see through layers of skin, usually showing the penis penetrating, vagina and uterus",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19013,
+          "description": "Impregnation",
+          "tip": "Visualized or otherwise implied fertilization of the egg",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19014,
+          "description": "Nipple Penetration",
+          "tip": "Penetration of nipples with the nipple streching to accommodate the penetrating object",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19015,
+          "description": "Vore",
+          "tip": "Physically consuming/swallowing a character through any orifice",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 19016,
+          "description": "Futanari",
+          "tip": "Persons with a female body and both female and male genitalia",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Erotica Media",
+      "tip": "Different types of erotic media, or porn",
+      "columns": [
+        "General"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 20001,
+          "description": "Text",
+          "tip": "Erotica in pure text form, with at most a few pictures in between",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 20002,
+          "description": "Images (real)",
+          "tip": "Photosets of professional or amateur actors/actresses",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 20003,
+          "description": "Images (fictional)",
+          "tip": "Drawn Artworks of any kind, 3D-Renders",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 20004,
+          "description": "Professional Porn",
+          "tip": "Video porn produced by commercial enterprises",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 20005,
+          "description": "Amateur Porn",
+          "tip": "Video porn produced by amateurs and uploaded to platforms like PH, MDH, or OF",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 20006,
+          "description": "Hentai",
+          "tip": "Anime with explicit content, often censored",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 20007,
+          "description": "Hentai Manga",
+          "tip": "Mangas with explicit content, often slightly censored",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 20008,
+          "description": "Eroge",
+          "tip": "Games with erotic content",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Ethnicities",
+      "tip": "Preferences in appearances",
+      "columns": [
+        "Partner"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 21001,
+          "description": "Caucasian/Middle European",
+          "tip": "Generic white persons from Europe or North America",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 21002,
+          "description": "Northern European",
+          "tip": "From Scandinavia",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 21003,
+          "description": "Southern European",
+          "tip": "Spain, Italy, Greece",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 21004,
+          "description": "Japanese",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 21005,
+          "description": "Korean",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 21006,
+          "description": "Chinese",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 21007,
+          "description": "South-Asian",
+          "tip": "Vietnam, Philippines",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 21008,
+          "description": "Indian",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 21009,
+          "description": "African",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 21010,
+          "description": "Afro-American",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 21011,
+          "description": "Latinos",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 21012,
+          "description": "Arabs",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    },
+    {
+      "description": "Age Groups",
+      "tip": "How old do/did you like your partners? (If have tried then their age at the time counts)",
+      "columns": [
+        "Partner"
+      ],
+      "domain": "irl",
+      "spice_level": 2,
+      "visibility": "default",
+      "flags": [],
+      "rows": [
+        {
+          "id": 22004,
+          "description": "18 - 21",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 22005,
+          "description": "22 - 26",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 22006,
+          "description": "27 - 32",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 22007,
+          "description": "33 - 40",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 22008,
+          "description": "41 - 50",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 22009,
+          "description": "51 - 60",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 22010,
+          "description": "61 - 70",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        },
+        {
+          "id": 22011,
+          "description": "70 +",
+          "tip": "",
+          "domain": "irl",
+          "spice_level": 2,
+          "visibility": "default",
+          "flags": [],
+          "aliases": []
+        }
+      ]
+    }
+  ]
+}
