@@ -328,3 +328,9 @@
         border: 1px solid black;
     }
 
+
+    .successor-banner {
+        background-color: #f2f6f7;
+        color: #1b1b1b;
+        box-shadow: 0 0 25px rgb(146 146 146);
+    }

@@ -637,3 +637,32 @@ div.hc {
         grid-template-columns: 1fr;
     }
 }
+
+.successor-banner {
+    box-sizing: border-box;
+    width: calc(100% - 20px);
+    max-width: 900px;
+    margin: 10px auto 0 auto;
+    padding: 18px 22px;
+    border-radius: 15px;
+    border-left: 6px solid #f82bff;
+    text-align: center;
+    line-height: 1.45;
+}
+
+.successor-banner strong {
+    display: block;
+    font-size: 1.3em;
+    margin-bottom: 6px;
+}
+
+@media (max-width: 600px) {
+    .successor-banner {
+        padding: 13px 15px;
+        font-size: 0.95em;
+    }
+
+    .successor-banner strong {
+        font-size: 1.12em;
+    }
+}

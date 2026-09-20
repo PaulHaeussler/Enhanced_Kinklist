@@ -345,3 +345,9 @@
         border-radius: 5px;
         border: 1px solid black;
     }
+
+    .successor-banner {
+        background-color: #171917;
+        color: #e8e8e8;
+        box-shadow: 0 0 25px rgb(146 146 146);
+    }
